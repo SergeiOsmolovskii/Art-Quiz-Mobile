@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-export const HomeScreen = () => {
+export const SettingsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Home screen</Text>
+      <Text>Settings screen</Text>
     </View>
   );
 }

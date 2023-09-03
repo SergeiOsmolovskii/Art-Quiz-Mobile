@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 export const StatisticsScreen = () => {
 
   return (
     <View style={styles.container}>
-
+      <Text>Statistics screen</Text>
     </View>
   );
 }

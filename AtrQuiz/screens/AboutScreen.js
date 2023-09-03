@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
-export const SettingScreen = () => {
+export const AboutScreen = () => {
 
   return (
     <View style={styles.container}>
-
+      <Text>About screen</Text>
     </View>
   );
 }

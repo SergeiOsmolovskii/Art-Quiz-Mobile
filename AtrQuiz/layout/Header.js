@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Text } from 'react-native';
 
-export const Header = () => {
-
+export const Header = (props) => {
   return (
     <View style={styles.container}>
       <Image
@@ -18,12 +17,14 @@ export const Header = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    padding: 30,
-    alignItems: 'center',
-    justifyContent: 'center'
+    display: 'flex',
+    // width: '100%',
+    // padding: 30,
+    justifyContent: 'flex-end'
   },
   image: {
     height: 70,
+  }, text: {
+
   }
 });
