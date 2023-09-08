@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -27,8 +27,20 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          // headerTitle: (props) => <Header {...props} />,
-          // headerRight: (props) => <Header {...props} />,
+          headerStyle: {
+            backgroundColor: 'tomato',
+          },
+          headerRight: (props) => (
+            <Image
+              style={styles.image}
+              source={require('./assets/images/logo.png')}
+              resizeMode='cover'
+              accessible={true}
+            />
+          ),
+          headerTitleStyle: {
+            fontWeight: 'bold'
+          },
           headerTitleAlign: 'center',
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -73,4 +85,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  image: {
+    height: 50,
+    width: 80,
+    marginRight: 15
+  }
 });
