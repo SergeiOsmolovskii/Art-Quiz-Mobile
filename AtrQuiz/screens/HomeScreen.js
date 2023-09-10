@@ -1,16 +1,18 @@
 import React from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { SelectRoundButton } from './../components/SelectRoundButton'
 import { Asset } from 'expo-asset';
+import { SelectRoundButton } from './../components/SelectRoundButton';
 
-export const HomeScreen = () => {
+export const HomeScreen = ({ navigation }) => {
 
   const buttonsArr = [{
-      name: 'Artist',
+      title: 'Artists',
+      subtitle: 'Guess the artist by the picture',
       url: Asset.fromModule(require('./../assets/images/artist.jpg'))
     },
     {
-      name: 'Pictures',
+      title: 'Pictures',
+      subtitle: 'Guess the painting by the artist',
       url: Asset.fromModule(require('./../assets/images/pictures.jpg'))
     }
   ];
@@ -21,7 +23,7 @@ export const HomeScreen = () => {
         style={styles.flatListContainer}
         data={buttonsArr}
         renderItem={({ item }) => (
-          <SelectRoundButton imageName={item.name} imageURL={item.url} />
+          <SelectRoundButton title={item.title} subtitle={item.subtitle} imageURL={item.url} navigation={navigation} />
         )}
       />
     </View>

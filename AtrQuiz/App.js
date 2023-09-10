@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Header } from './layout/Header';
 import { SplashScreen } from './screens/SplashScreen';
-import { HomeScreen } from './screens/HomeScreen';
 import { SettingsScreen } from './screens/SettingsScreen';
 import { AboutScreen } from './screens/AboutScreen';
 import { StatisticsScreen } from './screens/StatisticsScreen';
+import { HomeStackScreen } from './Routers/HomeStackScreen';
+import { ARTISTS_ROUNDS, PICTURES_ROUNDS, TOTAL_QUESTIONS_IN_ROUND } from './utils/variables'
 
 const Tab = createBottomTabNavigator();
 
@@ -18,6 +19,31 @@ export default function App() {
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 1000);
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const storage = await AsyncStorage.getItem('storage');
+        if (!storage) {
+          const data = {
+            artistsRonuds: Array.from({ length: ARTISTS_ROUNDS }, () => null),
+            picturesRonuds: Array.from({ length: PICTURES_ROUNDS }, () => null),
+            sessionStorage: {
+              category: '',
+              categoryGroup: '',
+              questionGroup: '',
+              currentQuestion: '',
+              questionsAnswers: Array.from({ length: TOTAL_QUESTIONS_IN_ROUND }, () => null)
+            },
+            settings: {},
+          };
+          AsyncStorage.setItem('storage', JSON.stringify(data));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
   }, []);
 
   return isLoading ? (
@@ -30,7 +56,7 @@ export default function App() {
           headerStyle: {
             backgroundColor: 'tomato',
           },
-          headerRight: (props) => (
+          headerRight: () => (
             <Image
               style={styles.image}
               source={require('./assets/images/logo.png')}
@@ -68,7 +94,7 @@ export default function App() {
         })}
       >
 
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Home" component={HomeStackScreen} options={{ headerShown: false }} />
         <Tab.Screen name="Stats" component={StatisticsScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
         <Tab.Screen name="About" component={AboutScreen} />
@@ -80,8 +106,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
