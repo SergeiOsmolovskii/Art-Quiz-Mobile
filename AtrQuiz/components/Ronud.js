@@ -3,29 +3,22 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export const Round = ({ category, roundNumber, rating }) => {
+export const Round = ({ category, roundNumber, rating, prevRoundRating }) => {
 
   let StarIcon = () => {
-    let iconName;
-
-    switch (rating) {
-      case '1':
-        iconName = 'star-outline';
-        break;
-      case '2':
-        iconName = 'star-half-sharp';
-        break;
-      case '3':
-        iconName = 'star-sharp';
-        break;
-      default:
-        break;
-    }
+    const iconName =
+    rating === 10 ? 'star-sharp' :
+    rating >= 5 ? 'star-half-sharp' :
+    'star-outline';
     return <Ionicons style={styles.icon} name={iconName} size={30} color={'yellow'} />;
   }
 
   return (
-    <TouchableOpacity disabled style={styles.button} onPress={() => { console.log(1) }}>
+    <TouchableOpacity
+      disabled={roundNumber > 0 && prevRoundRating < 6}
+      style={[styles.button, (roundNumber > 0 && prevRoundRating < 6) && styles.disabledButton]}
+      onPress={() => { console.log(1) }}
+    >
       <Text style={styles.title}>{category} round {roundNumber + 1}</Text>
       <View style={styles.resultContainer} >
         <Text style={styles.text}>{rating}</Text>
@@ -48,7 +41,11 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 10,
     borderColor: 'black',
-  }, resultContainer: {
+  },
+  disabledButton: {
+    backgroundColor: 'pink',
+  },
+  resultContainer: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',

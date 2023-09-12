@@ -5,8 +5,18 @@ import { Round } from './../components/Ronud';
 
 
 export const RoundsScreen = ({ navigation, route }) => {
-
   const [roundData, setRoundData] = useState({});
+  const roundName = `${(route.name).toLowerCase()}Rounds`;
+  const preparedData = roundData[roundName]?.map((currentRound, index, array) => {
+    const prevRound = array[index - 1] || [];
+    const prevRoundRating = prevRound.filter(subItem => subItem === true).length;
+    const currentRoundRating = currentRound?.filter(subItem => subItem === true).length || 0;
+
+    return {
+      prevRoundRating: index === 0 ? 0 : prevRoundRating,
+      currentRoundRating,
+    };
+  }) || [];
 
   useEffect(() => {
     (async () => {
@@ -25,13 +35,11 @@ export const RoundsScreen = ({ navigation, route }) => {
 
       <FlatList
         style={styles.flatListContainer}
-        data={roundData.artistsRonuds}
-        renderItem={({ item, index }) => (
-          
-          <Round category={route.name} roundNumber={index} rating={'1'}/>
-        )}
+        data={preparedData}
+        renderItem={({ item, index }) => {
+            return <Round category={route.name} roundNumber={index} rating={item.currentRoundRating} prevRoundRating={item.prevRoundRating} />
+        }}
       />
-
     </View>
   );
 }

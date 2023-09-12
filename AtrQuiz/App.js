@@ -25,10 +25,11 @@ export default function App() {
     (async () => {
       try {
         const storage = await AsyncStorage.getItem('storage');
+        // AsyncStorage.clear();
         if (!storage) {
           const data = {
-            artistsRonuds: Array.from({ length: ARTISTS_ROUNDS }, () => null),
-            picturesRonuds: Array.from({ length: PICTURES_ROUNDS }, () => null),
+            artistsRounds: Array.from({ length: ARTISTS_ROUNDS }, () => null),
+            picturesRounds: Array.from({ length: PICTURES_ROUNDS }, () => null),
             sessionStorage: {
               category: '',
               categoryGroup: '',
@@ -38,6 +39,14 @@ export default function App() {
             },
             settings: {},
           };
+
+          /* To test */
+          
+          // data.artistsRounds[0] = [true, true, false, true, false, false, true, true, false, true];
+          // data.artistsRounds[1] = [true, true, true, false, false, false, false, false, false, true];
+          // data.artistsRounds[7] = [true, true, true, true, true, true, true, true, false, true];
+          // data.artistsRounds[5] = [true, true, true, true,true, true,true, true,true, true];
+
           AsyncStorage.setItem('storage', JSON.stringify(data));
         }
       } catch (error) {
