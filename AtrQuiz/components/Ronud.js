@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export const Round = ({ category, roundNumber, rating, prevRoundRating }) => {
+export const Round = ({ category, roundNumber, rating, prevRoundRating, navigation }) => {
 
   let StarIcon = () => {
     const iconName =
@@ -17,7 +17,7 @@ export const Round = ({ category, roundNumber, rating, prevRoundRating }) => {
     <TouchableOpacity
       disabled={roundNumber > 0 && prevRoundRating < 6}
       style={[styles.button, (roundNumber > 0 && prevRoundRating < 6) && styles.disabledButton]}
-      onPress={() => { console.log(1) }}
+      onPress={() => {navigation.navigate('Game')}}
     >
       <Text style={styles.title}>{category} round {roundNumber + 1}</Text>
       <View style={styles.resultContainer} >

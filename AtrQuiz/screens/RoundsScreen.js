@@ -37,7 +37,7 @@ export const RoundsScreen = ({ navigation, route }) => {
         style={styles.flatListContainer}
         data={preparedData}
         renderItem={({ item, index }) => {
-            return <Round category={route.name} roundNumber={index} rating={item.currentRoundRating} prevRoundRating={item.prevRoundRating} />
+            return <Round category={route.name} roundNumber={index} rating={item.currentRoundRating} prevRoundRating={item.prevRoundRating} navigation={navigation}/>
         }}
       />
     </View>

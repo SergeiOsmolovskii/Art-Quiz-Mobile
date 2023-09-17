@@ -2,6 +2,7 @@ import { StyleSheet, Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens/HomeScreen';
 import { RoundsScreen } from '../screens/RoundsScreen';
+import { GameScreen } from '../screens/GameScreen';
 
 const HomeStack = createStackNavigator();
 
@@ -9,6 +10,7 @@ export const HomeStackScreen = () => {
 
   return (
     <HomeStack.Navigator
+      initialRouteName="Main"
       screenOptions={{
         headerStyle: {
           backgroundColor: 'tomato',
@@ -29,6 +31,7 @@ export const HomeStackScreen = () => {
       }}
     >
       <HomeStack.Screen name="Main" component={HomeScreen} />
+      <HomeStack.Screen name="Game" component={GameScreen} />
       <HomeStack.Screen name="Artists" component={RoundsScreen} />
       <HomeStack.Screen name="Pictures" component={RoundsScreen} />
     </HomeStack.Navigator>
