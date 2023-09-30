@@ -31,9 +31,9 @@ export const HomeStackScreen = () => {
       }}
     >
       <HomeStack.Screen name="Main" component={HomeScreen} />
-      <HomeStack.Screen name="Game" component={GameScreen} />
       <HomeStack.Screen name="Artists" component={RoundsScreen} />
       <HomeStack.Screen name="Pictures" component={RoundsScreen} />
+      <HomeStack.Screen name="Game" component={GameScreen} />
     </HomeStack.Navigator>
   );
 }

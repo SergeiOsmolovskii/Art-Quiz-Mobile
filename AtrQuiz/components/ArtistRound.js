@@ -4,25 +4,27 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { BASIC_IMAGE_URL } from '../utils/variables';
 import { DotIndicators } from './DotIndicators';
 import { AnswerButtons } from './AnswerButtons';
+import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 
-export const ArtistRound = ({round, questionNumber, imagesData, questionAnswers}) => {
+export const ArtistRound = ({roundNumber, questionNumber, setQuestionNumber, imagesData, questionAnswers}) => {
 
-  const correctAnswer = 'Eugene Delacroix'
-
+  
+  const [questionData, setQuestionData] = useState(imagesData[roundNumber * questionNumber]);
 
   return (
     <View style={styles.container}>
+    <Text style={styles.text}>{questionNumber} / {TOTAL_QUESTIONS_IN_ROUND} </Text>
 
     <Text style={styles.text}>Who is the author of this picture?</Text>
 
       <Image
         style={styles.image}
-        source={{uri: `${BASIC_IMAGE_URL}0.jpg`}}
+        source={{uri: `${BASIC_IMAGE_URL}${questionData.imageNum}.jpg`}}
         resizeMode='contain'
         accessible={true}
       />
       <DotIndicators questionAnswers={questionAnswers}/>
-      <AnswerButtons imagesData={imagesData} correctAnswer={correctAnswer}/>
+      <AnswerButtons imagesData={imagesData} questionData={questionData} setQuestionNumber={setQuestionNumber}/>
     </View>
   );
 }

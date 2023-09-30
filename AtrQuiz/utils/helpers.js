@@ -31,3 +31,7 @@ const shuffle = (arr) => {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 }
+
+export const checkIsCorrectAnswer = (currentAnswer, correctAnswer) => {
+  return currentAnswer === correctAnswer ? true : false;
+}

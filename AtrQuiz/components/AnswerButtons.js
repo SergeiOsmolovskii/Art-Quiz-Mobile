@@ -1,23 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useMemo } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { currentShuffleQuestionAnswers } from '../utils/helpers';
+import { AnswerButton } from './AnswerButton';
 
-export const AnswerButtons = ({correctAnswer, imagesData}) => {
-  const answers = currentShuffleQuestionAnswers(imagesData, correctAnswer);
-  console.log(answers)
+export const AnswerButtons = ({questionData, imagesData, setQuestionNumber}) => {
+  const answers = useMemo(() => currentShuffleQuestionAnswers(imagesData, questionData.author), [imagesData, questionData.author]);
+
+  const [isAnswerSelected, setIsAnswerSelected] = useState(false);
+
+
+  const [buttons, setButtons] = useState(
+    answers.map(item => ({
+      key: item,
+      item,
+      questionData,
+      setQuestionNumber,
+      isSelected: false,
+    }))
+  );
+
+  const selectCorrectAnswer = (selectedButton) => {
+    const correctButton = buttons.find((button) => button.item === questionData.author);
+    const currentButton = buttons.find((button) => button.item === selectedButton);
+
+    if (correctButton) {
+      correctButton.isSelected = true;
+      currentButton.isSelected = true;
+      setButtons([...buttons]);
+      setIsAnswerSelected(true);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {answers.map((item, index) => (
-        <TouchableOpacity
-          style={styles.button}
-          key={index}
-          onPress={() => {/* Обработчик нажатия на кнопку */}}
-        >
-          <Text style={styles.buttonText}>{item !== undefined ? item.toString() : ""}</Text>
-        </TouchableOpacity>
+      {buttons.map((button) => (
+        <AnswerButton
+          key={button.key}
+          {...button}
+          selectCorrectAnswer={selectCorrectAnswer}
+          isAnswerSelected={isAnswerSelected}
+        />
       ))}
-
 
     </View>
   );
@@ -31,17 +54,5 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 10,
-  }, button: {
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    width: '45%',
-    minHeight: 60,
-    marginVertical: 10,
-    padding: 10,
-    backgroundColor: 'pink',
-  }, buttonText: {
-    textAlign: 'center',
-    textTransform: 'none',
-    fontWeight: 'bold'
-  }
+  },
 });

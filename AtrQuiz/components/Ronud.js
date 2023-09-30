@@ -17,7 +17,9 @@ export const Round = ({ category, roundNumber, rating, prevRoundRating, navigati
     <TouchableOpacity
       disabled={roundNumber > 0 && prevRoundRating < 6}
       style={[styles.button, (roundNumber > 0 && prevRoundRating < 6) && styles.disabledButton]}
-      onPress={() => {navigation.navigate('Game')}}
+      onPress={() => {
+        navigation.navigate('Game', { title: `${category} round ${roundNumber + 1}`, roundNumber: roundNumber, category: category });
+      }}
     >
       <Text style={styles.title}>{category} round {roundNumber + 1}</Text>
       <View style={styles.resultContainer} >
