@@ -1,41 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StyleSheet, View, Text, ActivityIndicator  } from 'react-native';
+import { StyleSheet, View, ActivityIndicator  } from 'react-native';
 import { ArtistRound } from '../components/ArtistRound';
 import { ConfirmNavigation } from '../components/ConfirmNavigation';
+import { setImagesData } from '../store/imagesDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-export const GameScreen = ({navigation, route}) => {
+export const GameScreen = ({navigation}) => {
 
-  const [imagesData, setImagesData] = useState([]);
+  const dispatch = useDispatch();
+  const categoryName = useSelector((state) => state.game.categoryName);
+  const roundNumber = useSelector((state) => state.game.roundNumber);
   const [isLoading, setIsLoading] = useState(true);
-
-  const [questionNumber, setQuestionNumber] = useState(1);
-  const [questionAnswers, setQuestionAnswers] = useState([null, null, null, null, null, null, null, null, null, null]);
 
   useEffect(() => {
     (async () => {
       try {
         const images = await AsyncStorage.getItem('imagesData');
         const parsedImages = JSON.parse(images);
-        setImagesData(parsedImages);
+        dispatch(setImagesData(parsedImages));
         setIsLoading(false);
-        navigation.setOptions({
-          headerTitle: route.params.title,
-        });
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: `${categoryName} round ${roundNumber + 1}`,
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <ConfirmNavigation navigation={navigation} />
       {isLoading ? (
-      <ActivityIndicator size="large" color="#0000ff" style={styles.indicator}/>
-    ) : (
-      <ArtistRound imagesData={imagesData} setQuestionAnswers={setQuestionAnswers} questionNumber={questionNumber} setQuestionNumber={setQuestionNumber} questionAnswers={questionAnswers} roundNumber={route.params.roundNumber}/>
-    )}
+        <ActivityIndicator size="large" color="#0000ff" style={styles.indicator} />
+      ) : (
+        <ArtistRound navigation={navigation} />
+      )}
     </View>
   );
 }

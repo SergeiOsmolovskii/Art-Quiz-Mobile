@@ -3,48 +3,24 @@ import { StyleSheet, View } from 'react-native';
 import { currentShuffleQuestionAnswers } from '../utils/helpers';
 import { AnswerButton } from './AnswerButton';
 
-export const AnswerButtons = ({questionData, imagesData, setQuestionNumber}) => {
+export const AnswerButtons = ({ questionData, imagesData, handlePressButton }) => {
   const answers = useMemo(() => currentShuffleQuestionAnswers(imagesData, questionData.author), [imagesData, questionData.author]);
+  // console.log(answers)
 
-  const [isAnswerSelected, setIsAnswerSelected] = useState(false);
-
-
-  const [buttons, setButtons] = useState(
-    answers.map(item => ({
-      key: item,
-      item,
-      questionData,
-      setQuestionNumber,
-      isSelected: false,
-    }))
-  );
-
-  const selectCorrectAnswer = (selectedButton) => {
-    const correctButton = buttons.find((button) => button.item === questionData.author);
-    const currentButton = buttons.find((button) => button.item === selectedButton);
-
-    if (correctButton) {
-      correctButton.isSelected = true;
-      currentButton.isSelected = true;
-      setButtons([...buttons]);
-      setIsAnswerSelected(true);
-    }
+    return (
+      <View style={styles.container}>
+        {answers.map((item, index) => (
+          <AnswerButton
+            key={index}
+            item={item}
+            questionData={questionData}
+            handlePressButton={handlePressButton}
+            isSelected={item === questionData.author}
+          />
+        ))}
+      </View>
+    );
   };
-
-  return (
-    <View style={styles.container}>
-      {buttons.map((button) => (
-        <AnswerButton
-          key={button.key}
-          {...button}
-          selectCorrectAnswer={selectCorrectAnswer}
-          isAnswerSelected={isAnswerSelected}
-        />
-      ))}
-
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {

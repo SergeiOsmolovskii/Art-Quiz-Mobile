@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { Round } from './../components/Ronud';
+import { useSelector } from 'react-redux';
 
 
-export const RoundsScreen = ({ navigation, route }) => {
+export const RoundsScreen = ({ navigation }) => {
+  const categoryName = useSelector((state) => state.game.categoryName);
+
   const [roundData, setRoundData] = useState({});
-  const roundName = `${(route.name).toLowerCase()}Rounds`;
+  const roundName = `${categoryName.toLowerCase()}Rounds`;
   const preparedData = roundData[roundName]?.map((currentRound, index, array) => {
     const prevRound = array[index - 1] || [];
     const prevRoundRating = prevRound.filter(subItem => subItem === true).length;
@@ -37,7 +40,7 @@ export const RoundsScreen = ({ navigation, route }) => {
         style={styles.flatListContainer}
         data={preparedData}
         renderItem={({ item, index }) => {
-            return <Round category={route.name} roundNumber={index} rating={item.currentRoundRating} prevRoundRating={item.prevRoundRating} navigation={navigation}/>
+            return <Round roundNumber={index} rating={item.currentRoundRating} prevRoundRating={item.prevRoundRating} navigation={navigation}/>
         }}
       />
     </View>

@@ -2,14 +2,24 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRoundNumber, setQuestionNumber } from '../store/gameSlice';
 
-export const Round = ({ category, roundNumber, rating, prevRoundRating, navigation }) => {
+export const Round = ({ roundNumber, rating, prevRoundRating, navigation }) => {
+  const dispatch = useDispatch();
+  const categoryName = useSelector((state) => state.game.categoryName);
 
-  let StarIcon = () => {
+  const handelSelectRound = () => {
+    dispatch(setRoundNumber(roundNumber));
+    dispatch(setQuestionNumber(1));
+    navigation.navigate('Game');
+  }
+
+  const StarIcon = () => {
     const iconName =
-    rating === 10 ? 'star-sharp' :
-    rating >= 5 ? 'star-half-sharp' :
-    'star-outline';
+      rating === 10 ? 'star-sharp' :
+        rating >= 5 ? 'star-half-sharp' :
+          'star-outline';
     return <Ionicons style={styles.icon} name={iconName} size={30} color={'yellow'} />;
   }
 
@@ -17,11 +27,9 @@ export const Round = ({ category, roundNumber, rating, prevRoundRating, navigati
     <TouchableOpacity
       disabled={roundNumber > 0 && prevRoundRating < 6}
       style={[styles.button, (roundNumber > 0 && prevRoundRating < 6) && styles.disabledButton]}
-      onPress={() => {
-        navigation.navigate('Game', { title: `${category} round ${roundNumber + 1}`, roundNumber: roundNumber, category: category });
-      }}
+      onPress={() => handelSelectRound()}
     >
-      <Text style={styles.title}>{category} round {roundNumber + 1}</Text>
+      <Text style={styles.title}>{categoryName} round {roundNumber + 1}</Text>
       <View style={styles.resultContainer} >
         <Text style={styles.text}>{rating}</Text>
         <Text style={styles.text}>/</Text>

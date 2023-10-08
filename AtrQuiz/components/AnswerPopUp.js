@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { BASIC_IMAGE_URL } from '../utils/variables';
 
-export const CorrectAnswerPopUp = ({ questionData, onBackdropPress }) => {
+export const AnswerPopUp = ({ questionData, nextQuestion }) => {
 
   return (
     <View style={styles.container}>
@@ -21,7 +21,7 @@ export const CorrectAnswerPopUp = ({ questionData, onBackdropPress }) => {
     </View>
 
 
-      <TouchableOpacity style={styles.button} onPress={onBackdropPress}>
+      <TouchableOpacity style={styles.button} onPress={nextQuestion}>
         <Text style={styles.buttonText}>Next</Text>
       </TouchableOpacity>
 

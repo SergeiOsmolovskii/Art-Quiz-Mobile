@@ -1,10 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, ImageBackground  } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setCategoryName } from '../store/gameSlice';
 
 export const SelectRoundButton = ({ title, subtitle, imageURL, navigation }) => {
+  const dispatch = useDispatch();
+
+  const handleNavigate = () => {
+    dispatch(setCategoryName(title));
+    navigation.navigate(title);
+  }
 
   return (
-    <TouchableOpacity style={styles.container} onPress={() => {navigation.navigate(title)}}>
+    <TouchableOpacity style={styles.container} onPress={() => handleNavigate()}>
       <ImageBackground
         source={imageURL}
         style={styles.image}

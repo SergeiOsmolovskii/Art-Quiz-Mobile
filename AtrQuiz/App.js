@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Provider } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
+import { MainNavigation } from './Routers/MainNavigation';
 import { SplashScreen } from './screens/SplashScreen';
-
 import { ARTISTS_ROUNDS, PICTURES_ROUNDS, TOTAL_QUESTIONS_IN_ROUND } from './utils/variables'
 import imagesData from './data/data.json'
-import { MainNavigation } from './Routers/MainNavigation';
+import { store } from './store/store';
 
 export default function App() {
 
@@ -20,7 +21,6 @@ export default function App() {
       try {
         const storage = await AsyncStorage.getItem('storage');
         const images = await AsyncStorage.getItem('imagesData');
-
         // AsyncStorage.clear();
         if (!storage) {
           const data = {
@@ -51,8 +51,10 @@ export default function App() {
   return isLoading ? (
     <SplashScreen />
   ) : (
-    <NavigationContainer>
-      <MainNavigation />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <MainNavigation />
+      </NavigationContainer>
+    </Provider>
   );
 }
