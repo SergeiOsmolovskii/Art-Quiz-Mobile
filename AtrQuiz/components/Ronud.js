@@ -3,11 +3,11 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
-import { setRoundNumber, setQuestionNumber } from '../store/gameSlice';
+import { setRoundNumber, setQuestionNumber } from '../store/roundSlice';
 
 export const Round = ({ roundNumber, rating, prevRoundRating, navigation }) => {
   const dispatch = useDispatch();
-  const categoryName = useSelector((state) => state.game.categoryName);
+  const categoryName = useSelector((state) => state.round.categoryName);
 
   const handelSelectRound = () => {
     dispatch(setRoundNumber(roundNumber));

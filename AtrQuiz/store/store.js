@@ -1,9 +1,11 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import gameSlice from './gameSlice';
+import roundSlice from './roundSlice';
 import imagesDataSlice from './imagesDataSlice';
+import gameSlice from './gameSlice';
 
 const rootReducer = combineReducers({
   game: gameSlice,
+  round: roundSlice,
   imagesData: imagesDataSlice
 })
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, ImageBackground  } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { setCategoryName } from '../store/gameSlice';
+import { setCategoryName } from '../store/roundSlice';
 
 export const SelectRoundButton = ({ title, subtitle, imageURL, navigation }) => {
   const dispatch = useDispatch();

@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 export const GameScreen = ({navigation}) => {
 
   const dispatch = useDispatch();
-  const categoryName = useSelector((state) => state.game.categoryName);
-  const roundNumber = useSelector((state) => state.game.roundNumber);
+  const categoryName = useSelector((state) => state.round.categoryName);
+  const roundNumber = useSelector((state) => state.round.roundNumber);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const GameScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ConfirmNavigation navigation={navigation} />
+      {/* <ConfirmNavigation navigation={navigation} /> */}
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" style={styles.indicator} />
       ) : (

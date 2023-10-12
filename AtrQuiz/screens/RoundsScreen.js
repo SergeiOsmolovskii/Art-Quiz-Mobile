@@ -6,11 +6,14 @@ import { useSelector } from 'react-redux';
 
 
 export const RoundsScreen = ({ navigation }) => {
-  const categoryName = useSelector((state) => state.game.categoryName);
-
-  const [roundData, setRoundData] = useState({});
+  const categoryName = useSelector((state) => state.round.categoryName);
   const roundName = `${categoryName.toLowerCase()}Rounds`;
-  const preparedData = roundData[roundName]?.map((currentRound, index, array) => {
+
+  const artistsRounds = useSelector((state) => state.game[roundName]);
+  // console.log(artistsRounds)
+
+  // const [roundData, setRoundData] = useState({});
+  const preparedData = artistsRounds?.map((currentRound, index, array) => {
     const prevRound = array[index - 1] || [];
     const prevRoundRating = prevRound.filter(subItem => subItem === true).length;
     const currentRoundRating = currentRound?.filter(subItem => subItem === true).length || 0;
@@ -21,16 +24,25 @@ export const RoundsScreen = ({ navigation }) => {
     };
   }) || [];
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const storage = await AsyncStorage.getItem('storage');
-        setRoundData(JSON.parse(storage));
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const storage = await AsyncStorage.getItem('storage');
+  //       setRoundData(JSON.parse(storage));
+  //       console.log(roundData[roundName])
+  //       console.log(artistsRounds)
+
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
+  // }, []);
+
+  //   useEffect(() => {
+
+  // }, [artistsRounds]);
+
+
 
   return (
     <View style={styles.container}>

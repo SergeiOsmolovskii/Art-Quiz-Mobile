@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Provider } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { MainNavigation } from './Routers/MainNavigation';
 import { SplashScreen } from './screens/SplashScreen';
 import { ARTISTS_ROUNDS, PICTURES_ROUNDS, TOTAL_QUESTIONS_IN_ROUND } from './utils/variables'
 import imagesData from './data/data.json'
-import { store } from './store/store';
+import { setArtistsRounds, setPicturesRounds } from './store/gameSlice';
 
 export default function App() {
 
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -23,9 +24,12 @@ export default function App() {
         const images = await AsyncStorage.getItem('imagesData');
         // AsyncStorage.clear();
         if (!storage) {
+          const artistsRounds = Array.from({ length: ARTISTS_ROUNDS }, () => null);
+          const picturesRounds = Array.from({ length: PICTURES_ROUNDS }, () => null);
+
           const data = {
-            artistsRounds: Array.from({ length: ARTISTS_ROUNDS }, () => null),
-            picturesRounds: Array.from({ length: PICTURES_ROUNDS }, () => null),
+            artistsRounds: artistsRounds,
+            picturesRounds: picturesRounds,
             settings: {},
           };
 
@@ -37,6 +41,11 @@ export default function App() {
           // data.artistsRounds[5] = [true, true, true, true,true, true,true, true,true, true];
 
           AsyncStorage.setItem('storage', JSON.stringify(data));
+          dispatch(setArtistsRounds(artistsRounds));
+          dispatch(picturesRounds(picturesRounds));
+        } else {
+          dispatch(setArtistsRounds(JSON.parse(storage).artistsRounds));
+          dispatch(setPicturesRounds(JSON.parse(storage).picturesRounds));
         }
 
         if (!images) {
@@ -51,10 +60,8 @@ export default function App() {
   return isLoading ? (
     <SplashScreen />
   ) : (
-    <Provider store={store}>
       <NavigationContainer>
         <MainNavigation />
       </NavigationContainer>
-    </Provider>
   );
 }

@@ -1,33 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ARTISTS_ROUNDS, PICTURES_ROUNDS } from "../utils/variables";
 
 const initialState = {
-  categoryName: '',
-  roundNumber: null,
-  questionNumber: null,
-  questionAnswers: Array(10).fill(null)
+  artistsRounds: Array.from({ length: ARTISTS_ROUNDS }, () => null),
+  picturesRounds: Array.from({ length: PICTURES_ROUNDS }, () => null),
+  settings: {},
 }
 
 const gameSlice = createSlice({
   name: 'game',
   initialState: initialState,
   reducers: {
-    setCategoryName(state, action) {
-      state.categoryName = action.payload;
+    setArtistsRounds(state, action) {
+      state.artistsRounds = action.payload;
     },
-    setRoundNumber(state, action) {
-      state.roundNumber = action.payload;
+    setPicturesRounds(state, action) {
+      state.picturesRounds = action.payload;
     },
-    setQuestionNumber(state) {
-      state.questionNumber += 1;
-    },
-    setQuestionAnswers(state, action) {
-      state.questionAnswers[state.questionNumber - 1] = action.payload;
-    },
-    setInitialState(state) {
-      Object.assign(state, { ...initialState });
-    }
   },
 });
 
 export default gameSlice.reducer;
-export const { setCategoryName, setRoundNumber, setQuestionNumber, setQuestionAnswers, setInitialState } = gameSlice.actions;
+export const { setArtistsRounds, setPicturesRounds } = gameSlice.actions;
