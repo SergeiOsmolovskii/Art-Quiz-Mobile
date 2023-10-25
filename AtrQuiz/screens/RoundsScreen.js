@@ -3,16 +3,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { Round } from './../components/Ronud';
 import { useSelector } from 'react-redux';
+import { useTheme } from '../theme/ThemeContext';
 
 
 export const RoundsScreen = ({ navigation }) => {
+  const { colors } = useTheme();
+
   const categoryName = useSelector((state) => state.round.categoryName);
   const roundName = `${categoryName.toLowerCase()}Rounds`;
-
   const artistsRounds = useSelector((state) => state.game[roundName]);
-  // console.log(artistsRounds)
 
-  // const [roundData, setRoundData] = useState({});
   const preparedData = artistsRounds?.map((currentRound, index, array) => {
     const prevRound = array[index - 1] || [];
     const prevRoundRating = prevRound.filter(subItem => subItem === true).length;
@@ -24,30 +24,8 @@ export const RoundsScreen = ({ navigation }) => {
     };
   }) || [];
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const storage = await AsyncStorage.getItem('storage');
-  //       setRoundData(JSON.parse(storage));
-  //       console.log(roundData[roundName])
-  //       console.log(artistsRounds)
-
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   })();
-  // }, []);
-
-  //   useEffect(() => {
-
-  // }, [artistsRounds]);
-
-
-
   return (
-    <View style={styles.container}>
-      <Text>Rounds screen</Text>
-
+    <View style={styles.container(colors.roundBackground)}>
       <FlatList
         style={styles.flatListContainer}
         data={preparedData}
@@ -60,10 +38,10 @@ export const RoundsScreen = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: (backgroundColor) => ({
     flex: 1,
     width: '100%',
     padding: 20,
-    backgroundColor: 'green'
-  },
+    backgroundColor: backgroundColor
+  }),
 });

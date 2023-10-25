@@ -5,9 +5,10 @@ import { ArtistRound } from '../components/ArtistRound';
 import { ConfirmNavigation } from '../components/ConfirmNavigation';
 import { setImagesData } from '../store/imagesDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTheme } from '../theme/ThemeContext';
 
 export const GameScreen = ({navigation}) => {
-
+  const { colors } = useTheme();
   const dispatch = useDispatch();
   const categoryName = useSelector((state) => state.round.categoryName);
   const roundNumber = useSelector((state) => state.round.roundNumber);
@@ -33,7 +34,7 @@ export const GameScreen = ({navigation}) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container(colors.background)}>
       {/* <ConfirmNavigation navigation={navigation} /> */}
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" style={styles.indicator} />
@@ -45,12 +46,12 @@ export const GameScreen = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: (backgroundColor) => ({
     flex: 1,
     width: '100%',
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'green',
-  }
+    backgroundColor: backgroundColor,
+  })
 });

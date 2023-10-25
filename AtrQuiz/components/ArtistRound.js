@@ -9,8 +9,11 @@ import Modal from 'react-native-modal';
 import { AnswerPopUp } from './AnswerPopUp';
 import { CongratulationPopUp } from './CongratulationPopUp';
 import { setInitialState, setCategoryName } from '../store/roundSlice';
+import { useTheme } from '../theme/ThemeContext';
+
 
 export const ArtistRound = ({navigation}) => {
+  const { colors } = useTheme();
   const dispatch = useDispatch();
   const questionNumber = useSelector((state) => state.round.questionNumber);
   const questionAnswers = useSelector((state) => state.round.questionAnswers);
@@ -42,9 +45,9 @@ export const ArtistRound = ({navigation}) => {
   return (
     <View style={styles.container}>
         <View style={{opacity: isHideMainScreen ? 0 : 1}}>
-          <Text style={styles.text}>{questionNumber} / {TOTAL_QUESTIONS_IN_ROUND} </Text>
+          <Text style={styles.text(colors.textPrimary)}>{questionNumber} / {TOTAL_QUESTIONS_IN_ROUND} </Text>
 
-          <Text style={styles.text}>Who is the author of this picture?</Text>
+          <Text style={styles.text(colors.textPrimary)}>Who is the author of this picture?</Text>
 
           <Image
             style={styles.image}
@@ -58,7 +61,7 @@ export const ArtistRound = ({navigation}) => {
 
           <Modal
             isVisible={isModalVisible}
-            backdropColor={isCorrect ? 'green' : 'red'}
+            backdropColor={isCorrect ? colors.correctAnswer : colors.incorrectAnswer}
             backdropOpacity={0.8}
             animationIn="zoomInDown"
             animationOut="zoomOutUp"
@@ -88,7 +91,6 @@ export const ArtistRound = ({navigation}) => {
         >
           <CongratulationPopUp questionAnswers={questionAnswers} navigation={navigation} setIsRoundEnd={setIsRoundEnd} />
         </Modal>
-        
 
     </View>
   )
@@ -98,68 +100,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    backgroundColor: 'orange',
-  }, text: {
+  }, text: (color) => ({
     margin: 10,
     textAlign: 'center',
     fontSize: 20,
-    fontWeight: 'bold'
-  }, image: {
+    fontWeight: 'bold',
+    color: color
+  }), image: {
     width: '100%',
-    height: '50%'
+    height: '50%',
   }
 });
-
-
-
-
-// return (
-//   <View style={styles.container}>
-//     {isRoundEnd ? (
-//       <Modal
-//         isVisible={isRoundEnd}
-//         backdropOpacity={0.8}
-//         animationIn="zoomInDown"
-//         animationOut="zoomOutUp"
-//         animationInTiming={QUESTION_ANIMATION_TIMING}
-//         animationOutTiming={QUESTION_ANIMATION_TIMING}
-//         backdropTransition={QUESTION_ANIMATION_TIMING}
-//         backdropTransitionOutTiming={QUESTION_ANIMATION_TIMING}
-//         onModalHide={() => console.log(isRoundEnd)}
-//       >
-//         <CongratulationPopUp questionAnswers={questionAnswers} navigation={navigation} setIsRoundEnd={setIsRoundEnd} />
-//       </Modal>
-//     ) : (
-//       <>
-//         <Text style={styles.text}>{questionNumber} / {TOTAL_QUESTIONS_IN_ROUND} </Text>
-
-//         <Text style={styles.text}>Who is the author of this picture?</Text>
-
-//         <Image
-//           style={styles.image}
-//           source={{ uri: `${BASIC_IMAGE_URL}${questionData.imageNum}.jpg` }}
-//           resizeMode='contain'
-//           accessible={true}
-//         />
-//         <DotIndicators questionAnswers={questionAnswers} />
-
-//         <AnswerButtons imagesData={imagesData} questionData={questionData} handlePressButton={handlePressButton} />
-
-//         <Modal
-//           isVisible={isModalVisible}
-//           backdropColor={isCorrect ? 'green' : 'red'}
-//           backdropOpacity={0.8}
-//           animationIn="zoomInDown"
-//           animationOut="zoomOutUp"
-//           animationInTiming={QUESTION_ANIMATION_TIMING}
-//           animationOutTiming={QUESTION_ANIMATION_TIMING}
-//           backdropTransition={QUESTION_ANIMATION_TIMING}
-//           backdropTransitionOutTiming={QUESTION_ANIMATION_TIMING}
-//           onModalHide={() => setQuestionData(imagesData[(roundNumber * TOTAL_QUESTIONS_IN_ROUND) + questionNumber])}
-//         >
-//           <AnswerPopUp questionData={questionData} nextQuestion={nextQuestion} />
-//         </Modal>
-//       </>
-//     )}
-//   </View>
-// )

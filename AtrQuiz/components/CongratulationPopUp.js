@@ -1,15 +1,15 @@
-import React, { useState, useMemo, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 import { AnimatedIcon } from './AnimatedIcon';
-import { useSelector, useDispatch } from 'react-redux';
 import { setArtistsRounds } from '../store/gameSlice';
+import { useTheme } from '../theme/ThemeContext';
 
 const circleRadius = 100;
 
 export const CongratulationPopUp = ({questionAnswers, setIsRoundEnd}) => {
+  const { colors } = useTheme();
   const dispatch = useDispatch();
 
   const artistsRounds = useSelector((state) => state.game.artistsRounds);
@@ -45,13 +45,13 @@ export const CongratulationPopUp = ({questionAnswers, setIsRoundEnd}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container(colors.congratulationBackground)}>
       <Text style={styles.text}>Congratulations!</Text>
       <View style={styles.circle}>
         <Text style={styles.text}>{correctAnswersCount} / {TOTAL_QUESTIONS_IN_ROUND}</Text>
         {icons}
       </View>
-      <TouchableOpacity onPress={endRound}>
+      <TouchableOpacity style={styles.button(colors.nextButton)} onPress={endRound}>
         <Text style={styles.text}>Next</Text>
       </TouchableOpacity>
     </View>
@@ -59,13 +59,13 @@ export const CongratulationPopUp = ({questionAnswers, setIsRoundEnd}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  container: (backgroundColor) => ({
     padding: 20,
     height: '50%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'pink',
-  },
+    backgroundColor: backgroundColor,
+  }),
   circle: {
     width: 2 * circleRadius,
     height: 2 * circleRadius,
@@ -79,4 +79,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 36,
   },
+  button: (backgroundColor) => ({
+    width: '100%',
+    justifyContent: 'center',
+    backgroundColor: backgroundColor,
+  })
 });
