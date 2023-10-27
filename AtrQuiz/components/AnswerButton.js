@@ -1,72 +1,33 @@
-import React, { memo, useState } from 'react';
+import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { CorrectAnswerPopUp } from './CorrectAnswerPopUp';
-import Modal from 'react-native-modal';
+import { useTheme } from '../theme/ThemeContext';
 
-
-export const AnswerButton = ({ item, questionData, isSelected, selectCorrectAnswer, isAnswerSelected}) => {
-  const isCorrect = item === questionData.author;
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  const handlePressButton = () => {
-    if (!isSelected) {
-        selectCorrectAnswer(item);
-        setModalVisible(true);
-    }
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-  };
+export const AnswerButton = ({ item, handlePressButton }) => {
+  const { colors } = useTheme();
 
   return (
-    <>
-      <TouchableOpacity
-        style={[
-          styles.button,
-          isSelected ? (isCorrect ? styles.correctButton : styles.incorrectButton) : null,
-        ]}
-        onPress={() => handlePressButton(item)}
-        disabled={isSelected || isAnswerSelected}
-      >
-        <Text style={styles.buttonText}>{item !== undefined ? item.toString() : ""}</Text>
-      </TouchableOpacity>
-
-      <Modal
-        isVisible={isModalVisible}
-        backdropColor={isCorrect ? 'green' : 'red'}
-        backdropOpacity={0.8}
-        animationIn="zoomInDown"
-        animationOut="zoomOutUp"
-        animationInTiming={1000}
-        animationOutTiming={1000}
-        backdropTransition={1000}
-        backdropTransitionOutTiming={1000}
-        onBackdropPress={closeModal}
-      >
-        <CorrectAnswerPopUp questionData={questionData}/>
-      </Modal>
-    </>
+    <TouchableOpacity
+      style={styles.button(colors.answerButton)}
+      onPress={() => handlePressButton(item)}
+    >
+      <Text style={styles.buttonText(colors.textPrimary)}>{item !== undefined ? item.toString() : ""}</Text>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  button: {
+  button: (backgroundColor, color) => ({
     alignItems: 'stretch',
     justifyContent: 'center',
     width: '45%',
     minHeight: 60,
     marginVertical: 10,
     padding: 10,
-    backgroundColor: 'pink',
-  }, correctButton: {
-    backgroundColor: 'green',
-  },
-  incorrectButton: {
-    backgroundColor: 'red',
-  }, buttonText: {
+    backgroundColor: backgroundColor,
+  }), buttonText: (color) => ({
     textAlign: 'center',
     textTransform: 'none',
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+    color: color
+  })
 });

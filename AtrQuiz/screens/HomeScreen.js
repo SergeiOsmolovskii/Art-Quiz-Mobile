@@ -1,9 +1,10 @@
-import React from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Button } from 'react-native';
 import { Asset } from 'expo-asset';
 import { SelectRoundButton } from './../components/SelectRoundButton';
+import { useTheme } from '../theme/ThemeContext';
 
 export const HomeScreen = ({ navigation }) => {
+  const { colors, toggleTheme } = useTheme();
 
   const buttonsArr = [{
       title: 'Artists',
@@ -18,26 +19,28 @@ export const HomeScreen = ({ navigation }) => {
   ];
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container(colors.background)}>
       <FlatList
         style={styles.flatListContainer}
         data={buttonsArr}
         renderItem={({ item }) => (
-          <SelectRoundButton title={item.title} subtitle={item.subtitle} imageURL={item.url} navigation={navigation} />
+          <SelectRoundButton key={item.title} title={item.title} subtitle={item.subtitle} imageURL={item.url} navigation={navigation} />
         )}
       />
+      <Button title="Toggle Theme" onPress={toggleTheme} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: (backgroundColor) => ({
     flex: 1,
     width: '100%',
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
-  },
+    backgroundColor,
+  }),
   flatListContainer: {
     width: '100%'
   }

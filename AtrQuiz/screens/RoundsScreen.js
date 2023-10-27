@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { Round } from './../components/Ronud';
+import { useSelector } from 'react-redux';
+import { useTheme } from '../theme/ThemeContext';
 
 
-export const RoundsScreen = ({ navigation, route }) => {
-  const [roundData, setRoundData] = useState({});
-  const roundName = `${(route.name).toLowerCase()}Rounds`;
-  const preparedData = roundData[roundName]?.map((currentRound, index, array) => {
+export const RoundsScreen = ({ navigation }) => {
+  const { colors } = useTheme();
+
+  const categoryName = useSelector((state) => state.round.categoryName);
+  const roundName = `${categoryName.toLowerCase()}Rounds`;
+  const artistsRounds = useSelector((state) => state.game[roundName]);
+
+  const preparedData = artistsRounds?.map((currentRound, index, array) => {
     const prevRound = array[index - 1] || [];
     const prevRoundRating = prevRound.filter(subItem => subItem === true).length;
     const currentRoundRating = currentRound?.filter(subItem => subItem === true).length || 0;
@@ -18,26 +24,13 @@ export const RoundsScreen = ({ navigation, route }) => {
     };
   }) || [];
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const storage = await AsyncStorage.getItem('storage');
-        setRoundData(JSON.parse(storage));
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
-
   return (
-    <View style={styles.container}>
-      <Text>Rounds screen</Text>
-
+    <View style={styles.container(colors.roundBackground)}>
       <FlatList
         style={styles.flatListContainer}
         data={preparedData}
         renderItem={({ item, index }) => {
-            return <Round category={route.name} roundNumber={index} rating={item.currentRoundRating} prevRoundRating={item.prevRoundRating} navigation={navigation}/>
+            return <Round roundNumber={index} rating={item.currentRoundRating} prevRoundRating={item.prevRoundRating} navigation={navigation}/>
         }}
       />
     </View>
@@ -45,10 +38,10 @@ export const RoundsScreen = ({ navigation, route }) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: (backgroundColor) => ({
     flex: 1,
     width: '100%',
     padding: 20,
-    backgroundColor: 'green'
-  },
+    backgroundColor: backgroundColor
+  }),
 });

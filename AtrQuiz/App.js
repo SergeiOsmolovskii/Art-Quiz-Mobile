@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { useColorScheme } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
+import { MainNavigation } from './Routers/MainNavigation';
 import { SplashScreen } from './screens/SplashScreen';
-
 import { ARTISTS_ROUNDS, PICTURES_ROUNDS, TOTAL_QUESTIONS_IN_ROUND } from './utils/variables'
 import imagesData from './data/data.json'
-import { MainNavigation } from './Routers/MainNavigation';
+import { setArtistsRounds, setPicturesRounds, setColorScheme } from './store/gameSlice';
+import { ThemeProvider } from './theme/ThemeContext';
+
 
 export default function App() {
-
+  const colorScheme = useColorScheme();
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,27 +25,31 @@ export default function App() {
       try {
         const storage = await AsyncStorage.getItem('storage');
         const images = await AsyncStorage.getItem('imagesData');
-
         // AsyncStorage.clear();
         if (!storage) {
+          const artistsRounds = Array.from({ length: ARTISTS_ROUNDS }, () => null);
+          const picturesRounds = Array.from({ length: PICTURES_ROUNDS }, () => null);
+
           const data = {
-            artistsRounds: Array.from({ length: ARTISTS_ROUNDS }, () => null),
-            picturesRounds: Array.from({ length: PICTURES_ROUNDS }, () => null),
-            settings: {},
+            artistsRounds: artistsRounds,
+            picturesRounds: picturesRounds,
+            settings: {
+              colorScheme: colorScheme
+            },
           };
 
-          /* To test */
-
-          // data.artistsRounds[0] = [true, true, false, true, false, false, true, true, false, true];
-          // data.artistsRounds[1] = [true, true, true, false, false, false, false, false, false, true];
-          // data.artistsRounds[7] = [true, true, true, true, true, true, true, true, false, true];
-          // data.artistsRounds[5] = [true, true, true, true,true, true,true, true,true, true];
-
-          AsyncStorage.setItem('storage', JSON.stringify(data));
+          await AsyncStorage.setItem('storage', JSON.stringify(data));
+          dispatch(setArtistsRounds(artistsRounds));
+          dispatch(setPicturesRounds(picturesRounds));
+          dispatch(setColorScheme(data.settings.colorScheme))
+        } else {
+          dispatch(setArtistsRounds(JSON.parse(storage).artistsRounds));
+          dispatch(setPicturesRounds(JSON.parse(storage).picturesRounds));
+          dispatch(setColorScheme(JSON.parse(storage).settings.colorScheme));
         }
 
         if (!images) {
-          AsyncStorage.setItem('imagesData', JSON.stringify(imagesData));
+          await AsyncStorage.setItem('imagesData', JSON.stringify(imagesData));
         }
       } catch (error) {
         console.log(error);
@@ -51,8 +60,10 @@ export default function App() {
   return isLoading ? (
     <SplashScreen />
   ) : (
-    <NavigationContainer>
-      <MainNavigation />
-    </NavigationContainer>
+    <ThemeProvider>
+      <NavigationContainer>
+        <MainNavigation />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }

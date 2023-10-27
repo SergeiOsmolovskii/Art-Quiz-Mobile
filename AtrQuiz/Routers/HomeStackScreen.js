@@ -3,17 +3,19 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens/HomeScreen';
 import { RoundsScreen } from '../screens/RoundsScreen';
 import { GameScreen } from '../screens/GameScreen';
+import { useTheme } from '../theme/ThemeContext';
 
 const HomeStack = createStackNavigator();
 
 export const HomeStackScreen = () => {
+  const { colors } = useTheme();
 
   return (
     <HomeStack.Navigator
       initialRouteName="Main"
       screenOptions={{
         headerStyle: {
-          backgroundColor: 'tomato',
+          backgroundColor: colors.headerBackground,
         },
         headerRight: () => (
           <Image
@@ -24,10 +26,11 @@ export const HomeStackScreen = () => {
           />
         ),
         headerTitleStyle: {
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          color: colors.textPrimary
         },
         headerTitleAlign: 'center',
-
+        headerTintColor: colors.textPrimary
       }}
     >
       <HomeStack.Screen name="Main" component={HomeScreen} />
