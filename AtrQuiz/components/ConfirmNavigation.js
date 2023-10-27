@@ -5,7 +5,6 @@ export const ConfirmNavigation = ({navigation}) => {
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   const showAlert = () => {
-    console.log(navigation.getState())
     Alert.alert(
       'Transfer confirmation',
       'Are you sure you want to leave? All your progress will be lost!',

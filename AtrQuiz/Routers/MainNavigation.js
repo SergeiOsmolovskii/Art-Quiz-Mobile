@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SettingsScreen } from './../screens/SettingsScreen';
 import { AboutScreen } from './../screens/AboutScreen';
@@ -7,6 +7,7 @@ import { HomeStackScreen } from './HomeStackScreen';
 import { StyleSheet, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useTheme } from '../theme/ThemeContext';
+import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +30,8 @@ export const MainNavigation = () => {
             />
           ),
           headerTitleStyle: {
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            color: colors.textPrimary
           },
           headerTitleAlign: 'center',
           tabBarIcon: ({ focused, color, size }) => {
