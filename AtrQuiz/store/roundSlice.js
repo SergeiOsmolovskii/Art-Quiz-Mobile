@@ -4,7 +4,8 @@ const initialState = {
   categoryName: '',
   roundNumber: null,
   questionNumber: null,
-  questionAnswers: Array(10).fill(null)
+  questionAnswers: Array(10).fill(null),
+  isCorrectEnd: false
 }
 
 const roundSlice = createSlice({
@@ -25,9 +26,12 @@ const roundSlice = createSlice({
     },
     setInitialState(state) {
       Object.assign(state, { ...initialState });
+    },
+    setIsCorrectEnd(state, action) {
+      state.isCorrectEnd = action.payload;
     }
   },
 });
 
 export default roundSlice.reducer;
-export const { setCategoryName, setRoundNumber, setQuestionNumber, setQuestionAnswers, setInitialState } = roundSlice.actions;
+export const { setCategoryName, setRoundNumber, setQuestionNumber, setQuestionAnswers, setInitialState, setIsCorrectEnd } = roundSlice.actions;

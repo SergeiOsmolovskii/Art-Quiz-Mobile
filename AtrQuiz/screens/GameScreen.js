@@ -35,11 +35,11 @@ export const GameScreen = ({navigation}) => {
 
   return (
     <View style={styles.container(colors.background)}>
-      {/* <ConfirmNavigation navigation={navigation} /> */}
+      <ConfirmNavigation />
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" style={styles.indicator} />
       ) : (
-        <ArtistRound navigation={navigation} />
+        <ArtistRound />
       )}
     </View>
   );

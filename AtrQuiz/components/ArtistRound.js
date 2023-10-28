@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { DotIndicators } from './DotIndicators';
 import { AnswerButtons } from './AnswerButtons';
@@ -8,11 +8,12 @@ import { setQuestionAnswers, setQuestionNumber } from '../store/roundSlice';
 import Modal from 'react-native-modal';
 import { AnswerPopUp } from './AnswerPopUp';
 import { CongratulationPopUp } from './CongratulationPopUp';
-import { setInitialState, setCategoryName } from '../store/roundSlice';
+import { setInitialState, setCategoryName, setIsCorrectEnd } from '../store/roundSlice';
 import { useTheme } from '../theme/ThemeContext';
+import { useNavigation } from '@react-navigation/native';
 
-
-export const ArtistRound = ({navigation}) => {
+export const ArtistRound = () => {
+  const navigation = useNavigation();
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const questionNumber = useSelector((state) => state.round.questionNumber);
@@ -22,7 +23,7 @@ export const ArtistRound = ({navigation}) => {
 
   const [questionData, setQuestionData] = useState(imagesData[(roundNumber * TOTAL_QUESTIONS_IN_ROUND) + questionNumber - 1]);
   const [isModalVisible, setModalVisible] = useState(false);
-  const [isHideMainScreen, setIsHideMainScreen ] = useState(false)
+  const [isHideMainScreen, setIsHideMainScreen] = useState(false);
   const [isRoundEnd, setIsRoundEnd] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
 
@@ -40,42 +41,25 @@ export const ArtistRound = ({navigation}) => {
       setIsRoundEnd(true);
       setIsHideMainScreen(true);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
-        <View style={{opacity: isHideMainScreen ? 0 : 1}}>
-          <Text style={styles.text(colors.textPrimary)}>{questionNumber} / {TOTAL_QUESTIONS_IN_ROUND} </Text>
+      <View style={{ opacity: isHideMainScreen ? 0 : 1 }}>
+        <Text style={styles.text(colors.textPrimary)}>{questionNumber} / {TOTAL_QUESTIONS_IN_ROUND} </Text>
+        <Text style={styles.text(colors.textPrimary)}>Who is the author of this picture?</Text>
+        <Image
+          style={styles.image}
+          source={{ uri: `${BASIC_IMAGE_URL}${questionData.imageNum}.jpg` }}
+          resizeMode='contain'
+          accessible={true}
+        />
+        <DotIndicators questionAnswers={questionAnswers} />
+        <AnswerButtons imagesData={imagesData} questionData={questionData} handlePressButton={handlePressButton} />
 
-          <Text style={styles.text(colors.textPrimary)}>Who is the author of this picture?</Text>
-
-          <Image
-            style={styles.image}
-            source={{ uri: `${BASIC_IMAGE_URL}${questionData.imageNum}.jpg` }}
-            resizeMode='contain'
-            accessible={true}
-          />
-          <DotIndicators questionAnswers={questionAnswers} />
-
-          <AnswerButtons imagesData={imagesData} questionData={questionData} handlePressButton={handlePressButton} />
-
-          <Modal
-            isVisible={isModalVisible}
-            backdropColor={isCorrect ? colors.correctAnswer : colors.incorrectAnswer}
-            backdropOpacity={0.8}
-            animationIn="zoomInDown"
-            animationOut="zoomOutUp"
-            animationInTiming={QUESTION_ANIMATION_TIMING}
-            animationOutTiming={QUESTION_ANIMATION_TIMING}
-            backdropTransition={QUESTION_ANIMATION_TIMING}
-            backdropTransitionOutTiming={QUESTION_ANIMATION_TIMING}
-            onModalHide={() => setQuestionData(imagesData[(roundNumber * TOTAL_QUESTIONS_IN_ROUND) + questionNumber])}
-          >
-            <AnswerPopUp questionData={questionData} nextQuestion={nextQuestion} />
-          </Modal>
-</View>
-          <Modal
-          isVisible={isRoundEnd}
+        <Modal
+          isVisible={isModalVisible}
+          backdropColor={isCorrect ? colors.correctAnswer : colors.incorrectAnswer}
           backdropOpacity={0.8}
           animationIn="zoomInDown"
           animationOut="zoomOutUp"
@@ -83,18 +67,32 @@ export const ArtistRound = ({navigation}) => {
           animationOutTiming={QUESTION_ANIMATION_TIMING}
           backdropTransition={QUESTION_ANIMATION_TIMING}
           backdropTransitionOutTiming={QUESTION_ANIMATION_TIMING}
-          onModalHide={() => {
-            dispatch(setInitialState());
-            dispatch((setCategoryName('Artists')));
-            navigation.navigate('Artists')}
-          }
+          onModalHide={() => setQuestionData(imagesData[(roundNumber * TOTAL_QUESTIONS_IN_ROUND) + questionNumber])}
         >
-          <CongratulationPopUp questionAnswers={questionAnswers} navigation={navigation} setIsRoundEnd={setIsRoundEnd} />
+          <AnswerPopUp questionData={questionData} nextQuestion={nextQuestion} />
         </Modal>
+      </View>
 
+      <Modal
+        isVisible={isRoundEnd}
+        backdropOpacity={0.8}
+        animationIn="zoomInDown"
+        animationOut="zoomOutUp"
+        animationInTiming={QUESTION_ANIMATION_TIMING}
+        animationOutTiming={QUESTION_ANIMATION_TIMING}
+        backdropTransition={QUESTION_ANIMATION_TIMING}
+        backdropTransitionOutTiming={QUESTION_ANIMATION_TIMING}
+        onModalHide={() => {
+          dispatch(setInitialState());
+          dispatch((setCategoryName('Artists')));
+          navigation.goBack();
+        }}
+      >
+        <CongratulationPopUp questionAnswers={questionAnswers} setIsRoundEnd={setIsRoundEnd} />
+      </Modal>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

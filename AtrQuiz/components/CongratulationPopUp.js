@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 import { AnimatedIcon } from './AnimatedIcon';
 import { setArtistsRounds } from '../store/gameSlice';
+import { setIsCorrectEnd } from '../store/roundSlice';
 import { useTheme } from '../theme/ThemeContext';
 
 const circleRadius = 100;
@@ -38,7 +39,7 @@ export const CongratulationPopUp = ({questionAnswers, setIsRoundEnd}) => {
       }
 
       setIsRoundEnd(false);
-
+      dispatch(setIsCorrectEnd(true));
     } catch (error) {
       console.log(error)
     }
