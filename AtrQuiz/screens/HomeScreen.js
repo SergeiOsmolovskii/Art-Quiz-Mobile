@@ -1,10 +1,10 @@
-import { StyleSheet, View, FlatList, Button } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import { Asset } from 'expo-asset';
-import { SelectRoundButton } from './../components/SelectRoundButton';
 import { useTheme } from '../theme/ThemeContext';
+import { SelectRoundButton } from './../components/SelectRoundButton';
 
 export const HomeScreen = ({ navigation }) => {
-  const { colors, toggleTheme } = useTheme();
+  const { colors } = useTheme();
 
   const buttonsArr = [{
       title: 'Artists',
@@ -27,7 +27,6 @@ export const HomeScreen = ({ navigation }) => {
           <SelectRoundButton key={item.title} title={item.title} subtitle={item.subtitle} imageURL={item.url} navigation={navigation} />
         )}
       />
-      <Button title="Toggle Theme" onPress={toggleTheme} />
     </View>
   );
 }

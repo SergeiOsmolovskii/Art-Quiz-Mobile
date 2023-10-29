@@ -18,4 +18,7 @@ export const darkThemeStyles = {
   incorrectAnswer: '#c21d03',
   popupBackground: '#4b4848',
   congratulationBackground: '#3D5A80',
+  switchBorderColor: '#626262',
+  switchEnable: '#2E8B57',
+  switchDisable: '#808080',
 };
