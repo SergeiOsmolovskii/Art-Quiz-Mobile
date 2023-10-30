@@ -18,4 +18,7 @@ export const lightThemeStyles = {
   incorrectAnswer: 'red',
   popupBackground: '#E9F6EE',
   congratulationBackground: '#AAC2EF',
+  switchBorderColor: '#626262',
+  switchEnable: '#2E8B57',
+  switchDisable: '#808080',
 };
