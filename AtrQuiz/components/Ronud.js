@@ -3,9 +3,13 @@ import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRoundNumber, setQuestionNumber } from '../store/roundSlice';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../theme/ThemeContext';
 
-export const Round = ({ roundNumber, rating, prevRoundRating, navigation }) => {
+export const Round = ({ roundNumber, rating, prevRoundRating }) => {
+
+  const navigation = useNavigation();
+
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const categoryName = useSelector((state) => state.round.categoryName);
@@ -13,7 +17,7 @@ export const Round = ({ roundNumber, rating, prevRoundRating, navigation }) => {
   const handelSelectRound = () => {
     dispatch(setRoundNumber(roundNumber));
     dispatch(setQuestionNumber(1));
-    navigation.navigate('Game');
+    navigation.navigate('Game', { categoryName: categoryName });
   }
 
   const StarIcon = () => {

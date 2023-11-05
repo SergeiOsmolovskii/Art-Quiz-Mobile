@@ -1,11 +1,12 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { currentShuffleQuestionAnswers } from '../utils/helpers';
 import { AnswerButton } from './AnswerButton';
 
 export const AnswerButtons = ({ questionData, imagesData, handlePressButton }) => {
   const answers = useMemo(() => currentShuffleQuestionAnswers(imagesData, questionData.author), [imagesData, questionData.author]);
-  // console.log(answers)
+  
+    // console.log(answers)
 
     return (
       <View style={styles.container}>

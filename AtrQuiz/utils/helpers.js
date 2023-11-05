@@ -5,14 +5,31 @@ export const getAllUniqueAuthors = (imagesData) => {
 }
 
 export const getAllUniqueAuthorsWithoutCorrect = (imagesData, correctAnswer) => {
-
   const set = new Set(imagesData.map(item => item.author))
   set.delete(correctAnswer);
   return [...set];
 }
 
+export const getAllUniqueImagesWithoutCorrect = (imagesData, correctAnswer) => {
+  const set = new Set(imagesData.filter(item => item.author != correctAnswer.author));
+  return [...set];
+}
+
 export const currentShuffleQuestionAnswers = (imagesData, correctAnswer) => {
   const unicAnswers = getAllUniqueAuthorsWithoutCorrect(imagesData, correctAnswer);
+  const answers = [correctAnswer];
+
+  for (let i = 1; i < TOTAL_QUESTION_BUTTONS; i++) {
+    const randomIndex = Math.floor(Math.random() * unicAnswers.length);
+    answers.push(unicAnswers[randomIndex]);
+    unicAnswers.splice(randomIndex, 1)
+  }
+  shuffle(answers);
+  return answers;
+}
+
+export const currentShuffleQuestionImagesAnswers = (imagesData, correctAnswer) => {
+  const unicAnswers = getAllUniqueImagesWithoutCorrect(imagesData, correctAnswer);
   const answers = [correctAnswer];
 
   for (let i = 1; i < TOTAL_QUESTION_BUTTONS; i++) {

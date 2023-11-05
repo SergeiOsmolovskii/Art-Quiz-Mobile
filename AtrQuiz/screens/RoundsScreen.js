@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { Round } from './../components/Ronud';
 import { useSelector } from 'react-redux';
 import { useTheme } from '../theme/ThemeContext';
 
 
-export const RoundsScreen = ({ navigation }) => {
+export const RoundsScreen = () => {
   const { colors } = useTheme();
 
   const categoryName = useSelector((state) => state.round.categoryName);
   const roundName = `${categoryName.toLowerCase()}Rounds`;
-  const artistsRounds = useSelector((state) => state.game[roundName]);
+  const rounds = useSelector((state) => state.game[roundName]);
 
-  const preparedData = artistsRounds?.map((currentRound, index, array) => {
+  const preparedData = rounds?.map((currentRound, index, array) => {
     const prevRound = array[index - 1] || [];
     const prevRoundRating = prevRound.filter(subItem => subItem === true).length;
     const currentRoundRating = currentRound?.filter(subItem => subItem === true).length || 0;
@@ -30,7 +28,11 @@ export const RoundsScreen = ({ navigation }) => {
         style={styles.flatListContainer}
         data={preparedData}
         renderItem={({ item, index }) => {
-            return <Round roundNumber={index} rating={item.currentRoundRating} prevRoundRating={item.prevRoundRating} navigation={navigation}/>
+            return <Round
+              roundNumber={index}
+              rating={item.currentRoundRating}
+              prevRoundRating={item.prevRoundRating
+            }/>
         }}
       />
     </View>

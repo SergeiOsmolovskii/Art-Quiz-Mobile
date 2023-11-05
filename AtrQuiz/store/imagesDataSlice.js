@@ -5,7 +5,7 @@ const imagesDataSlice = createSlice({
   initialState: [],
   reducers: {
     setImagesData(state, action) {
-      state.push(...action.payload);
+      return action.payload;
     },
   },
 });

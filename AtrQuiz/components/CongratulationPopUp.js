@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 import { AnimatedIcon } from './AnimatedIcon';
-import { setArtistsRounds } from '../store/gameSlice';
+import { setArtistsRounds, setPicturesRounds } from '../store/gameSlice';
 import { setIsCorrectEnd } from '../store/roundSlice';
 import { useTheme } from '../theme/ThemeContext';
 
@@ -12,8 +12,14 @@ const circleRadius = 100;
 export const CongratulationPopUp = ({questionAnswers, setIsRoundEnd}) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
+  const dispatchActions = {
+    artistsRounds: setArtistsRounds,
+    picturesRounds: setPicturesRounds,
+  };
 
-  const artistsRounds = useSelector((state) => state.game.artistsRounds);
+  const categoryName = useSelector((state) => state.round.categoryName)
+  const roundName = `${categoryName.toLowerCase()}Rounds`;
+  const rounds = useSelector((state) => state.game[roundName]);
   const roundNumber = useSelector((state) => state.round.roundNumber);
   const correctAnswersCount = questionAnswers.reduce((accum, current) => current === true ? accum += 1 : accum, 0);
 
@@ -28,20 +34,20 @@ export const CongratulationPopUp = ({questionAnswers, setIsRoundEnd}) => {
     try {
       const storage = await AsyncStorage.getItem('storage');
       const data = JSON.parse(storage);
-
-      const prevResult = artistsRounds[roundNumber] ? artistsRounds[roundNumber].reduce((accum, current) => current === true ? accum += 1 : accum, 0) : 0;
+      const prevResult = rounds[roundNumber] ? rounds[roundNumber].reduce((accum, current) => current === true ? accum += 1 : accum, 0) : 0;
       const currentResult = questionAnswers.reduce((accum, current) => current === true ? accum += 1 : accum, 0);
 
       if (currentResult > prevResult) {
-        data.artistsRounds[roundNumber] = questionAnswers;
+        data[roundName][roundNumber] = questionAnswers;
+        const dispatchAction = dispatchActions[roundName];
+        dispatch(dispatchAction(data[roundName]));
         AsyncStorage.setItem('storage', JSON.stringify(data));
-        dispatch(setArtistsRounds(data.artistsRounds));
       }
 
       setIsRoundEnd(false);
       dispatch(setIsCorrectEnd(true));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
