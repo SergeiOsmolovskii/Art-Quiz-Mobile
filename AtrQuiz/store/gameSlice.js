@@ -21,6 +21,11 @@ const gameSlice = createSlice({
     },
     setColorScheme(state, action) {
       state.settings.colorScheme = action.payload;
+    },
+    clearAll(state, action) {
+      state.artistsRounds = initialState.artistsRounds;
+      state.picturesRounds = initialState.picturesRounds;
+      state.settings.colorScheme = action.payload;
     }
   },
 });
@@ -32,4 +37,4 @@ export const setTheme = (colorScheme) => {
 }
 
 export default gameSlice.reducer;
-export const { setArtistsRounds, setPicturesRounds, setColorScheme } = gameSlice.actions;
+export const { setArtistsRounds, setPicturesRounds, setColorScheme, clearAll } = gameSlice.actions;

@@ -6,7 +6,6 @@ import { useTheme } from '../theme/ThemeContext';
 
 export const RoundsScreen = () => {
   const { colors } = useTheme();
-
   const categoryName = useSelector((state) => state.round.categoryName);
   const roundName = `${categoryName.toLowerCase()}Rounds`;
   const rounds = useSelector((state) => state.game[roundName]);
@@ -28,11 +27,7 @@ export const RoundsScreen = () => {
         style={styles.flatListContainer}
         data={preparedData}
         renderItem={({ item, index }) => {
-            return <Round
-              roundNumber={index}
-              rating={item.currentRoundRating}
-              prevRoundRating={item.prevRoundRating
-            }/>
+          return <Round roundNumber={index} rating={item.currentRoundRating} prevRoundRating={item.prevRoundRating} />
         }}
       />
     </View>

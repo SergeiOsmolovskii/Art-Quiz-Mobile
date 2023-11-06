@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useColorScheme } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { MainNavigation } from './Routers/MainNavigation';
 import { SplashScreen } from './screens/SplashScreen';
-import { ARTISTS_ROUNDS, PICTURES_ROUNDS, TOTAL_QUESTIONS_IN_ROUND } from './utils/variables'
 import imagesData from './data/data.json'
 import { setArtistsRounds, setPicturesRounds, setColorScheme } from './store/gameSlice';
+import { ToastProvider } from 'react-native-toast-notifications'
 import { ThemeProvider } from './theme/ThemeContext';
-
+import { setInitialDataToAsyncStorage } from './utils/helpers';
 
 export default function App() {
-  const colorScheme = useColorScheme();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,22 +23,10 @@ export default function App() {
       try {
         const storage = await AsyncStorage.getItem('storage');
         const images = await AsyncStorage.getItem('imagesData');
-        // AsyncStorage.clear();
         if (!storage) {
-          const artistsRounds = Array.from({ length: ARTISTS_ROUNDS }, () => null);
-          const picturesRounds = Array.from({ length: PICTURES_ROUNDS }, () => null);
-
-          const data = {
-            artistsRounds: artistsRounds,
-            picturesRounds: picturesRounds,
-            settings: {
-              colorScheme: colorScheme
-            },
-          };
-
-          await AsyncStorage.setItem('storage', JSON.stringify(data));
-          dispatch(setArtistsRounds(artistsRounds));
-          dispatch(setPicturesRounds(picturesRounds));
+          const data = await setInitialDataToAsyncStorage();
+          dispatch(setArtistsRounds(data.artistsRounds));
+          dispatch(setPicturesRounds(data.picturesRounds));
           dispatch(setColorScheme(data.settings.colorScheme))
         } else {
           dispatch(setArtistsRounds(JSON.parse(storage).artistsRounds));
@@ -60,10 +46,12 @@ export default function App() {
   return isLoading ? (
     <SplashScreen />
   ) : (
-    <ThemeProvider>
-      <NavigationContainer>
-        <MainNavigation />
-      </NavigationContainer>
-    </ThemeProvider>
+      <ThemeProvider>
+        <ToastProvider>
+          <NavigationContainer>
+            <MainNavigation />
+          </NavigationContainer>
+        </ToastProvider>
+      </ThemeProvider>
   );
 }

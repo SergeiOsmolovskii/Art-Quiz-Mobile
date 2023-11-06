@@ -1,4 +1,5 @@
-import { TOTAL_QUESTION_BUTTONS } from "./variables";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TOTAL_QUESTION_BUTTONS, ARTISTS_ROUNDS, PICTURES_ROUNDS } from "./variables";
 
 export const getAllUniqueAuthors = (imagesData) => {
   return [...new Set(imagesData.map(item => item.author))];
@@ -47,6 +48,22 @@ const shuffle = (arr) => {
     let j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
+}
+
+export const setInitialDataToAsyncStorage = async (colorScheme) => {
+  const artistsRounds = Array.from({ length: ARTISTS_ROUNDS }, () => null);
+  const picturesRounds = Array.from({ length: PICTURES_ROUNDS }, () => null);
+
+  const data = {
+    artistsRounds: artistsRounds,
+    picturesRounds: picturesRounds,
+    settings: {
+      colorScheme: colorScheme
+    },
+  };
+
+  await AsyncStorage.setItem('storage', JSON.stringify(data));
+  return data;
 }
 
 export const checkIsCorrectAnswer = (currentAnswer, correctAnswer) => {
