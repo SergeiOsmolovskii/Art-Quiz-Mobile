@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearAll } from '../store/gameSlice';
+import { clearAll, setVibration } from '../store/gameSlice';
 import { useTheme } from '../theme/ThemeContext';
 import { CustomSwitch } from '../components/CustomSwitch';
 import { setInitialDataToAsyncStorage } from '../utils/helpers';
@@ -12,13 +12,20 @@ export const SettingsScreen = () => {
   const toast = useToast();
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.game.settings.colorScheme);
-  const [isDarkModeOn, setIsDarkModeOn] = useState(theme === 'dark' ? true : false);
+  const vibration = useSelector((state) => state.game.settings.vibration);
 
+  const [isDarkModeOn, setIsDarkModeOn] = useState(theme === 'dark' ? true : false);
+  const [isVibrationOn, setIsVibbrationOn] = useState(vibration);
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   const handleSwitchDarkMode = () => {
     setIsDarkModeOn(!isDarkModeOn);
     toggleTheme();
+  };
+
+  const handleSwitchVibration = () => {
+    setIsVibbrationOn(!isVibrationOn);
+    dispatch(setVibration(!isVibrationOn));
   };
 
   useEffect(() => {
@@ -61,16 +68,31 @@ export const SettingsScreen = () => {
 
   return (
     <View style={styles.container(colors.background)}>
-      <View style={styles.switchContainer}>
-        <Text style={styles.text(colors.textPrimary)}>Dark mode</Text>
-        <CustomSwitch
-          value={isDarkModeOn}
-          borderColor={colors.switchBorderColor}
-          thumbColor={isDarkModeOn ? colors.switchEnable : colors.switchDisable}
-          enebleColor={colors.switchEnable}
-          disableColor={colors.switchDisable}
-          onToggle={handleSwitchDarkMode}
-        />
+      <View style={styles.switches}>
+
+        <View style={styles.switchContainer}>
+          <Text style={styles.text(colors.textPrimary)}>Dark mode</Text>
+          <CustomSwitch
+            value={isDarkModeOn}
+            borderColor={colors.switchBorderColor}
+            thumbColor={isDarkModeOn ? colors.switchEnable : colors.switchDisable}
+            enebleColor={colors.switchEnable}
+            disableColor={colors.switchDisable}
+            onToggle={handleSwitchDarkMode}
+          />
+        </View>
+
+        <View style={styles.switchContainer}>
+          <Text style={styles.text(colors.textPrimary)}>Vibration</Text>
+          <CustomSwitch
+            value={isVibrationOn}
+            borderColor={colors.switchBorderColor}
+            thumbColor={isDarkModeOn ? colors.switchEnable : colors.switchDisable}
+            enebleColor={colors.switchEnable}
+            disableColor={colors.switchDisable}
+            onToggle={handleSwitchVibration}
+          />
+        </View>
       </View>
 
       <TouchableOpacity
@@ -91,13 +113,17 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     justifyContent: 'space-between',
-
     backgroundColor,
-  }), switchContainer: {
+  }), switches : {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }, switchContainer: {
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom: 10
   }, text: (color) => ({
     margin: 10,
     textAlign: 'center',

@@ -58,7 +58,8 @@ export const setInitialDataToAsyncStorage = async (colorScheme) => {
     artistsRounds: artistsRounds,
     picturesRounds: picturesRounds,
     settings: {
-      colorScheme: colorScheme
+      colorScheme: colorScheme,
+      vibration: true
     },
   };
 

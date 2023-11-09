@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, Vibration } from 'react-native';
 import { DotIndicators } from './DotIndicators';
 import { AnswerButtons } from './AnswerButtons';
-import { BASIC_IMAGE_URL, TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING } from '../utils/variables';
+import { BASIC_IMAGE_URL, TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING, CORRECT_ANSWER_VIBRATION_PATTERN, INCORRECT_ANSWER_VIBRATION_PATTERN } from '../utils/variables';
 import { useSelector, useDispatch } from 'react-redux';
 import { setQuestionAnswers, setQuestionNumber } from '../store/roundSlice';
 import Modal from 'react-native-modal';
@@ -20,6 +20,7 @@ export const ArtistRound = () => {
   const questionAnswers = useSelector((state) => state.round.questionAnswers);
   const roundNumber = useSelector((state) => state.round.roundNumber);
   const imagesData = useSelector((state) => state.imagesData);
+  const vibration = useSelector((state) => state.game.settings.vibration);
 
   const [questionData, setQuestionData] = useState(imagesData[(roundNumber * TOTAL_QUESTIONS_IN_ROUND) + questionNumber - 1]);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -29,6 +30,9 @@ export const ArtistRound = () => {
 
   const handlePressButton = async (item) => {
     const isAnswerCorrect = item === questionData.author;
+    if (vibration) {
+      isAnswerCorrect ? Vibration.vibrate(CORRECT_ANSWER_VIBRATION_PATTERN) : Vibration.vibrate(INCORRECT_ANSWER_VIBRATION_PATTERN);
+    };
     setIsCorrect(isAnswerCorrect);
     setModalVisible(true);
     dispatch(setQuestionAnswers(isAnswerCorrect));

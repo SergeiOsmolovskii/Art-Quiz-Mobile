@@ -5,7 +5,8 @@ const initialState = {
   artistsRounds: Array.from({ length: ARTISTS_ROUNDS }, () => null),
   picturesRounds: Array.from({ length: PICTURES_ROUNDS }, () => null),
   settings: {
-    colorScheme: 'light'
+    colorScheme: 'light',
+    vibration: true
   },
 }
 
@@ -26,6 +27,9 @@ const gameSlice = createSlice({
       state.artistsRounds = initialState.artistsRounds;
       state.picturesRounds = initialState.picturesRounds;
       state.settings.colorScheme = action.payload;
+    },
+    setVibration(state, action) {
+      state.settings.vibration = action.payload;
     }
   },
 });
@@ -37,4 +41,4 @@ export const setTheme = (colorScheme) => {
 }
 
 export default gameSlice.reducer;
-export const { setArtistsRounds, setPicturesRounds, setColorScheme, clearAll } = gameSlice.actions;
+export const { setArtistsRounds, setPicturesRounds, setColorScheme, clearAll, setVibration } = gameSlice.actions;
