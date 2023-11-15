@@ -21,4 +21,6 @@ export const lightThemeStyles = {
   switchBorderColor: '#626262',
   switchEnable: '#2E8B57',
   switchDisable: '#808080',
+  accordionHeader: '#E9F6EE',
+  accordionIcon: '#71C4EF'
 };

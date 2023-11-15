@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 10
   }, text: (color) => ({
-    margin: 10,
+    marginVertical: 10,
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',

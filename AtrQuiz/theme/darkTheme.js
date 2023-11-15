@@ -21,4 +21,6 @@ export const darkThemeStyles = {
   switchBorderColor: '#626262',
   switchEnable: '#2E8B57',
   switchDisable: '#808080',
+  accordionHeader: '#F7EEDD',
+  accordionIcon: '#FF7400'
 };
