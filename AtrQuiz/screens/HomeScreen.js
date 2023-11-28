@@ -1,28 +1,16 @@
 import { StyleSheet, View, FlatList } from 'react-native';
-import { Asset } from 'expo-asset';
 import { useTheme } from '../theme/ThemeContext';
 import { SelectRoundButton } from './../components/SelectRoundButton';
+import { BUTTONS_ARR } from '../utils/variables';
 
 export const HomeScreen = ({ navigation }) => {
   const { colors } = useTheme();
-
-  const buttonsArr = [{
-      title: 'Artists',
-      subtitle: 'Guess the artist by the picture',
-      url: Asset.fromModule(require('./../assets/images/artist.jpg'))
-    },
-    {
-      title: 'Pictures',
-      subtitle: 'Guess the painting by the artist',
-      url: Asset.fromModule(require('./../assets/images/pictures.jpg'))
-    }
-  ];
 
   return (
     <View style={styles.container(colors.background)}>
       <FlatList
         style={styles.flatListContainer}
-        data={buttonsArr}
+        data={BUTTONS_ARR}
         renderItem={({ item }) => (
           <SelectRoundButton key={item.title} title={item.title} subtitle={item.subtitle} imageURL={item.url} navigation={navigation} />
         )}

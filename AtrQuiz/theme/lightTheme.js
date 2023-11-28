@@ -22,5 +22,6 @@ export const lightThemeStyles = {
   switchEnable: '#2E8B57',
   switchDisable: '#808080',
   accordionHeader: '#E9F6EE',
-  accordionIcon: '#71C4EF'
+  accordionIcon: '#71C4EF',
+  progressBarBackground: '#E9F6EE'
 };
