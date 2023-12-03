@@ -11,7 +11,6 @@ export const StatisticsScreen = () => {
 
 
   const goToStatistics = (categoryName) => {
-    console.log(123)
     navigation.navigate('ArtistStat', { categoryName: categoryName });
   }
 

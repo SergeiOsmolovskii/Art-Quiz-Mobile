@@ -3,8 +3,8 @@ import { View, Animated, Easing, StyleSheet } from 'react-native';
 import Svg, { Rect } from 'react-native-svg';
 
 export const ProgressBar = ({ progress, width, height, duration, background }) => {
-  const AnimatedRect = Animated.createAnimatedComponent(Rect);
 
+  const AnimatedRect = Animated.createAnimatedComponent(Rect);
   const animatedValue = useRef(new Animated.Value(0)).current;
   const newWidth = animatedValue.interpolate({
     inputRange: [0, 1],
@@ -44,7 +44,6 @@ export const ProgressBar = ({ progress, width, height, duration, background }) =
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {

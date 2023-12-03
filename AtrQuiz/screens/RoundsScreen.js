@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import { Round } from './../components/Ronud';
 import { useSelector } from 'react-redux';
 import { useTheme } from '../theme/ThemeContext';
@@ -7,13 +7,12 @@ import { useTheme } from '../theme/ThemeContext';
 export const RoundsScreen = () => {
   const { colors } = useTheme();
   const categoryName = useSelector((state) => state.round.categoryName);
-  const roundName = `${categoryName.toLowerCase()}Rounds`;
-  const rounds = useSelector((state) => state.game[roundName]);
-
+  const roundsData = useSelector((state) => state.game.roundsData);
+  const rounds = roundsData[categoryName]?.data || [];
   const preparedData = rounds?.map((currentRound, index, array) => {
     const prevRound = array[index - 1] || [];
-    const prevRoundRating = prevRound.filter(subItem => subItem === true).length;
-    const currentRoundRating = currentRound?.filter(subItem => subItem === true).length || 0;
+    const prevRoundRating = prevRound.answers?.filter(subItem => subItem === true).length || 0;
+    const currentRoundRating = currentRound.answers?.filter(subItem => subItem === true).length || 0;
 
     return {
       prevRoundRating: index === 0 ? 0 : prevRoundRating,

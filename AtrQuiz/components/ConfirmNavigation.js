@@ -29,11 +29,11 @@ export const ConfirmNavigation = () => {
             onPress: () => {
               setIsAlertVisible(true);
               if (navigation.canGoBack()) {
-                navigation.goBack();
                 navigation.addListener('transitionEnd', () => {
                   dispatch(setInitialState());
                   dispatch(setCategoryName(categoryName));
                 });
+                navigation.goBack();
               }
             },
           },

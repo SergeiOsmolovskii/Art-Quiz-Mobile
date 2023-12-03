@@ -1,64 +1,39 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, FlatList, Animated, Text, ScrollView } from 'react-native';
+import React from 'react';
+import { StyleSheet, ScrollView } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
-import { CircularProgressBar } from './progressBar/CircularProgressBar';
 import { RoundStatisticItem } from './RoundStatisticItem';
+import { useSelector } from 'react-redux';
+import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 
 export const RoundStatistics = ({ route }) => {
   const { colors } = useTheme();
-
-  console.log(route.params.categoryName);
-
-  const GAME_ROUNDS = Array.from({ length: 12 }).map((_, index) => ({
-    roundName: route.params.categoryName + index + 1,
-    id: route.params.categoryName + (index + 1),
-    progress: 50
-  }));
-
-  const renderItem = (item) => {
-    console.log(item)
-    return(
-      <View style={styles.container(colors.background)}>
-        <Text style={styles.text(colors.textPrimary)}>{route.params.categoryName} round {item.index + 1}</Text>
-        <CircularProgressBar progress={progress} radius={80} strokeWidth={20} fz={40} duration={1000}/>
-      </View>
+  const state = useSelector((state) => state.game.roundsData[route.params.categoryName].data);
+  const preparedData = state?.map((item, index) => {
+    return (
+      {
+        id: `${route.params.categoryName} ${index}`,
+        title: `${route.params.categoryName} round ${index + 1}`,
+        progress: item.answers ? item.answers.reduce((accum, current) => current === true ? accum += 1 : accum, 0) * 100 / TOTAL_QUESTIONS_IN_ROUND : 0
+      }
     )
-  }
+  });
 
-  const [progress, setProgress] = useState(90);
+  const renderItems = preparedData.map((item) => {
+    return (<RoundStatisticItem roundName={item.title} progress={item.progress} key={item.id}/>);
+  });
 
   return (
-    <View style={styles.container(colors.roundBackground)}>
-      {/* <FlatList
-        style={styles.container}
-        data={GAME_ROUNDS}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        numColumns={2}
-      /> */}
-        {/* <Text style={styles.text(colors.textPrimary)}>{route.params.categoryName} round {item.idex + 1}</Text> */}
-      <RoundStatisticItem roundName='Artists 1' progress={30}/>
-      {/* <CircularProgressBar progress={progress} radius={80} strokeWidth={20} fz={40} duration={2000}/>
-      <CircularProgressBar progress={progress} radius={80} strokeWidth={20} fz={40} duration={1000}/>
-      <CircularProgressBar progress={progress} radius={80} strokeWidth={20} fz={40} duration={3000}/>
-      <CircularProgressBar progress={progress} radius={80} strokeWidth={20} fz={40} duration={4000}/>
-      <CircularProgressBar progress={progress} radius={80} strokeWidth={20} fz={40} duration={4000}/>
-      <CircularProgressBar progress={progress} radius={80} strokeWidth={20} fz={40} duration={4000}/>
-      <CircularProgressBar progress={progress} radius={80} strokeWidth={20} fz={40} duration={4000}/>
-      <CircularProgressBar progress={progress} radius={80} strokeWidth={20} fz={40} duration={4000}/> */}
-    </View>
+    <ScrollView style={styles.container(colors.roundBackground)}>
+      {renderItems}
+    </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
   container: (backgroundColor) => ({
     flex: 1,
-    flexWrap: 'wrap',
-    gap: 20,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
     backgroundColor,
-    
   }),
   text: (textColor) => ({
     marginHorizontal: 5,
@@ -66,13 +41,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: textColor
   }),
-    flatListContainer: {
-      flex: 1,
-      margin: 16,
-      gap: 20
-    },
-    listItem: {
-      flex: 1,
-      margin: 8,
-    },
 });

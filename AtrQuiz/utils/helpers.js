@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TOTAL_QUESTION_BUTTONS, ARTISTS_ROUNDS, PICTURES_ROUNDS } from "./variables";
+import { TOTAL_QUESTION_BUTTONS, ARTISTS_ROUNDS, PICTURES_ROUNDS, GAMES_DATA } from "./variables";
 
 export const getAllUniqueAuthors = (imagesData) => {
   return [...new Set(imagesData.map(item => item.author))];
@@ -50,23 +50,51 @@ const shuffle = (arr) => {
   }
 }
 
-export const setInitialDataToAsyncStorage = async (colorScheme) => {
-  const artistsRounds = Array.from({ length: ARTISTS_ROUNDS }, () => null);
-  const picturesRounds = Array.from({ length: PICTURES_ROUNDS }, () => null);
+// export const setInitialDataToAsyncStorage = async (colorScheme) => {
+//   const artistsRounds = Array.from({ length: ARTISTS_ROUNDS }, () => null);
+//   const picturesRounds = Array.from({ length: PICTURES_ROUNDS }, () => null);
 
+//   const data = {
+//     artistsRounds: artistsRounds,
+//     picturesRounds: picturesRounds,
+//     settings: {
+//       colorScheme: colorScheme,
+//       vibration: true
+//     },
+//   };
+
+//   await AsyncStorage.setItem('storage', JSON.stringify(data));
+//   return data;
+// }
+
+export const checkIsCorrectAnswer = (currentAnswer, correctAnswer) => {
+  return currentAnswer === correctAnswer ? true : false;
+}
+
+export const initialRoundsData =  () => {
+  const round = {
+    data: Array.from({ length: ARTISTS_ROUNDS }, () => ({
+      answers: null,
+      attempts: 0,
+      attemptsToBestResult: null,
+      bestTime: 'not supported yet'
+    })),
+  };
+
+  const roundsData = {};
+
+  GAMES_DATA.forEach(game => roundsData[game.title] = { ...round, ...game });
+  return roundsData;
+}
+
+export const setInitialDataToAsyncStorage = async (colorScheme) => {
   const data = {
-    artistsRounds: artistsRounds,
-    picturesRounds: picturesRounds,
+    roundsData: initialRoundsData(),
     settings: {
       colorScheme: colorScheme,
       vibration: true
     },
   };
-
   await AsyncStorage.setItem('storage', JSON.stringify(data));
   return data;
-}
-
-export const checkIsCorrectAnswer = (currentAnswer, correctAnswer) => {
-  return currentAnswer === correctAnswer ? true : false;
 }
