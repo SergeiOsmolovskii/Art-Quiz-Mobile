@@ -13,6 +13,7 @@ export const darkThemeStyles = {
   roundButton: '#FF7400',
   answerButton: '#FF7400',
   nextButton: '#FF7400',
+  backButton: '#FF7400',
   disabledButton: '#626262',
   correctAnswer: '#2E8B57',
   incorrectAnswer: '#c21d03',

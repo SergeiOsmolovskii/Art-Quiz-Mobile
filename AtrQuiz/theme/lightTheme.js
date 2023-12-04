@@ -13,6 +13,7 @@ export const lightThemeStyles = {
   roundButton: '#71C4EF',
   answerButton: '#71C4EF',
   nextButton: '#71C4EF',
+  backButton: '#71C4EF',
   disabledButton: '#C9D6DF',
   correctAnswer: 'green',
   incorrectAnswer: 'red',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { BUTTONS_ARR } from '../utils/variables';
 import { useNavigation } from '@react-navigation/native';
@@ -20,7 +20,13 @@ export const StatisticsScreen = () => {
       <View style={styles.rowContainer}>
         {BUTTONS_ARR.map((item) => (
           <TouchableOpacity style={styles.button} key={item.title} onPress={() => goToStatistics(item.title)}>
-            <Text style={styles.title(colors.mainButtonTextPrimary)}>{item.title}</Text>
+            <ImageBackground
+              source={item.url}
+              style={styles.image}
+              resizeMode='cover'
+            >
+              {/* <Text style={styles.title(colors.mainButtonTextPrimary)}>{item.title}</Text> */}
+            </ImageBackground>
           </TouchableOpacity>
         ))}
       </View>
@@ -36,6 +42,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor,
   }),
+  image: {
+    height: '100%',
+    width: '100%'
+  },
   rowContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -45,12 +55,12 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red',
     width: '40%',
     height: 125,
     // marginHorizontal: 10,
   },
   title: (color) => ({
+    padding: 10,
     fontSize: 30,
     fontWeight: 'bold',
     color: color,

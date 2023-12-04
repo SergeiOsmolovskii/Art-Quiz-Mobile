@@ -2,13 +2,13 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { ProgressBar } from './progressBar/ProgressBar';
 
-export const RoundStatisticItem = ({ roundName, progress }) => {
+export const RoundStatisticItem = ({ roundName, progress, handelSelectStatistics }) => {
   const { colors } = useTheme();
 
   return (
     <TouchableOpacity
       style={styles.button(colors.roundButton, colors.borderColor)}
-      // onPress={() => handelSelectRound()}
+      onPress={() => handelSelectStatistics()}
     >
       <Text style={styles.title(colors.textPrimary)}>{roundName}</Text>
       <View style={styles.statisticContainer} >
@@ -17,10 +17,7 @@ export const RoundStatisticItem = ({ roundName, progress }) => {
       </View>
     </TouchableOpacity>
   );
-
-
 }
-
 
 const styles = StyleSheet.create({
   button: (backgroundColor, borderColor) => ({
