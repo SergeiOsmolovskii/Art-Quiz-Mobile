@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { StyleSheet, Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme } from '../theme/ThemeContext';
