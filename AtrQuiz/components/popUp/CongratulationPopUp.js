@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { TOTAL_QUESTIONS_IN_ROUND, CIRCLE_STARS_RADIUS } from '../utils/variables';
-import { AnimatedIcon } from './AnimatedIcon';
-import { setRoundsData } from '../store/gameSlice';
-import { setIsCorrectEnd } from '../store/roundSlice';
-import { useTheme } from '../theme/ThemeContext';
+import { TOTAL_QUESTIONS_IN_ROUND, CIRCLE_STARS_RADIUS } from '../../utils/variables';
+import { AnimatedIcon } from '../AnimatedIcon';
+import { setRoundsData } from '../../store/gameSlice';
+import { setIsCorrectEnd } from '../../store/roundSlice';
+import { useTheme } from '../../theme/ThemeContext';
 
 
 export const CongratulationPopUp = ({questionAnswers, setIsRoundEnd}) => {

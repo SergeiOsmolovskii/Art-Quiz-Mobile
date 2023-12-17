@@ -1,13 +1,12 @@
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { useTheme } from '../theme/ThemeContext';
-import { CircularProgressBar } from './progressBar/CircularProgressBar';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { StyleSheet, View, SafeAreaView, Text, TouchableOpacity } from 'react-native';
+import { useTheme } from '../../theme/ThemeContext';
+import { CircularProgressBar } from '../progressBar/CircularProgressBar';
 
 export const StatisticsPopUp = ({ selectedRoundData, setModalVisible }) => {
   const { colors } = useTheme();
 
   return (
-    <View style={styles.container(colors.popupBackground)}>
+    <SafeAreaView style={styles.container(colors.popupBackground)}>
       <Text style={styles.title(colors.textPrimary)}>
         {selectedRoundData.title}
       </Text>
@@ -35,7 +34,7 @@ export const StatisticsPopUp = ({ selectedRoundData, setModalVisible }) => {
       <TouchableOpacity style={styles.button(colors.backButton)} onPress={() => setModalVisible(false)} >
         <Text style={styles.buttonText(colors.textPrimary)}>Back</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   )
 }
 

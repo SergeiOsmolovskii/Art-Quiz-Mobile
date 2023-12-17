@@ -6,8 +6,8 @@ import { BASIC_IMAGE_URL, TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING, C
 import { useSelector, useDispatch } from 'react-redux';
 import { setQuestionAnswers, setQuestionNumber } from '../store/roundSlice';
 import Modal from 'react-native-modal';
-import { AnswerPopUp } from './AnswerPopUp';
-import { CongratulationPopUp } from './CongratulationPopUp';
+import { AnswerPopUp } from './popUp/AnswerPopUp';
+import { CongratulationPopUp } from './popUp/CongratulationPopUp';
 import { setInitialState, setCategoryName, setIsCorrectEnd } from '../store/roundSlice';
 import { useTheme } from '../theme/ThemeContext';
 import { useNavigation } from '@react-navigation/native';

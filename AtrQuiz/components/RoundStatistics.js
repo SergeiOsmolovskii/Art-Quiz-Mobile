@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, SafeAreaView, useWindowDimensions } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useTheme } from '../theme/ThemeContext';
 import { RoundStatisticItem } from './RoundStatisticItem';
 import { TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING } from '../utils/variables';
 import Modal from 'react-native-modal';
-import { StatisticsPopUp } from './StatisticsPopUp';
+import { StatisticsPopUp } from './popUp/StatisticsPopUp';
+
 
 export const RoundStatistics = ({ route }) => {
+  
+  const { height } = useWindowDimensions();
   const { colors } = useTheme();
   const state = useSelector((state) => state.game.roundsData[route.params.categoryName].data);
 
@@ -44,6 +47,8 @@ export const RoundStatistics = ({ route }) => {
       </ScrollView>
       <Modal
         isVisible={isModalVisible}
+        statusBarTranslucent
+        deviceHeight={height + 50}
         backdropOpacity={0.8}
         animationIn="zoomInDown"
         animationOut="zoomOutUp"
@@ -53,7 +58,7 @@ export const RoundStatistics = ({ route }) => {
         backdropTransitionOutTiming={QUESTION_ANIMATION_TIMING}
         onBackdropPress={() => setModalVisible(false)}
       >
-        <StatisticsPopUp selectedRoundData={selectedRoundData} setModalVisible={setModalVisible}/>
+          <StatisticsPopUp selectedRoundData={selectedRoundData} setModalVisible={setModalVisible}/>
       </Modal>
     </>
   );

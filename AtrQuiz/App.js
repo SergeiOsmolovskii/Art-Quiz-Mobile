@@ -10,6 +10,8 @@ import { setRoundsData, setColorScheme, setVibration } from './store/gameSlice';
 import { ToastProvider } from 'react-native-toast-notifications'
 import { ThemeProvider } from './theme/ThemeContext';
 import { setInitialDataToAsyncStorage } from './utils/helpers';
+import { SafeAreaView } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -54,12 +56,15 @@ export default function App() {
   return isLoading ? (
     <SplashScreen />
   ) : (
+    <SafeAreaView style={{ flex: 1 }}>
       <ThemeProvider>
         <ToastProvider>
           <NavigationContainer>
+            <StatusBar hidden={false} translucent />
             <MainNavigation />
           </NavigationContainer>
         </ToastProvider>
       </ThemeProvider>
+    </SafeAreaView>
   );
 }

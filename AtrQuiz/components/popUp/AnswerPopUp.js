@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
-import { BASIC_IMAGE_URL } from '../utils/variables';
-import { useTheme } from '../theme/ThemeContext';
+import { BASIC_IMAGE_URL } from '../../utils/variables';
+import { useTheme } from '../../theme/ThemeContext';
 
 export const AnswerPopUp = ({ questionData, nextQuestion }) => {
   const { colors } = useTheme();

@@ -8,8 +8,8 @@ import { setInitialState, setCategoryName } from '../store/roundSlice';
 import { PICTURES_ROUNDS, TOTAL_QUESTIONS_IN_ROUND, TOTAL_QUESTION_BUTTONS, QUESTION_ANIMATION_TIMING, CORRECT_ANSWER_VIBRATION_PATTERN, INCORRECT_ANSWER_VIBRATION_PATTERN } from '../utils/variables';
 import { DotIndicators } from './DotIndicators';
 import { AnswerImageButtons } from './AnswerImageButtons';
-import { AnswerPopUp } from './AnswerPopUp';
-import { CongratulationPopUp } from './CongratulationPopUp';
+import { AnswerPopUp } from './popUp/AnswerPopUp';
+import { CongratulationPopUp } from './popUp/CongratulationPopUp';
 import { useTheme } from '../theme/ThemeContext';
 
 export const PicturesRound = () => {
