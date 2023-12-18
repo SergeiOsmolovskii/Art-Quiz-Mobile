@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, ScrollView, SafeAreaView, useWindowDimensions } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useTheme } from '../theme/ThemeContext';
@@ -9,7 +9,6 @@ import { StatisticsPopUp } from './popUp/StatisticsPopUp';
 
 
 export const RoundStatistics = ({ route }) => {
-  
   const { height } = useWindowDimensions();
   const { colors } = useTheme();
   const state = useSelector((state) => state.game.roundsData[route.params.categoryName].data);
@@ -58,7 +57,7 @@ export const RoundStatistics = ({ route }) => {
         backdropTransitionOutTiming={QUESTION_ANIMATION_TIMING}
         onBackdropPress={() => setModalVisible(false)}
       >
-          <StatisticsPopUp selectedRoundData={selectedRoundData} setModalVisible={setModalVisible}/>
+        <StatisticsPopUp selectedRoundData={selectedRoundData} setModalVisible={setModalVisible}/>
       </Modal>
     </>
   );

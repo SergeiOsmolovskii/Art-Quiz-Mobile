@@ -11,7 +11,7 @@ export const StatisticsPopUp = ({ selectedRoundData, setModalVisible }) => {
         {selectedRoundData.title}
       </Text>
       <View style={styles.progressBar}>
-        <CircularProgressBar progress={selectedRoundData.progress} radius={120} strokeWidth={30} fz={48} duration={1000} />
+        <CircularProgressBar progress={selectedRoundData.progress} radius={120} strokeWidth={30} fz={48} duration={1000}/>
       </View>
       {
         (selectedRoundData.attemptsToBestResult)

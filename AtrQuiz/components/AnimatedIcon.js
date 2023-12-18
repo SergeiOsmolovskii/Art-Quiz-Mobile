@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { StyleSheet, View, Animated } from 'react-native';
 import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -16,21 +16,32 @@ const calculatePosition = (index) => {
 
 
 export const AnimatedIcon = ({ index, iconsName }) => {
+  const opacity = useRef(new Animated.Value(0)).current;
   const { x, y } = calculatePosition(index);
 
+  useEffect(() => {
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: 500,
+      delay: index * 200,
+      useNativeDriver: false,
+    }).start();
+  }, [index, opacity]);
+
   return (
-    <View
+    <Animated.View
       style={[
         styles.iconContainer,
         {
           left: circleRadius - iconSize / 2,
           top: circleRadius - iconSize / 2,
           transform: [{ translateX: x }, { translateY: y }],
+          opacity: opacity
         },
       ]}
     >
       <Ionicons name={iconsName} size={iconSize} color={'yellow'}/>
-    </View>
+    </Animated.View>
   );
 };
 

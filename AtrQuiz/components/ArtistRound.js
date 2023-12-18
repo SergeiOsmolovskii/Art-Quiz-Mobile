@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, Image, Vibration } from 'react-native';
+import { StyleSheet, View, Text, Image, Vibration, useWindowDimensions } from 'react-native';
 import { DotIndicators } from './DotIndicators';
 import { AnswerButtons } from './AnswerButtons';
 import { BASIC_IMAGE_URL, TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING, CORRECT_ANSWER_VIBRATION_PATTERN, INCORRECT_ANSWER_VIBRATION_PATTERN } from '../utils/variables';
@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 export const ArtistRound = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
+  const { height } = useWindowDimensions();
   const dispatch = useDispatch();
   const questionNumber = useSelector((state) => state.round.questionNumber);
   const questionAnswers = useSelector((state) => state.round.questionAnswers);
@@ -79,6 +80,8 @@ export const ArtistRound = () => {
 
       <Modal
         isVisible={isRoundEnd}
+        statusBarTranslucent
+        deviceHeight={height + 50}
         backdropOpacity={0.8}
         animationIn="zoomInDown"
         animationOut="zoomOutUp"

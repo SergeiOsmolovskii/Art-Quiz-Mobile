@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, View, Text, Vibration } from 'react-native';
+import { StyleSheet, View, Text, Vibration, useWindowDimensions } from 'react-native';
 import Modal from 'react-native-modal';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,6 +15,7 @@ import { useTheme } from '../theme/ThemeContext';
 export const PicturesRound = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
+  const { height } = useWindowDimensions();
   const dispatch = useDispatch();
   const questionNumber = useSelector((state) => state.round.questionNumber);
   const questionAnswers = useSelector((state) => state.round.questionAnswers);
@@ -84,6 +85,8 @@ export const PicturesRound = () => {
 
         <Modal
           isVisible={isModalVisible}
+          statusBarTranslucent
+          deviceHeight={height + 50}
           backdropColor={isCorrect ? colors.correctAnswer : colors.incorrectAnswer}
           backdropOpacity={0.8}
           animationIn="zoomInDown"
@@ -100,6 +103,8 @@ export const PicturesRound = () => {
 
       <Modal
         isVisible={isRoundEnd}
+        statusBarTranslucent
+        deviceHeight={height + 50}
         backdropOpacity={0.8}
         animationIn="zoomInDown"
         animationOut="zoomOutUp"
