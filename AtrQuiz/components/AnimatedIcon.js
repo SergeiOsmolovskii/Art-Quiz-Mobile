@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { StyleSheet, Animated } from 'react-native';
 import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 import Ionicons from 'react-native-vector-icons/Ionicons';

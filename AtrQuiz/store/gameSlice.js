@@ -7,7 +7,7 @@ const initialState = {
     colorScheme: 'dark',
     vibration: true
   },
-}
+};
 
 const gameSlice = createSlice({
   name: 'game',
@@ -38,13 +38,13 @@ export const setTheme = (colorScheme) => {
   return (dispatch) => {
     dispatch(gameSlice.actions.setColorScheme(colorScheme));
   };
-}
+};
 
 export const setRoundsData = (roundType, data) => {
   return (dispatch) => {
     dispatch(gameSlice.actions.setRounds({ roundType, data }));
   };
-}
+};
 
 export default gameSlice.reducer;
 export const { setAttempts, setColorScheme, clearAll, setVibration } = gameSlice.actions;

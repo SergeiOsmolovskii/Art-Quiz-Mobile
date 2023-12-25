@@ -11,9 +11,8 @@ import { useTheme } from '../theme/ThemeContext';
 export const Round = ({ roundNumber, rating, prevRoundRating }) => {
 
   const navigation = useNavigation();
-
-  const { colors } = useTheme();
   const dispatch = useDispatch();
+  const { colors } = useTheme();
   const categoryName = useSelector((state) => state.round.categoryName);
 
   const handelSelectRound = async () => {

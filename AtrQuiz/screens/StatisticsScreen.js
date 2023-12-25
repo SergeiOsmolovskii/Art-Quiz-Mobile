@@ -1,9 +1,7 @@
-import React from 'react';
 import { StyleSheet, View, ImageBackground, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../theme/ThemeContext';
 import { BUTTONS_ARR } from '../utils/variables';
-import { useNavigation } from '@react-navigation/native';
-
 
 export const StatisticsScreen = () => {
   const { colors } = useTheme();
@@ -53,12 +51,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '40%',
     height: 125,
-    // marginHorizontal: 10,
   },
-  title: (color) => ({
-    padding: 10,
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: color,
-  }),
 });

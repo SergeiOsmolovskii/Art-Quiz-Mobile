@@ -1,7 +1,8 @@
 import 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { MainNavigation } from './Routers/MainNavigation';
 import { SplashScreen } from './screens/SplashScreen';
@@ -10,7 +11,6 @@ import { setRoundsData, setColorScheme, setVibration } from './store/gameSlice';
 import { ToastProvider } from 'react-native-toast-notifications'
 import { ThemeProvider } from './theme/ThemeContext';
 import { setInitialDataToAsyncStorage } from './utils/helpers';
-import { SafeAreaView } from 'react-native';
 
 export default function App() {
   const dispatch = useDispatch();

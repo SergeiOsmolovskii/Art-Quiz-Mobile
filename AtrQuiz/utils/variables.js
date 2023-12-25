@@ -15,16 +15,17 @@ export const QUESTIONS_GGOUPS = {
   Pictures: '1'
 };
 
-export const BUTTONS_ARR = [{
-  title: 'Artists',
-  subtitle: 'Guess the artist by the picture',
-  url: Asset.fromModule(require('./../assets/images/artist.jpg'))
-},
-{
-  title: 'Pictures',
-  subtitle: 'Guess the painting by the artist',
-  url: Asset.fromModule(require('./../assets/images/pictures.jpg'))
-},
+export const BUTTONS_ARR = [
+  {
+    title: 'Artists',
+    subtitle: 'Guess the artist by the picture',
+    url: Asset.fromModule(require('./../assets/images/artist.jpg'))
+  },
+  {
+    title: 'Pictures',
+    subtitle: 'Guess the painting by the artist',
+    url: Asset.fromModule(require('./../assets/images/pictures.jpg'))
+  }
 ];
 
 export const ABOUT_ROUNDS_DATA = [
@@ -36,7 +37,7 @@ export const ABOUT_ROUNDS_DATA = [
     roundName: 'Pictures round',
     roundDescription: `Welcome to the "Pictures" round! Here you will find a fascinating task - to guess which of the four paintings belongs to a certain artist. With each question, you are faced with four mysterious paintings, but only one of them is the creation of the chosen artist.`
   },
-]
+];
 
 export const GAMES_DATA = [
   {
@@ -53,4 +54,4 @@ export const GAMES_DATA = [
     url: Asset.fromModule(require('./../assets/images/pictures.jpg')),
     roundDescription: `Welcome to the "Pictures" round! Here you will find a fascinating task - to guess which of the four paintings belongs to a certain artist. With each question, you are faced with four mysterious paintings, but only one of them is the creation of the chosen artist.`
   },
-]
+];

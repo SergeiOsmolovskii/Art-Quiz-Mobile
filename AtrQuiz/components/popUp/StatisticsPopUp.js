@@ -1,36 +1,35 @@
 import { StyleSheet, View, SafeAreaView, Text, TouchableOpacity } from 'react-native';
-import { useTheme } from '../../theme/ThemeContext';
 import { CircularProgressBar } from '../progressBar/CircularProgressBar';
+import { useTheme } from '../../theme/ThemeContext';
 
 export const StatisticsPopUp = ({ selectedRoundData, setModalVisible }) => {
   const { colors } = useTheme();
 
   return (
     <SafeAreaView style={styles.container(colors.popupBackground)}>
-      <Text style={styles.title(colors.textPrimary)}>
-        {selectedRoundData.title}
-      </Text>
+      <Text style={styles.title(colors.textPrimary)}>{selectedRoundData.title}</Text>
       <View style={styles.progressBar}>
         <CircularProgressBar progress={selectedRoundData.progress} radius={120} strokeWidth={30} fz={48} duration={1000}/>
       </View>
       {
         (selectedRoundData.attemptsToBestResult)
-        ?
+          ?
           <View style={styles.rowContainer(colors.textPrimary)}>
             <Text style={styles.text(colors.textPrimary)}>Attempts to best result</Text>
             <Text style={styles.text(colors.textPrimary)}>{selectedRoundData.attemptsToBestResult}</Text>
           </View>
-        : null
+          : null
       }
       <View style={styles.rowContainer(colors.textPrimary)}>
-
         <Text style={styles.text(colors.textPrimary)}>Attempts</Text>
         <Text style={styles.text(colors.textPrimary)}>{selectedRoundData.attempts}</Text>
       </View>
+
       <View style={styles.rowContainer(colors.textPrimary)}>
         <Text style={styles.text(colors.textPrimary)}>Best time</Text>
         <Text style={styles.text(colors.textPrimary)}>{selectedRoundData.bestTime}</Text>
       </View>
+      
       <TouchableOpacity style={styles.button(colors.backButton)} onPress={() => setModalVisible(false)} >
         <Text style={styles.buttonText(colors.textPrimary)}>Back</Text>
       </TouchableOpacity>

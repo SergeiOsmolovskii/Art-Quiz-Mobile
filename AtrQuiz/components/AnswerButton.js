@@ -1,4 +1,3 @@
-import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 
@@ -16,7 +15,7 @@ export const AnswerButton = ({ item, handlePressButton }) => {
 };
 
 const styles = StyleSheet.create({
-  button: (backgroundColor, color) => ({
+  button: (backgroundColor) => ({
     alignItems: 'stretch',
     justifyContent: 'center',
     width: '45%',

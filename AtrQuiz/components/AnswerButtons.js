@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { currentShuffleQuestionAnswers } from '../utils/helpers';
 import { AnswerButton } from './AnswerButton';

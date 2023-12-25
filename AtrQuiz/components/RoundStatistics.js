@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, ScrollView, SafeAreaView, useWindowDimensions } from 'react-native';
+import { useState, useEffect } from 'react';
+import { StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
 import { useSelector } from 'react-redux';
-import { useTheme } from '../theme/ThemeContext';
-import { RoundStatisticItem } from './RoundStatisticItem';
-import { TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING } from '../utils/variables';
 import Modal from 'react-native-modal';
+import { TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING } from '../utils/variables';
+import { RoundStatisticItem } from './RoundStatisticItem';
 import { StatisticsPopUp } from './popUp/StatisticsPopUp';
+import { useTheme } from '../theme/ThemeContext';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -76,11 +76,5 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     backgroundColor,
-  }),
-  text: (textColor) => ({
-    marginHorizontal: 5,
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: textColor
   }),
 });

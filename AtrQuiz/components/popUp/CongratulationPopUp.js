@@ -1,29 +1,27 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { TOTAL_QUESTIONS_IN_ROUND, CIRCLE_STARS_RADIUS } from '../../utils/variables';
-import { AnimatedIcon } from '../AnimatedIcon';
 import { setRoundsData } from '../../store/gameSlice';
 import { setIsCorrectEnd } from '../../store/roundSlice';
+import { AnimatedIcon } from '../AnimatedIcon';
+import { TOTAL_QUESTIONS_IN_ROUND, CIRCLE_STARS_RADIUS } from '../../utils/variables';
 import { useTheme } from '../../theme/ThemeContext';
 
-
-export const CongratulationPopUp = ({questionAnswers, setIsRoundEnd}) => {
+export const CongratulationPopUp = ({ questionAnswers, setIsRoundEnd }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
 
   const categoryName = useSelector((state) => state.round.categoryName);
   const rounds = useSelector((state) => state.game.roundsData[categoryName].data);
   const roundNumber = useSelector((state) => state.round.roundNumber);
-  const correctAnswersCount = questionAnswers.reduce((accum, current) => current === true ? accum += 1 : accum, 0);
-
   const attempts = useSelector((state) => state.game.roundsData[categoryName].data[roundNumber].attempts);
   const isBestResult = useSelector((state) => state.game.roundsData[categoryName].data[roundNumber].attemptsToBestResult);
+  const correctAnswersCount = questionAnswers.reduce((accum, current) => current === true ? accum += 1 : accum, 0);
 
   const icons = Array.from({ length: TOTAL_QUESTIONS_IN_ROUND }).map((_, index) => {
     const iconName = index < correctAnswersCount ? 'star-sharp' : 'star-outline';
     return (
-      <AnimatedIcon key={index} index={index} iconsName={iconName}/>
+      <AnimatedIcon key={index} index={index} iconsName={iconName} />
     );
   });
 
@@ -78,9 +76,6 @@ const styles = StyleSheet.create({
     height: 2 * CIRCLE_STARS_RADIUS,
     position: 'relative',
     justifyContent: 'center'
-  },
-  iconContainer: {
-    position: 'absolute',
   },
   text: {
     textAlign: 'center',

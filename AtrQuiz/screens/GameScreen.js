@@ -16,13 +16,10 @@ export const GameScreen = () => {
 
   const { colors } = useTheme();
   const navigation = useNavigation();
-
   const route = useRoute();
   const dispatch = useDispatch();
   const roundNumber = useSelector((state) => state.round.roundNumber);
   const [isLoading, setIsLoading] = useState(true);
-  const imagesData = useSelector((state) => state.imagesData);
-
   const rounds = {
     'Artists': <ArtistRound />,
     'Pictures': <PicturesRound />,
@@ -32,7 +29,6 @@ export const GameScreen = () => {
   const RoundToRender = rounds[categoryName] || null;
 
   useEffect(() => {
-
     (async () => {
       try {
         const images = await AsyncStorage.getItem('imagesData');

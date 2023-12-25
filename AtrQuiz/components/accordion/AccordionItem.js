@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Animated } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   }, text: {
     textAlign: 'justify',
     fontSize: 18,
-  }, accordionContent: (backgroundColor, iconColor) => ({
+  }, accordionContent: (backgroundColor) => ({
     overflow: 'hidden',
     backgroundColor: backgroundColor,
   })

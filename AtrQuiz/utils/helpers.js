@@ -3,18 +3,18 @@ import { TOTAL_QUESTION_BUTTONS, GAME_ROUNDS, GAMES_DATA } from "./variables";
 
 export const getAllUniqueAuthors = (imagesData) => {
   return [...new Set(imagesData.map(item => item.author))];
-}
+};
 
 export const getAllUniqueAuthorsWithoutCorrect = (imagesData, correctAnswer) => {
-  const set = new Set(imagesData.map(item => item.author))
+  const set = new Set(imagesData.map(item => item.author));
   set.delete(correctAnswer);
   return [...set];
-}
+};
 
 export const getAllUniqueImagesWithoutCorrect = (imagesData, correctAnswer) => {
   const set = new Set(imagesData.filter(item => item.author != correctAnswer.author));
   return [...set];
-}
+};
 
 export const currentShuffleQuestionAnswers = (imagesData, correctAnswer) => {
   const unicAnswers = getAllUniqueAuthorsWithoutCorrect(imagesData, correctAnswer);
@@ -27,7 +27,7 @@ export const currentShuffleQuestionAnswers = (imagesData, correctAnswer) => {
   }
   shuffle(answers);
   return answers;
-}
+};
 
 export const currentShuffleQuestionImagesAnswers = (imagesData, correctAnswer) => {
   const unicAnswers = getAllUniqueImagesWithoutCorrect(imagesData, correctAnswer);
@@ -41,18 +41,18 @@ export const currentShuffleQuestionImagesAnswers = (imagesData, correctAnswer) =
 
   shuffle(answers);
   return answers;
-}
+};
 
 const shuffle = (arr) => {
   for (let i = arr.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-}
+};
 
 export const checkIsCorrectAnswer = (currentAnswer, correctAnswer) => {
   return currentAnswer === correctAnswer ? true : false;
-}
+};
 
 export const initialRoundsData =  () => {
   const round = {
@@ -67,7 +67,7 @@ export const initialRoundsData =  () => {
   const roundsData = {};
   GAMES_DATA.forEach(game => roundsData[game.title] = { ...round, ...game });
   return roundsData;
-}
+};
 
 export const setInitialDataToAsyncStorage = async (colorScheme) => {
   const data = {
@@ -79,7 +79,7 @@ export const setInitialDataToAsyncStorage = async (colorScheme) => {
   };
   await AsyncStorage.setItem('storage', JSON.stringify(data));
   return data;
-}
+};
 
 export const rgbaToHex = (rgbaString) => {
   const values = rgbaString.match(/\d+/g);
@@ -90,4 +90,4 @@ export const rgbaToHex = (rgbaString) => {
 
   const [r, g, b] = values.map(val => parseInt(val).toString(16).padStart(2, '0'));
   return `#${r}${g}${b}`;
-}
+};

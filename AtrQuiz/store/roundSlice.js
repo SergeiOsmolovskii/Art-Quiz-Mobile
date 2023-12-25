@@ -6,7 +6,7 @@ const initialState = {
   questionNumber: null,
   questionAnswers: Array(10).fill(null),
   isCorrectEnd: false
-}
+};
 
 const roundSlice = createSlice({
   name: 'round',

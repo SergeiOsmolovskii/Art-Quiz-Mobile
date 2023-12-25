@@ -1,9 +1,7 @@
 import { TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
 import { BASIC_IMAGE_URL } from '../utils/variables';
-import { useTheme } from '../theme/ThemeContext';
 
 export const AnswerImageButton = ({ item, handlePressImageButton, onImageLoad }) => {
-  const { colors } = useTheme();
 
   return (
     <TouchableOpacity

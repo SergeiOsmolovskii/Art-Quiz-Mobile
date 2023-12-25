@@ -10,7 +10,7 @@ export const SelectRoundButton = ({ title, subtitle, imageURL, navigation }) => 
   const handleNavigate = () => {
     dispatch(setCategoryName(title));
     navigation.navigate(title);
-  }
+  };
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => handleNavigate()}>

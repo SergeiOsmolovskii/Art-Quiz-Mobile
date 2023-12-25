@@ -139,9 +139,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontStyle: 'italic',
     color: color
-  }),
-  image: {
-    width: '100%',
-    height: '50%',
-  }
+  })
 });
