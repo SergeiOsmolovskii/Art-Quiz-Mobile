@@ -5,8 +5,6 @@ import { AnswerButton } from './AnswerButton';
 
 export const AnswerButtons = ({ questionData, imagesData, handlePressButton }) => {
   const answers = useMemo(() => currentShuffleQuestionAnswers(imagesData, questionData.author), [imagesData, questionData.author]);
-  
-    // console.log(answers)
 
     return (
       <View style={styles.container}>

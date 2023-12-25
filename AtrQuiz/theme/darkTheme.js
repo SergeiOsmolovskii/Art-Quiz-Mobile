@@ -4,6 +4,7 @@ export const darkThemeStyles = {
   navigationIconsActive: '#FF7400',
   navigationIconsInactive: '#626262',
   background: '#3B3C3D',
+  splashScreenBackground: '#3B3C3D',
   borderColor: '#C9D6DF',
   textPrimary: '#F7EEDD',
   textSecondary: '#9E9E9E',
@@ -13,6 +14,7 @@ export const darkThemeStyles = {
   roundButton: '#FF7400',
   answerButton: '#FF7400',
   nextButton: '#FF7400',
+  backButton: '#FF7400',
   disabledButton: '#626262',
   correctAnswer: '#2E8B57',
   incorrectAnswer: '#c21d03',
@@ -22,5 +24,6 @@ export const darkThemeStyles = {
   switchEnable: '#2E8B57',
   switchDisable: '#808080',
   accordionHeader: '#F7EEDD',
-  accordionIcon: '#FF7400'
+  accordionIcon: '#FF7400',
+  progressBarBackground: '#3B3C3D'
 };

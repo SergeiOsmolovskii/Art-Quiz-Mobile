@@ -48,7 +48,7 @@ export const SettingsScreen = () => {
         },
         {
           text: 'Ok',
-          onPress:  async () => {
+          onPress: async () => {
             await setInitialDataToAsyncStorage(theme);
             dispatch(clearAll(theme));
             setIsAlertVisible(false);
@@ -64,7 +64,7 @@ export const SettingsScreen = () => {
       ],
       { cancelable: false }
     );
-};
+  };
 
   return (
     <View style={styles.container(colors.background)}>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor,
-  }), switches : {
+  }), switches: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center'

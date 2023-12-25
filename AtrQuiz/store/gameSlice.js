@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ARTISTS_ROUNDS, PICTURES_ROUNDS } from "../utils/variables";
+import { initialRoundsData } from "../utils/helpers";
 
 const initialState = {
-  artistsRounds: Array.from({ length: ARTISTS_ROUNDS }, () => null),
-  picturesRounds: Array.from({ length: PICTURES_ROUNDS }, () => null),
+  roundsData: initialRoundsData(),
   settings: {
-    colorScheme: 'light',
+    colorScheme: 'dark',
     vibration: true
   },
 }
@@ -14,18 +13,19 @@ const gameSlice = createSlice({
   name: 'game',
   initialState: initialState,
   reducers: {
-    setArtistsRounds(state, action) {
-      state.artistsRounds = action.payload;
+    setRounds(state, action) {
+      const { roundType, data } = action.payload;
+      state.roundsData[roundType] = data;
     },
-    setPicturesRounds(state, action) {
-      state.picturesRounds = action.payload;
+    setAttempts(state, action) {
+      const { roundType, roundNumber } = action.payload;
+      state.roundsData[roundType].data[roundNumber].attempts += 1;
     },
     setColorScheme(state, action) {
       state.settings.colorScheme = action.payload;
     },
     clearAll(state, action) {
-      state.artistsRounds = initialState.artistsRounds;
-      state.picturesRounds = initialState.picturesRounds;
+      state.roundsData = initialRoundsData();
       state.settings.colorScheme = action.payload;
     },
     setVibration(state, action) {
@@ -40,5 +40,11 @@ export const setTheme = (colorScheme) => {
   };
 }
 
+export const setRoundsData = (roundType, data) => {
+  return (dispatch) => {
+    dispatch(gameSlice.actions.setRounds({ roundType, data }));
+  };
+}
+
 export default gameSlice.reducer;
-export const { setArtistsRounds, setPicturesRounds, setColorScheme, clearAll, setVibration } = gameSlice.actions;
+export const { setAttempts, setColorScheme, clearAll, setVibration } = gameSlice.actions;

@@ -1,20 +1,21 @@
-import { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, Image, Vibration } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, View, Text, Image, Vibration, useWindowDimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import Modal from 'react-native-modal';
+import { BASIC_IMAGE_URL, TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING, CORRECT_ANSWER_VIBRATION_PATTERN, INCORRECT_ANSWER_VIBRATION_PATTERN } from '../utils/variables';
+import { setQuestionAnswers, setQuestionNumber } from '../store/roundSlice';
+import { setInitialState, setCategoryName } from '../store/roundSlice';
+import { CongratulationPopUp } from './popUp/CongratulationPopUp';
+import { AnswerPopUp } from './popUp/AnswerPopUp';
+import { useTheme } from '../theme/ThemeContext';
 import { DotIndicators } from './DotIndicators';
 import { AnswerButtons } from './AnswerButtons';
-import { BASIC_IMAGE_URL, TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING, CORRECT_ANSWER_VIBRATION_PATTERN, INCORRECT_ANSWER_VIBRATION_PATTERN } from '../utils/variables';
-import { useSelector, useDispatch } from 'react-redux';
-import { setQuestionAnswers, setQuestionNumber } from '../store/roundSlice';
-import Modal from 'react-native-modal';
-import { AnswerPopUp } from './AnswerPopUp';
-import { CongratulationPopUp } from './CongratulationPopUp';
-import { setInitialState, setCategoryName, setIsCorrectEnd } from '../store/roundSlice';
-import { useTheme } from '../theme/ThemeContext';
-import { useNavigation } from '@react-navigation/native';
 
 export const ArtistRound = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
+  const { height } = useWindowDimensions();
   const dispatch = useDispatch();
   const questionNumber = useSelector((state) => state.round.questionNumber);
   const questionAnswers = useSelector((state) => state.round.questionAnswers);
@@ -63,6 +64,8 @@ export const ArtistRound = () => {
 
         <Modal
           isVisible={isModalVisible}
+          statusBarTranslucent
+          deviceHeight={height + 50}
           backdropColor={isCorrect ? colors.correctAnswer : colors.incorrectAnswer}
           backdropOpacity={0.8}
           animationIn="zoomInDown"
@@ -79,6 +82,8 @@ export const ArtistRound = () => {
 
       <Modal
         isVisible={isRoundEnd}
+        statusBarTranslucent
+        deviceHeight={height + 50}
         backdropOpacity={0.8}
         animationIn="zoomInDown"
         animationOut="zoomOutUp"

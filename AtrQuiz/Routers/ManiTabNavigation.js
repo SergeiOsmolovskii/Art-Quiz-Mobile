@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SettingsScreen } from './../screens/SettingsScreen';
 import { AboutScreen } from './../screens/AboutScreen';
-import { StatisticsScreen } from './../screens/StatisticsScreen';
 import { StyleSheet, Image } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { HomeScreen } from '../screens/HomeScreen';
+import { StatisticsStackNavigation } from './StatisticsStackNavigation';
 
 const Tab = createBottomTabNavigator();
 
@@ -61,7 +61,7 @@ export const MainTabNavigation = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Stats" component={StatisticsScreen} />
+      <Tab.Screen name="Stats" component={StatisticsStackNavigation}  options={{ headerShown: false }}/>
       <Tab.Screen name="Settings" component={SettingsScreen} />
       <Tab.Screen name="About" component={AboutScreen} />
     </Tab.Navigator>

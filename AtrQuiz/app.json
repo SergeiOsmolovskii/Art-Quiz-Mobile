@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "AtrQuiz",
+    "name": "ArtQuiz",
     "slug": "AtrQuiz",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anarxist277.ArtQuiz"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "04fde4b0-5e0b-4640-8b26-73c1f851ceed"
+      }
     }
   }
 }

@@ -1,20 +1,64 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, ImageBackground, TouchableOpacity } from 'react-native';
+import { useTheme } from '../theme/ThemeContext';
+import { BUTTONS_ARR } from '../utils/variables';
+import { useNavigation } from '@react-navigation/native';
+
 
 export const StatisticsScreen = () => {
+  const { colors } = useTheme();
+  const navigation = useNavigation();
+
+  const goToStatistics = (categoryName) => {
+    navigation.navigate('Stat', { categoryName: categoryName });
+  }
 
   return (
-    <View style={styles.container}>
-      <Text>Statistics screen</Text>
+    <View style={styles.container(colors.background)}>
+      <View style={styles.rowContainer}>
+        {BUTTONS_ARR.map((item) => (
+          <TouchableOpacity style={styles.button} key={item.title} onPress={() => goToStatistics(item.title)}>
+            <ImageBackground
+              source={item.url}
+              style={styles.image}
+              resizeMode='cover'
+            />
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: (backgroundColor) => ({
+    flex: 1,
     width: '100%',
-    padding: 30,
+    paddingVertical: 30,
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    backgroundColor,
+  }),
+  image: {
+    height: '100%',
+    width: '100%'
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    gap: 30
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '40%',
+    height: 125,
+    // marginHorizontal: 10,
+  },
+  title: (color) => ({
+    padding: 10,
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: color,
+  }),
 });
