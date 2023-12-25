@@ -4,7 +4,7 @@ import { initialRoundsData } from "../utils/helpers";
 const initialState = {
   roundsData: initialRoundsData(),
   settings: {
-    colorScheme: 'light',
+    colorScheme: 'dark',
     vibration: true
   },
 }
@@ -20,7 +20,6 @@ const gameSlice = createSlice({
     setAttempts(state, action) {
       const { roundType, roundNumber } = action.payload;
       state.roundsData[roundType].data[roundNumber].attempts += 1;
-      console.log(state.roundsData[roundType].data[roundNumber].attempts)
     },
     setColorScheme(state, action) {
       state.settings.colorScheme = action.payload;

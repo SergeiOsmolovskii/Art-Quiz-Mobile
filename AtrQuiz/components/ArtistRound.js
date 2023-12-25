@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, View, Text, Image, Vibration, useWindowDimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import Modal from 'react-native-modal';
+import { BASIC_IMAGE_URL, TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING, CORRECT_ANSWER_VIBRATION_PATTERN, INCORRECT_ANSWER_VIBRATION_PATTERN } from '../utils/variables';
+import { setQuestionAnswers, setQuestionNumber } from '../store/roundSlice';
+import { setInitialState, setCategoryName } from '../store/roundSlice';
+import { CongratulationPopUp } from './popUp/CongratulationPopUp';
+import { AnswerPopUp } from './popUp/AnswerPopUp';
+import { useTheme } from '../theme/ThemeContext';
 import { DotIndicators } from './DotIndicators';
 import { AnswerButtons } from './AnswerButtons';
-import { BASIC_IMAGE_URL, TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING, CORRECT_ANSWER_VIBRATION_PATTERN, INCORRECT_ANSWER_VIBRATION_PATTERN } from '../utils/variables';
-import { useSelector, useDispatch } from 'react-redux';
-import { setQuestionAnswers, setQuestionNumber } from '../store/roundSlice';
-import Modal from 'react-native-modal';
-import { AnswerPopUp } from './popUp/AnswerPopUp';
-import { CongratulationPopUp } from './popUp/CongratulationPopUp';
-import { setInitialState, setCategoryName, setIsCorrectEnd } from '../store/roundSlice';
-import { useTheme } from '../theme/ThemeContext';
-import { useNavigation } from '@react-navigation/native';
 
 export const ArtistRound = () => {
   const navigation = useNavigation();
@@ -64,6 +64,8 @@ export const ArtistRound = () => {
 
         <Modal
           isVisible={isModalVisible}
+          statusBarTranslucent
+          deviceHeight={height + 50}
           backdropColor={isCorrect ? colors.correctAnswer : colors.incorrectAnswer}
           backdropOpacity={0.8}
           animationIn="zoomInDown"

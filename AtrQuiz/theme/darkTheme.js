@@ -4,6 +4,7 @@ export const darkThemeStyles = {
   navigationIconsActive: '#FF7400',
   navigationIconsInactive: '#626262',
   background: '#3B3C3D',
+  splashScreenBackground: '#3B3C3D',
   borderColor: '#C9D6DF',
   textPrimary: '#F7EEDD',
   textSecondary: '#9E9E9E',

@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SettingsScreen } from './../screens/SettingsScreen';
 import { AboutScreen } from './../screens/AboutScreen';
-import { StatisticsScreen } from './../screens/StatisticsScreen';
 import { StyleSheet, Image } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 import Ionicons from 'react-native-vector-icons/Ionicons';

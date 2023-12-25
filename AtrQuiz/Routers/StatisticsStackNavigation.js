@@ -12,7 +12,7 @@ export const StatisticsStackNavigation = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="Statistic"
+      initialRouteName="Statistics"
       screenOptions={{
         headerStyle: {
           backgroundColor: colors.headerBackground,
@@ -33,8 +33,8 @@ export const StatisticsStackNavigation = () => {
         headerTintColor: colors.textPrimary
       }}
       >
-      <Stack.Screen name="Statistic" component={StatisticsScreen} />
-      <Stack.Screen name="ArtistStat" component={RoundStatistics} />
+      <Stack.Screen name="Statistics" component={StatisticsScreen} />
+      <Stack.Screen name="Stat" component={RoundStatistics} />
     </Stack.Navigator>
   )
 }

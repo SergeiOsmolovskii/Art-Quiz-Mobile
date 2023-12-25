@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ImageBackground, TouchableOpacity } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { BUTTONS_ARR } from '../utils/variables';
 import { useNavigation } from '@react-navigation/native';
@@ -9,11 +9,9 @@ export const StatisticsScreen = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
 
-
   const goToStatistics = (categoryName) => {
-    navigation.navigate('ArtistStat', { categoryName: categoryName });
+    navigation.navigate('Stat', { categoryName: categoryName });
   }
-
 
   return (
     <View style={styles.container(colors.background)}>
@@ -24,9 +22,7 @@ export const StatisticsScreen = () => {
               source={item.url}
               style={styles.image}
               resizeMode='cover'
-            >
-              {/* <Text style={styles.title(colors.mainButtonTextPrimary)}>{item.title}</Text> */}
-            </ImageBackground>
+            />
           </TouchableOpacity>
         ))}
       </View>

@@ -7,6 +7,7 @@ import { TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING } from '../utils/va
 import Modal from 'react-native-modal';
 import { StatisticsPopUp } from './popUp/StatisticsPopUp';
 
+import { useNavigation } from '@react-navigation/native';
 
 export const RoundStatistics = ({ route }) => {
   const { height } = useWindowDimensions();
@@ -15,6 +16,13 @@ export const RoundStatistics = ({ route }) => {
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedRoundData, setSelectedRoundData] = useState(null);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: `${route.params.categoryName} stats`,
+    });
+  }, []);
 
   const preparedData = state?.map((item, index) => {
     return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { StyleSheet, View, Animated } from 'react-native';
+import { StyleSheet, Animated } from 'react-native';
 import { TOTAL_QUESTIONS_IN_ROUND } from '../utils/variables';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -13,7 +13,6 @@ const calculatePosition = (index) => {
   const y = circleRadius * Math.sin(radians);
   return { x, y };
 };
-
 
 export const AnimatedIcon = ({ index, iconsName }) => {
   const opacity = useRef(new Animated.Value(0)).current;
@@ -46,18 +45,7 @@ export const AnimatedIcon = ({ index, iconsName }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    height: '50%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'pink',
-  },
   iconContainer: {
     position: 'absolute',
-  },
-  text: {
-    textAlign: 'center',
-    fontSize: 36,
   },
 });

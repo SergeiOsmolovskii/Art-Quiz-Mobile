@@ -4,6 +4,7 @@ export const lightThemeStyles = {
   navigationIconsActive: '#71C4EF',
   navigationIconsInactive: '#626262',
   background: '#E9F6EE',
+  splashScreenBackground: '#E9F6EE',
   borderColor: '#000000',
   textPrimary: '#000000',
   textSecondary: '#626262',

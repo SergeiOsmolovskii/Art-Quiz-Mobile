@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TOTAL_QUESTION_BUTTONS, ARTISTS_ROUNDS, PICTURES_ROUNDS, GAMES_DATA } from "./variables";
+import { TOTAL_QUESTION_BUTTONS, GAME_ROUNDS, GAMES_DATA } from "./variables";
 
 export const getAllUniqueAuthors = (imagesData) => {
   return [...new Set(imagesData.map(item => item.author))];
@@ -50,30 +50,13 @@ const shuffle = (arr) => {
   }
 }
 
-// export const setInitialDataToAsyncStorage = async (colorScheme) => {
-//   const artistsRounds = Array.from({ length: ARTISTS_ROUNDS }, () => null);
-//   const picturesRounds = Array.from({ length: PICTURES_ROUNDS }, () => null);
-
-//   const data = {
-//     artistsRounds: artistsRounds,
-//     picturesRounds: picturesRounds,
-//     settings: {
-//       colorScheme: colorScheme,
-//       vibration: true
-//     },
-//   };
-
-//   await AsyncStorage.setItem('storage', JSON.stringify(data));
-//   return data;
-// }
-
 export const checkIsCorrectAnswer = (currentAnswer, correctAnswer) => {
   return currentAnswer === correctAnswer ? true : false;
 }
 
 export const initialRoundsData =  () => {
   const round = {
-    data: Array.from({ length: ARTISTS_ROUNDS }, () => ({
+    data: Array.from({ length: GAME_ROUNDS }, () => ({
       answers: null,
       attempts: 0,
       attemptsToBestResult: null,
@@ -82,7 +65,6 @@ export const initialRoundsData =  () => {
   };
 
   const roundsData = {};
-
   GAMES_DATA.forEach(game => roundsData[game.title] = { ...round, ...game });
   return roundsData;
 }
@@ -97,4 +79,15 @@ export const setInitialDataToAsyncStorage = async (colorScheme) => {
   };
   await AsyncStorage.setItem('storage', JSON.stringify(data));
   return data;
+}
+
+export const rgbaToHex = (rgbaString) => {
+  const values = rgbaString.match(/\d+/g);
+
+  if (!values || values.length < 3) {
+    return null;
+  }
+
+  const [r, g, b] = values.map(val => parseInt(val).toString(16).padStart(2, '0'));
+  return `#${r}${g}${b}`;
 }

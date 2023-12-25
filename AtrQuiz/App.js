@@ -11,7 +11,6 @@ import { ToastProvider } from 'react-native-toast-notifications'
 import { ThemeProvider } from './theme/ThemeContext';
 import { setInitialDataToAsyncStorage } from './utils/helpers';
 import { SafeAreaView } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -26,9 +25,10 @@ export default function App() {
       try {
         const storage = await AsyncStorage.getItem('storage');
         const images = await AsyncStorage.getItem('imagesData');
+        const defaultColorScheme = 'dark';
 
         if (!storage) {
-          const data = await setInitialDataToAsyncStorage();
+          const data = await setInitialDataToAsyncStorage(defaultColorScheme);
 
           Object.keys(data.roundsData).forEach((roundType) => {
             dispatch(setRoundsData(roundType, data.roundsData[roundType]));
@@ -53,18 +53,19 @@ export default function App() {
     })();
   }, []);
 
-  return isLoading ? (
-    <SplashScreen />
-  ) : (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ThemeProvider>
-        <ToastProvider>
-          <NavigationContainer>
-            <StatusBar hidden={false} translucent />
-            <MainNavigation />
-          </NavigationContainer>
-        </ToastProvider>
-      </ThemeProvider>
-    </SafeAreaView>
+  return (
+    <ThemeProvider>
+      {isLoading ? (
+        <SplashScreen />
+      ) : (
+        <SafeAreaView style={{ flex: 1 }}>
+          <ToastProvider>
+            <NavigationContainer>
+              <MainNavigation />
+            </NavigationContainer>
+          </ToastProvider>
+        </SafeAreaView>
+      )}
+    </ThemeProvider>
   );
 }
