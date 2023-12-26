@@ -55,7 +55,7 @@ export const RoundStatistics = ({ route }) => {
       <Modal
         isVisible={isModalVisible}
         statusBarTranslucent
-        deviceHeight={height + 50}
+        deviceHeight={height + 55}
         backdropOpacity={0.8}
         animationIn="zoomInDown"
         animationOut="zoomOutUp"

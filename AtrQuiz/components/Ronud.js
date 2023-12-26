@@ -70,17 +70,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-  }, title: (textColor) => ({
+  },
+  title: (textColor) => ({
     margin: 10,
     fontSize: 20,
     fontWeight: 'bold',
     color: textColor
-  }), text: (textColor) => ({
+  }),
+  text: (textColor) => ({
     marginHorizontal: 5,
     fontSize: 20,
     fontWeight: 'bold',
     color: textColor
-  }), icon: {
+  }),
+  icon: {
     marginHorizontal: 10
   }
 });

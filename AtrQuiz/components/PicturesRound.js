@@ -86,7 +86,7 @@ export const PicturesRound = () => {
         <Modal
           isVisible={isModalVisible}
           statusBarTranslucent
-          deviceHeight={height + 50}
+          deviceHeight={height + 55}
           backdropColor={isCorrect ? colors.correctAnswer : colors.incorrectAnswer}
           backdropOpacity={0.8}
           animationIn="zoomInDown"
@@ -104,7 +104,7 @@ export const PicturesRound = () => {
       <Modal
         isVisible={isRoundEnd}
         statusBarTranslucent
-        deviceHeight={height + 50}
+        deviceHeight={height + 55}
         backdropOpacity={0.8}
         animationIn="zoomInDown"
         animationOut="zoomOutUp"

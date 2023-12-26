@@ -12,7 +12,7 @@ export const RoundStatisticItem = ({ roundName, progress, handelSelectStatistics
     >
       <Text style={styles.title(colors.textPrimary)}>{roundName}</Text>
       <View style={styles.statisticContainer} >
-        <ProgressBar progress={progress} width={130} height={20} duration={1000} background={colors.progressBarBackground}/>
+        <ProgressBar progress={progress} width={120} height={20} duration={1000} background={colors.progressBarBackground}/>
         <Text style={styles.text(colors.textPrimary)}>{progress}%</Text>
       </View>
     </TouchableOpacity>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   title: (textColor) => ({
-    flex: 0.75,
+    flex: 0.9,
     margin: 10,
     fontSize: 20,
     fontWeight: 'bold',
