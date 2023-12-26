@@ -30,16 +30,19 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 20,
     backgroundColor: backgroundColor,
-  }), text: (color) => ({
+  }),
+  text: (color) => ({
     textAlign: 'justify',
     fontSize: 18,
     fontWeight: 'bold',
     color: color
-  }), textTitle: (color) => ({
+  }),
+  textTitle: (color) => ({
     fontSize: 26,
     fontWeight: 'bold',
     color: color
-  }), accordionContainer: {
+  }),
+  accordionContainer: {
     flex: 1,
     paddingVertical: 20,
   }

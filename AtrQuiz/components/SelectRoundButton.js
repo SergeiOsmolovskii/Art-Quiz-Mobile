@@ -30,15 +30,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginVertical: 15,
-  }, image: {
+  },
+  image: {
     height: 125,
-  }, title: (color) => ({
+  },
+  title: (color) => ({
     marginHorizontal: 10,
     marginVertical: 5,
     fontSize: 30,
     fontWeight: 'bold',
     color: color
-  }), subtitle: (color) => ({
+  }),
+  subtitle: (color) => ({
     maxWidth: '40%',
     marginHorizontal: 10,
     fontSize: 16,

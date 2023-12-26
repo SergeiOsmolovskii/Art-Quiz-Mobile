@@ -56,12 +56,15 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundColor,
     borderBottomWidth: 3,
     borderColor: iconColor,
-  }),title: {
+  }),
+  title: {
     fontSize: 20
-  }, text: {
+  },
+  text: {
     textAlign: 'justify',
     fontSize: 18,
-  }, accordionContent: (backgroundColor) => ({
+  },
+  accordionContent: (backgroundColor) => ({
     overflow: 'hidden',
     backgroundColor: backgroundColor,
   })

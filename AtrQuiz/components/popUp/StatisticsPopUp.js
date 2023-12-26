@@ -9,7 +9,7 @@ export const StatisticsPopUp = ({ selectedRoundData, setModalVisible }) => {
     <SafeAreaView style={styles.container(colors.popupBackground)}>
       <Text style={styles.title(colors.textPrimary)}>{selectedRoundData.title}</Text>
       <View style={styles.progressBar}>
-        <CircularProgressBar progress={selectedRoundData.progress} radius={120} strokeWidth={30} fz={48} duration={1000}/>
+        <CircularProgressBar progress={selectedRoundData.progress} radius={120} strokeWidth={30} fz={48} duration={1000} />
       </View>
       {
         (selectedRoundData.attemptsToBestResult)
@@ -29,7 +29,7 @@ export const StatisticsPopUp = ({ selectedRoundData, setModalVisible }) => {
         <Text style={styles.text(colors.textPrimary)}>Best time</Text>
         <Text style={styles.text(colors.textPrimary)}>{selectedRoundData.bestTime}</Text>
       </View>
-      
+
       <TouchableOpacity style={styles.button(colors.backButton)} onPress={() => setModalVisible(false)} >
         <Text style={styles.buttonText(colors.textPrimary)}>Back</Text>
       </TouchableOpacity>

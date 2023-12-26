@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
   container: {
     marginVertical: 20,
     marginHorizontal: 10,
-  }, list: {
+  },
+  list: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 5,

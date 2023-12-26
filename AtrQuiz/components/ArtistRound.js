@@ -107,13 +107,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-  }, text: (color) => ({
+  },
+  text: (color) => ({
     margin: 10,
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
     color: color
-  }), image: {
+  }),
+  image: {
     width: '100%',
     height: '50%',
   }

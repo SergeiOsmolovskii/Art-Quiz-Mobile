@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     padding: 10,
     backgroundColor: backgroundColor,
-  }), buttonText: (color) => ({
+  }),
+  buttonText: (color) => ({
     textAlign: 'center',
     textTransform: 'none',
     fontWeight: 'bold',

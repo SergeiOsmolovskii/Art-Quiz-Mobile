@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignContent: 'center',
     justifyContent: 'space-between',
-  }, hidden : {
+  },
+  hidden : {
     opacity: 0
   }
 });

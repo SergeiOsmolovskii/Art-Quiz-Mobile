@@ -70,18 +70,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: backgroundColor,
-  }),
-  circle: {
+  }), circle: {
     width: 2 * CIRCLE_STARS_RADIUS,
     height: 2 * CIRCLE_STARS_RADIUS,
     position: 'relative',
     justifyContent: 'center'
-  },
-  text: {
+  }, text: {
     textAlign: 'center',
     fontSize: 36,
-  },
-  button: (backgroundColor) => ({
+  }, button: (backgroundColor) => ({
     width: '100%',
     justifyContent: 'center',
     backgroundColor: backgroundColor,

@@ -13,7 +13,7 @@ export const RoundStatisticItem = ({ roundName, progress, handelSelectStatistics
       <Text style={styles.title(colors.textPrimary)}>{roundName}</Text>
       <View style={styles.statisticContainer} >
         <ProgressBar progress={progress} width={130} height={20} duration={1000} background={colors.progressBarBackground}/>
-        <Text style={styles.title(colors.textPrimary)}>{progress}%</Text>
+        <Text style={styles.text(colors.textPrimary)}>{progress}%</Text>
       </View>
     </TouchableOpacity>
   );
@@ -21,7 +21,7 @@ export const RoundStatisticItem = ({ roundName, progress, handelSelectStatistics
 
 const styles = StyleSheet.create({
   button: (backgroundColor, borderColor) => ({
-    flex:1,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 56,
@@ -38,18 +38,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-  }, title: (textColor) => ({
+  },
+  title: (textColor) => ({
+    flex: 0.75,
     margin: 10,
     fontSize: 20,
     fontWeight: 'bold',
     color: textColor
-  }), text: (textColor) => ({
-    marginHorizontal: 5,
+  }),
+  text: (textColor) => ({
+    margin: 10,
     fontSize: 20,
     fontWeight: 'bold',
-    color: textColor
-  }), icon: {
-    marginHorizontal: 10
-  }
+    color: textColor,
+  }),
 });

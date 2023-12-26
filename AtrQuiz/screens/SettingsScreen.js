@@ -114,23 +114,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor,
-  }), switches: {
+  }),
+  switches: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center'
-  }, switchContainer: {
+  },
+  switchContainer: {
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 10
-  }, text: (color) => ({
+  },
+  text: (color) => ({
     marginVertical: 10,
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
     color: color,
-  }), button: (backgroundColor) => ({
+  }),
+  button: (backgroundColor) => ({
     alignItems: 'stretch',
     justifyContent: 'center',
     width: '45%',
@@ -138,7 +142,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     padding: 10,
     backgroundColor: backgroundColor,
-  }), buttonText: (color) => ({
+  }),
+  buttonText: (color) => ({
     textAlign: 'center',
     textTransform: 'none',
     fontWeight: 'bold',
