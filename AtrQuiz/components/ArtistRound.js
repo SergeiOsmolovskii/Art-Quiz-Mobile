@@ -11,6 +11,7 @@ import { AnswerPopUp } from './popUp/AnswerPopUp';
 import { useTheme } from '../theme/ThemeContext';
 import { DotIndicators } from './DotIndicators';
 import { AnswerButtons } from './AnswerButtons';
+import { ArtistsRoundSkeleton } from './skeletons/ArtistsRoundSkeleton';
 
 export const ArtistRound = () => {
   const navigation = useNavigation();
@@ -26,6 +27,7 @@ export const ArtistRound = () => {
   const [questionData, setQuestionData] = useState(imagesData[(roundNumber * TOTAL_QUESTIONS_IN_ROUND) + questionNumber - 1]);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isHideMainScreen, setIsHideMainScreen] = useState(false);
+  const [isImagesVisible, setIsImagesVisible] = useState(false);
   const [isRoundEnd, setIsRoundEnd] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
 
@@ -42,6 +44,7 @@ export const ArtistRound = () => {
   const nextQuestion = async () => {
     dispatch(setQuestionNumber());
     setModalVisible(false);
+    setIsImagesVisible(false);
     if (questionNumber === TOTAL_QUESTIONS_IN_ROUND) {
       setIsRoundEnd(true);
       setIsHideMainScreen(true);
@@ -50,7 +53,10 @@ export const ArtistRound = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ opacity: isHideMainScreen ? 0 : 1 }}>
+
+      {!isImagesVisible && !isHideMainScreen ? <ArtistsRoundSkeleton/> : null}
+
+      <View style={{ opacity: isImagesVisible && !isHideMainScreen ? 1 : 0 }}>
         <Text style={styles.text(colors.textPrimary)}>{questionNumber} / {TOTAL_QUESTIONS_IN_ROUND} </Text>
         <Text style={styles.text(colors.textPrimary)}>Who is the author of this picture?</Text>
         <Image
@@ -58,27 +64,28 @@ export const ArtistRound = () => {
           source={{ uri: `${BASIC_IMAGE_URL}${questionData.imageNum}.jpg` }}
           resizeMode='contain'
           accessible={true}
+          onLoad={() => setIsImagesVisible(true)}
         />
         <DotIndicators questionAnswers={questionAnswers} />
         <AnswerButtons imagesData={imagesData} questionData={questionData} handlePressButton={handlePressButton} />
-
-        <Modal
-          isVisible={isModalVisible}
-          statusBarTranslucent
-          deviceHeight={height + 55}
-          backdropColor={isCorrect ? colors.correctAnswer : colors.incorrectAnswer}
-          backdropOpacity={0.8}
-          animationIn="zoomInDown"
-          animationOut="zoomOutUp"
-          animationInTiming={QUESTION_ANIMATION_TIMING}
-          animationOutTiming={QUESTION_ANIMATION_TIMING}
-          backdropTransition={QUESTION_ANIMATION_TIMING}
-          backdropTransitionOutTiming={QUESTION_ANIMATION_TIMING}
-          onModalHide={() => setQuestionData(imagesData[(roundNumber * TOTAL_QUESTIONS_IN_ROUND) + questionNumber])}
-        >
-          <AnswerPopUp questionData={questionData} nextQuestion={nextQuestion} />
-        </Modal>
       </View>
+
+      <Modal
+        isVisible={isModalVisible}
+        statusBarTranslucent
+        deviceHeight={height + 55}
+        backdropColor={isCorrect ? colors.correctAnswer : colors.incorrectAnswer}
+        backdropOpacity={0.8}
+        animationIn="zoomInDown"
+        animationOut="zoomOutUp"
+        animationInTiming={QUESTION_ANIMATION_TIMING}
+        animationOutTiming={QUESTION_ANIMATION_TIMING}
+        backdropTransition={QUESTION_ANIMATION_TIMING}
+        backdropTransitionOutTiming={QUESTION_ANIMATION_TIMING}
+        onModalHide={() => setQuestionData(imagesData[(roundNumber * TOTAL_QUESTIONS_IN_ROUND) + questionNumber])}
+      >
+        <AnswerPopUp questionData={questionData} nextQuestion={nextQuestion} />
+      </Modal>
 
       <Modal
         isVisible={isRoundEnd}

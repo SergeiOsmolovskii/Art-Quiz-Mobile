@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Vibration, useWindowDimensions } from 'react-native';
 import Modal from 'react-native-modal';
 import { useNavigation } from '@react-navigation/native';
@@ -11,6 +11,7 @@ import { AnswerImageButtons } from './AnswerImageButtons';
 import { AnswerPopUp } from './popUp/AnswerPopUp';
 import { CongratulationPopUp } from './popUp/CongratulationPopUp';
 import { useTheme } from '../theme/ThemeContext';
+import { PicturesRoundSkeleton } from './skeletons/PicturesRoundSkeleton';
 
 export const PicturesRound = () => {
   const navigation = useNavigation();
@@ -65,7 +66,9 @@ export const PicturesRound = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ opacity: isHideMainScreen ? 0 : 1 }}>
+      {!areImagesVisible && !isHideMainScreen ? <PicturesRoundSkeleton/> : null}
+
+      <View style={{ opacity: areImagesVisible && !isHideMainScreen ? 1 : 0 }}>
         <Text style={styles.text(colors.textPrimary)}>{questionNumber} / {TOTAL_QUESTIONS_IN_ROUND} </Text>
         <Text style={styles.text(colors.textPrimary)}>
           Which of these pictures did
@@ -82,6 +85,7 @@ export const PicturesRound = () => {
           areImagesVisible={areImagesVisible}
           onImageLoad={onImageLoad}
         />
+      </View>
 
         <Modal
           isVisible={isModalVisible}
@@ -99,7 +103,7 @@ export const PicturesRound = () => {
         >
           <AnswerPopUp questionData={questionData} nextQuestion={nextQuestion} />
         </Modal>
-      </View>
+      
 
       <Modal
         isVisible={isRoundEnd}

@@ -25,5 +25,6 @@ export const darkThemeStyles = {
   switchDisable: '#808080',
   accordionHeader: '#F7EEDD',
   accordionIcon: '#FF7400',
-  progressBarBackground: '#3B3C3D'
+  progressBarBackground: '#3B3C3D',
+  skeletonBackground: '#637C8A'
 };
