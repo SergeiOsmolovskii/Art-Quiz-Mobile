@@ -7,10 +7,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { MainNavigation } from './Routers/MainNavigation';
 import { SplashScreen } from './screens/SplashScreen';
 import imagesData from './data/data.json'
-import { setRoundsData, setColorScheme, setVibration } from './store/gameSlice';
+import { setRoundsData, setColorScheme, setVibration, setLocalization } from './store/gameSlice';
 import { ToastProvider } from 'react-native-toast-notifications'
 import { ThemeProvider } from './theme/ThemeContext';
 import { setInitialDataToAsyncStorage } from './utils/helpers';
+import i18n from './i18n';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -26,22 +27,28 @@ export default function App() {
         const storage = await AsyncStorage.getItem('storage');
         const images = await AsyncStorage.getItem('imagesData');
         const defaultColorScheme = 'dark';
+        const defaultLocalization = 'en';
 
         if (!storage) {
-          const data = await setInitialDataToAsyncStorage(defaultColorScheme);
+          const data = await setInitialDataToAsyncStorage(defaultColorScheme, defaultLocalization);
 
           Object.keys(data.roundsData).forEach((roundType) => {
             dispatch(setRoundsData(roundType, data.roundsData[roundType]));
           });
+
           dispatch(setColorScheme(data.settings.colorScheme));
           dispatch(setVibration(data.settings.vibration));
+          dispatch(setLocalization(data.settings.localization));
         } else {
           const storedData = JSON.parse(storage);
+
           Object.keys(storedData.roundsData).forEach((roundType) => {
             dispatch(setRoundsData(roundType, storedData.roundsData[roundType]));
           });
           dispatch(setColorScheme(storedData.settings.colorScheme));
           dispatch(setVibration(storedData.settings.vibration));
+          dispatch(setLocalization(storedData.settings.localization));
+          i18n.changeLanguage(storedData.settings.localization);
         }
 
         if (!images) {

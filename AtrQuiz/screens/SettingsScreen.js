@@ -1,22 +1,42 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, View, Text, TouchableOpacity, Alert, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearAll, setVibration } from '../store/gameSlice';
+import { clearAll, setVibration, setLocalization } from '../store/gameSlice';
 import { useTheme } from '../theme/ThemeContext';
 import { CustomSwitch } from '../components/CustomSwitch';
 import { setInitialDataToAsyncStorage } from '../utils/helpers';
 import { useToast } from "react-native-toast-notifications";
+import DropDownPicker from 'react-native-dropdown-picker';
+import { setLocalizationToAsyncStorage } from '../utils/helpers';
 
-export const SettingsScreen = () => {
+export const SettingsScreen = ({ t, i18n }) => {
   const { colors, toggleTheme } = useTheme();
+  const navigation = useNavigation();
   const toast = useToast();
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.game.settings.colorScheme);
   const vibration = useSelector((state) => state.game.settings.vibration);
+  const localization = useSelector((state) => state.game.settings.localization);
 
   const [isDarkModeOn, setIsDarkModeOn] = useState(theme === 'dark' ? true : false);
   const [isVibrationOn, setIsVibbrationOn] = useState(vibration);
   const [isAlertVisible, setIsAlertVisible] = useState(false);
+
+  const [dropDownOpen, setDropDownOpen] = useState(false);
+  const [localizationValue, setLocalizationValue] = useState(localization);
+  const [langs, setLangs] = useState([
+    {
+      label: 'En',
+      value: 'en',
+      icon: () => <Image source={require('../assets/icons/en.png')} style={{ width: 50, height: 30 }} />
+    },
+    {
+      label: 'Ru',
+      value: 'ru',
+      icon: () => <Image source={require('../assets/icons/ru.png')} style={{ width: 50, height: 30 }} />
+    }
+  ]);
 
   const handleSwitchDarkMode = () => {
     setIsDarkModeOn(!isDarkModeOn);
@@ -28,6 +48,13 @@ export const SettingsScreen = () => {
     dispatch(setVibration(!isVibrationOn));
   };
 
+  const handleSwitchLocalization = async (localization) => {
+    dispatch(setLocalization(localization));
+    i18n.changeLanguage(localization);
+    await setLocalizationToAsyncStorage(localization);
+    navigation.setOptions({title: t('tabs.settings')})
+  };
+
   useEffect(() => {
     if (isAlertVisible) {
       confirmAlert();
@@ -36,23 +63,23 @@ export const SettingsScreen = () => {
 
   const confirmAlert = () => {
     Alert.alert(
-      'Confirm deletion of data',
-      'Are you sure? All your progress will be deleted!',
+      t('settings.confirmAlert_one'),
+      t('settings.confirmAlert_two'),
       [
         {
-          text: 'Cancel',
+          text: t('settings.confirmAlertCancel'),
           onPress: () => {
             setIsAlertVisible(false);
           },
           style: 'cancel',
         },
         {
-          text: 'Ok',
+          text: t('settings.confirmAlertOk'),
           onPress: async () => {
             await setInitialDataToAsyncStorage(theme);
             dispatch(clearAll(theme));
             setIsAlertVisible(false);
-            toast.show('All your progress successfully deleted!', {
+            toast.show(t('settings.confirmAlert_success'), {
               type: 'success',
               placement: 'bottom',
               duration: 4000,
@@ -71,7 +98,7 @@ export const SettingsScreen = () => {
       <View style={styles.switches}>
 
         <View style={styles.switchContainer}>
-          <Text style={styles.text(colors.textPrimary)}>Dark mode</Text>
+          <Text style={styles.text(colors.textPrimary)}>{t('settings.darkMode')}</Text>
           <CustomSwitch
             value={isDarkModeOn}
             borderColor={colors.switchBorderColor}
@@ -83,7 +110,7 @@ export const SettingsScreen = () => {
         </View>
 
         <View style={styles.switchContainer}>
-          <Text style={styles.text(colors.textPrimary)}>Vibration</Text>
+          <Text style={styles.text(colors.textPrimary)}>{t('settings.vibration')}</Text>
           <CustomSwitch
             value={isVibrationOn}
             borderColor={colors.switchBorderColor}
@@ -93,13 +120,32 @@ export const SettingsScreen = () => {
             onToggle={handleSwitchVibration}
           />
         </View>
+
+        <View>
+          <DropDownPicker
+            style={styles.dropDown(colors.background, colors.dropDownBorderColor)}
+            dropDownContainerStyle={styles.dropDown(colors.background, colors.dropDownBorderColor)}
+            listItemLabelStyle={styles.dropDownLabel(colors.textPrimary)}
+            selectedItemContainerStyle={styles.dropDownLabel(colors.textPrimary)}
+            selectedItemLabelStyle={styles.dropDownLabel(colors.textPrimary)}
+            labelStyle={styles.dropDownLabel(colors.textPrimary)}
+            tickIconStyle={styles.tickIconStyle}
+            open={dropDownOpen}
+            value={localizationValue}
+            items={langs}
+            setOpen={setDropDownOpen}
+            setValue={setLocalizationValue}
+            setItems={setLangs}
+            onChangeValue={handleSwitchLocalization}
+          />
+        </View>
       </View>
 
       <TouchableOpacity
         style={styles.button(colors.answerButton)}
         onPress={() => setIsAlertVisible(true)}
       >
-        <Text style={styles.buttonText(colors.textPrimary)}> Clear result </Text>
+        <Text style={styles.buttonText(colors.textPrimary)}>{t('settings.clearResult')}</Text>
       </TouchableOpacity>
 
     </View>
@@ -126,6 +172,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 10
+  },
+  dropDown: (backgroundColor, borderColor) => ({
+    backgroundColor: backgroundColor,
+    borderWidth: 3,
+    borderColor: borderColor,
+  }),
+  dropDownContainerStyle: (backgroundColor, borderColor) => ({
+    backgroundColor: backgroundColor,
+    borderWidth: 3,
+    borderColor: borderColor,
+  }),
+  dropDownLabel: (labelColor) => ({
+    color: labelColor,
+    fontWeight: 'bold',
+    fontSize: 20
+  }),
+  tickIconStyle: {
+    width: 30,
+    height: 30,
+    tintColor: 'green'
   },
   text: (color) => ({
     marginVertical: 10,

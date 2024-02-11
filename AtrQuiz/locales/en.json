@@ -1,0 +1,25 @@
+{
+  "tabs": {
+    "home": "Home",
+    "stats": "Stats",
+    "settings": "Settings",
+    "about": "About"
+  },
+  "stats": {
+    "darkMode": "Statistics"
+  },
+  "settings": {
+    "darkMode": "Dark mode",
+    "vibration": "Vibration",
+    "clearResult": "Clear result",
+    "confirmAlert_one": "Confirm deletion of data",
+    "confirmAlert_two": "Are you sure? All your progress will be deleted!",
+    "confirmAlert_success": "All your progress successfully deleted!",
+    "confirmAlertOk": "Ok",
+    "confirmAlertCancel": "Cancel"
+  },
+  "about": {
+    "description": "Welcome to the «Art Quiz» — an exciting journey into the world of fine art! This quiz provides the opportunity to enjoy the magic of artistic creativity during exciting rounds. You have to unravel the secrets of the mastery of great artists. Prepare for an inspiring exploration experience that will expose you to the many facets of artistic expression.",
+    "rounds": "Rounds"
+  }
+}

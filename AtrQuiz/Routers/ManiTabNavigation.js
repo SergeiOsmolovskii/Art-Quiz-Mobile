@@ -6,11 +6,14 @@ import { useTheme } from '../theme/ThemeContext';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { HomeScreen } from '../screens/HomeScreen';
 import { StatisticsStackNavigation } from './StatisticsStackNavigation';
-
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { withTranslation } from '../HOC/withTranslation';
 const Tab = createBottomTabNavigator();
 
-export const MainTabNavigation = () => {
+export const MainTabNavigation = ({ t }) => {
   const { colors } = useTheme();
+  const localization = useSelector((state) => state.game.settings.localization);
 
   return (
     <Tab.Navigator
@@ -60,10 +63,18 @@ export const MainTabNavigation = () => {
         tabBarActiveTintColor: colors.navigationIconsActive,
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Stats" component={StatisticsStackNavigation}  options={{ headerShown: false }}/>
-      <Tab.Screen name="Settings" component={SettingsScreen} />
-      <Tab.Screen name="About" component={AboutScreen} />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: t('tabs.home')}}
+      />
+      <Tab.Screen
+        name="Stats"
+        component={StatisticsStackNavigation}
+        options={{ headerShown: false, title: t('tabs.stats') }}
+      />
+      <Tab.Screen name="Settings" component={withTranslation(SettingsScreen)} options={{ title: t('tabs.settings')}}/>
+      <Tab.Screen name="About" component={withTranslation(AboutScreen)} options={{ title: t('tabs.about')}}/>
     </Tab.Navigator>
   )
 }

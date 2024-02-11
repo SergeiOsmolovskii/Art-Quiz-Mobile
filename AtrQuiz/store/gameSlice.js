@@ -5,7 +5,8 @@ const initialState = {
   roundsData: initialRoundsData(),
   settings: {
     colorScheme: 'dark',
-    vibration: true
+    vibration: true,
+    localization: 'en'
   },
 };
 
@@ -30,7 +31,10 @@ const gameSlice = createSlice({
     },
     setVibration(state, action) {
       state.settings.vibration = action.payload;
-    }
+    },
+    setLocalization(state, action) {
+      state.settings.localization = action.payload;
+    },
   },
 });
 
@@ -47,4 +51,4 @@ export const setRoundsData = (roundType, data) => {
 };
 
 export default gameSlice.reducer;
-export const { setAttempts, setColorScheme, clearAll, setVibration } = gameSlice.actions;
+export const { setAttempts, setColorScheme, clearAll, setVibration, setLocalization } = gameSlice.actions;

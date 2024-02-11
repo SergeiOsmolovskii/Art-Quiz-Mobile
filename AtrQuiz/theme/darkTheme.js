@@ -26,5 +26,6 @@ export const darkThemeStyles = {
   accordionHeader: '#F7EEDD',
   accordionIcon: '#FF7400',
   progressBarBackground: '#3B3C3D',
-  skeletonBackground: '#637C8A'
+  skeletonBackground: '#637C8A',
+  dropDownBorderColor: '#626262',
 };

@@ -2,21 +2,18 @@ import React from 'react';
 import { StyleSheet, ScrollView, View, Text } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { Accordions } from '../components/accordion/Accordion';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
-export const AboutScreen = () => {
+export const AboutScreen = ({ t }) => {
   const { colors } = useTheme();
 
   return (
     <View style={styles.container(colors.background)}>
       <View>
-        <Text style={styles.text(colors.textPrimary)} >
-          Welcome to the "Art Quiz" - an exciting journey into the world of fine art!
-          This quiz provides the opportunity to enjoy the magic of artistic creativity during exciting rounds.
-          You have to unravel the secrets of the mastery of great artists.
-          Prepare for an inspiring exploration experience that will expose you to the many facets of artistic expression.
-        </Text>
+        <Text style={styles.text(colors.textPrimary)}> {t('about.description')}</Text>
       </View>
-      <Text style={styles.textTitle(colors.textPrimary)}>Rounds</Text>
+      <Text style={styles.textTitle(colors.textPrimary)}>{t('about.rounds')}</Text>
       <ScrollView style={styles.accordionContainer}>
         <Accordions />
       </ScrollView>

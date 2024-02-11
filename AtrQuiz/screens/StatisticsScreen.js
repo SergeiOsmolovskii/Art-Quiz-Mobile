@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../theme/ThemeContext';
 import { BUTTONS_ARR } from '../utils/variables';
 
-export const StatisticsScreen = () => {
+export const StatisticsScreen = ({ t }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
 

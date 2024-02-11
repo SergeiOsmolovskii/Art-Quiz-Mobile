@@ -4,6 +4,7 @@ import { useTheme } from '../theme/ThemeContext';
 import { MainTabNavigation } from './ManiTabNavigation';
 import { RoundsScreen } from '../screens/RoundsScreen';
 import { GameScreen } from '../screens/GameScreen';
+import { withTranslation } from '../HOC/withTranslation';
 
 const Stack = createStackNavigator();
 
@@ -33,7 +34,7 @@ export const MainNavigation = () => {
         headerTintColor: colors.textPrimary
       }}
     >
-      <Stack.Screen name="Main" component={MainTabNavigation} options={{ headerShown: false }} />
+      <Stack.Screen name="Main" component={withTranslation(MainTabNavigation)} options={{ headerShown: false }} />
       <Stack.Screen name="Artists" component={RoundsScreen} />
       <Stack.Screen name="Pictures" component={RoundsScreen} />
       <Stack.Screen name="Game" component={GameScreen} />

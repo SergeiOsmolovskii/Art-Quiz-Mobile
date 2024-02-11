@@ -69,17 +69,25 @@ export const initialRoundsData =  () => {
   return roundsData;
 };
 
-export const setInitialDataToAsyncStorage = async (colorScheme) => {
+export const setInitialDataToAsyncStorage = async (colorScheme, localization) => {
   const data = {
     roundsData: initialRoundsData(),
     settings: {
       colorScheme: colorScheme,
-      vibration: true
+      vibration: true,
+      localization: localization
     },
   };
   await AsyncStorage.setItem('storage', JSON.stringify(data));
   return data;
 };
+
+export const setLocalizationToAsyncStorage = async (localization) => {
+  const storage = await AsyncStorage.getItem('storage');
+  const data = JSON.parse(storage);
+  data.settings.localization = localization;
+  AsyncStorage.setItem('storage', JSON.stringify(data));
+}
 
 export const rgbaToHex = (rgbaString) => {
   const values = rgbaString.match(/\d+/g);

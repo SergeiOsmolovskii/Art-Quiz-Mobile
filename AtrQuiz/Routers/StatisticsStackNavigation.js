@@ -4,11 +4,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme } from '../theme/ThemeContext';
 import { StatisticsScreen } from '../screens/StatisticsScreen';
 import { RoundStatistics } from '../components/RoundStatistics';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 const Stack = createStackNavigator();
 
 export const StatisticsStackNavigation = () => {
   const { colors } = useTheme();
+  const { t } = useTranslation();
+  const localization = useSelector((state) => state.game.settings.localization);
 
   return (
     <Stack.Navigator
@@ -33,8 +37,8 @@ export const StatisticsStackNavigation = () => {
         headerTintColor: colors.textPrimary
       }}
       >
-      <Stack.Screen name="Statistics" component={StatisticsScreen} />
-      <Stack.Screen name="Stat" component={RoundStatistics} />
+      <Stack.Screen name="Statistics" component={StatisticsScreen} options={{ title: t('tabs.stats')}}/>
+      <Stack.Screen name="Stat" component={RoundStatistics}/>
     </Stack.Navigator>
   )
 }
