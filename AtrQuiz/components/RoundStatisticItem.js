@@ -4,7 +4,6 @@ import { ProgressBar } from './progressBar/ProgressBar';
 
 export const RoundStatisticItem = ({ roundName, progress, handelSelectStatistics }) => {
   const { colors } = useTheme();
-
   return (
     <TouchableOpacity
       style={styles.button(colors.roundButton, colors.borderColor)}

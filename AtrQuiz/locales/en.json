@@ -6,7 +6,18 @@
     "about": "About"
   },
   "stats": {
-    "darkMode": "Statistics"
+    "statistics": "statistics",
+    "round": "round"
+  },
+  "statsPopUp": {
+    "attempts": "Attempts",
+    "attemptsToBestResult": "Attempts to best result",
+    "bestTime": "Best time",
+    "notSupported": "Not supported yet",
+    "back": "Back"
+  },
+  "answerPopUp": {
+    "next": "Next"
   },
   "settings": {
     "darkMode": "Dark mode",
@@ -21,5 +32,25 @@
   "about": {
     "description": "Welcome to the «Art Quiz» — an exciting journey into the world of fine art! This quiz provides the opportunity to enjoy the magic of artistic creativity during exciting rounds. You have to unravel the secrets of the mastery of great artists. Prepare for an inspiring exploration experience that will expose you to the many facets of artistic expression.",
     "rounds": "Rounds"
+  },
+  "game": {
+    "round": "round"
+  },
+  "artistsRound": {
+    "question": "Who is the author of this picture?"
+  },
+  "picturesRound": {
+    "questionFirstPart": "Which of these pictures did",
+    "questionSecondPart": "paint?"
+  },
+  "congratulations": {
+    "title": "Congratulations!",
+    "next": "Next"
+  },
+  "transferConfirmation": {
+    "title": "Transfer confirmation",
+    "description": "Are you sure you want to leave? All your progress will be lost!",
+    "stay": "Stay",
+    "leave": "Leave"
   }
 }

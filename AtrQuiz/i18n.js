@@ -7,7 +7,7 @@ i18n
   .use(initReactI18next)
   .init({
     compatibilityJSON: 'v3',
-    fallbackLng: 'ru',
+    fallbackLng: 'en',
     resources: {
       en: { translation: require('./locales/en.json') },
       ru: { translation: require('./locales/ru.json') },

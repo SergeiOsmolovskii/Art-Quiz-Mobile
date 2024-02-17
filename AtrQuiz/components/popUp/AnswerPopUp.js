@@ -1,9 +1,11 @@
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { BASIC_IMAGE_URL } from '../../utils/variables';
 import { useTheme } from '../../theme/ThemeContext';
+import { useTranslation } from 'react-i18next';
 
 export const AnswerPopUp = ({ questionData, nextQuestion }) => {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container(colors.popupBackground)}>
@@ -23,7 +25,7 @@ export const AnswerPopUp = ({ questionData, nextQuestion }) => {
       </View>
 
       <TouchableOpacity style={styles.button(colors.nextButton)} onPress={nextQuestion}>
-        <Text style={styles.buttonText(colors.textPrimary)}>Next</Text>
+        <Text style={styles.buttonText(colors.textPrimary)}>{t('answerPopUp.next')}</Text>
       </TouchableOpacity>
     </View>
   );

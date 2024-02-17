@@ -12,9 +12,11 @@ import { AnswerPopUp } from './popUp/AnswerPopUp';
 import { CongratulationPopUp } from './popUp/CongratulationPopUp';
 import { useTheme } from '../theme/ThemeContext';
 import { PicturesRoundSkeleton } from './skeletons/PicturesRoundSkeleton';
+import { useTranslation } from 'react-i18next';
 
 export const PicturesRound = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
   const { colors } = useTheme();
   const { height } = useWindowDimensions();
   const dispatch = useDispatch();
@@ -71,9 +73,9 @@ export const PicturesRound = () => {
       <View style={{ opacity: areImagesVisible && !isHideMainScreen ? 1 : 0 }}>
         <Text style={styles.text(colors.textPrimary)}>{questionNumber} / {TOTAL_QUESTIONS_IN_ROUND} </Text>
         <Text style={styles.text(colors.textPrimary)}>
-          Which of these pictures did
+          {t('picturesRound.questionFirstPart')}
           <Text style={styles.authorText(colors.highlightText)}> {questionData.author} </Text>
-          paint?
+          {t('picturesRound.questionSecondPart')}
         </Text>
 
         <DotIndicators questionAnswers={questionAnswers} />

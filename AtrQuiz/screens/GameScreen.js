@@ -12,7 +12,7 @@ import { useRoute } from '@react-navigation/native';
 
 
 
-export const GameScreen = () => {
+export const GameScreen = ({ t }) => {
 
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -26,6 +26,7 @@ export const GameScreen = () => {
   }
 
   const categoryName = route.params.categoryName;
+  const roundName = route.params.roundName;
   const RoundToRender = rounds[categoryName] || null;
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export const GameScreen = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: `${categoryName} round ${roundNumber + 1}`,
+      headerTitle: `${roundName} ${t('game.round')} ${roundNumber + 1}`,
     });
   }, []);
 

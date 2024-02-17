@@ -1,21 +1,23 @@
 import { StyleSheet, View, ImageBackground, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../theme/ThemeContext';
+import { useSelector } from 'react-redux';
 import { BUTTONS_ARR } from '../utils/variables';
 
 export const StatisticsScreen = ({ t }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
+  const localization = useSelector((state) => state.game.settings.localization);
 
-  const goToStatistics = (categoryName) => {
-    navigation.navigate('Stat', { categoryName: categoryName });
+  const goToStatistics = (categoryName, roundName) => {
+    navigation.navigate('Stat', { categoryName: categoryName, roundName: roundName });
   }
 
   return (
     <View style={styles.container(colors.background)}>
       <View style={styles.rowContainer}>
-        {BUTTONS_ARR.map((item) => (
-          <TouchableOpacity style={styles.button} key={item.title} onPress={() => goToStatistics(item.title)}>
+        {BUTTONS_ARR[localization].map((item) => (
+          <TouchableOpacity style={styles.button} key={item.title} onPress={() => goToStatistics(item.route, item.title)}>
             <ImageBackground
               source={item.url}
               style={styles.image}

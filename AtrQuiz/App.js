@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { MainNavigation } from './Routers/MainNavigation';
 import { SplashScreen } from './screens/SplashScreen';
-import imagesData from './data/data.json'
+import imagesData from './data/data_en.json';
 import { setRoundsData, setColorScheme, setVibration, setLocalization } from './store/gameSlice';
 import { ToastProvider } from 'react-native-toast-notifications'
 import { ThemeProvider } from './theme/ThemeContext';
@@ -22,6 +22,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+
     (async () => {
       try {
         const storage = await AsyncStorage.getItem('storage');
@@ -38,7 +39,7 @@ export default function App() {
 
           dispatch(setColorScheme(data.settings.colorScheme));
           dispatch(setVibration(data.settings.vibration));
-          dispatch(setLocalization(data.settings.localization));
+          dispatch(setLocalization(defaultLocalization));
         } else {
           const storedData = JSON.parse(storage);
 

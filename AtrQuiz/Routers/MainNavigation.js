@@ -35,9 +35,9 @@ export const MainNavigation = () => {
       }}
     >
       <Stack.Screen name="Main" component={withTranslation(MainTabNavigation)} options={{ headerShown: false }} />
-      <Stack.Screen name="Artists" component={RoundsScreen} />
-      <Stack.Screen name="Pictures" component={RoundsScreen} />
-      <Stack.Screen name="Game" component={GameScreen} />
+      <Stack.Screen name="Artists" component={withTranslation(RoundsScreen)} />
+      <Stack.Screen name="Pictures" component={withTranslation(RoundsScreen)} />
+      <Stack.Screen name="Game" component={withTranslation(GameScreen)} />
     </Stack.Navigator>
   )
 }

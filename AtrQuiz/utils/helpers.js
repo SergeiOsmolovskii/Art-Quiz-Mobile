@@ -65,7 +65,7 @@ export const initialRoundsData =  () => {
   };
 
   const roundsData = {};
-  GAMES_DATA.forEach(game => roundsData[game.title] = { ...round, ...game });
+  GAMES_DATA["en"].forEach(game => roundsData[game.title] = { ...round, ...game });
   return roundsData;
 };
 

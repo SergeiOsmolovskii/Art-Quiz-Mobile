@@ -3,9 +3,11 @@ import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setInitialState, setCategoryName } from '../store/roundSlice';
+import { useTranslation } from 'react-i18next';
 
 export const ConfirmNavigation = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const categoryName = useSelector((state) => state.round.categoryName);
   const isCorrectEnd = useSelector((state) => state.round.isCorrectEnd);
@@ -14,18 +16,18 @@ export const ConfirmNavigation = () => {
 
   const showAlert = () => {
       Alert.alert(
-        'Transfer confirmation',
-        'Are you sure you want to leave? All your progress will be lost!',
+        t('transferConfirmation.title'),
+        t('transferConfirmation.description'),
         [
           {
-            text: 'Stay',
+            text: t('transferConfirmation.stay'),
             onPress: () => {
               setIsAlertVisible(false);
             },
             style: 'cancel',
           },
           {
-            text: 'Leave',
+            text: t('transferConfirmation.leave'),
             onPress: () => {
               setIsAlertVisible(true);
               if (navigation.canGoBack()) {

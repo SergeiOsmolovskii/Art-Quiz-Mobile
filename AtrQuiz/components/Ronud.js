@@ -8,7 +8,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../theme/ThemeContext';
 
-export const Round = ({ roundNumber, rating, prevRoundRating }) => {
+export const Round = ({t, roundName, roundNumber, rating, prevRoundRating }) => {
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -23,8 +23,8 @@ export const Round = ({ roundNumber, rating, prevRoundRating }) => {
     const storedData = JSON.parse(storage);
     storedData.roundsData[categoryName].data[roundNumber].attempts += 1;
     AsyncStorage.setItem('storage', JSON.stringify(storedData));
-    navigation.navigate('Game', { categoryName: categoryName });
-  }
+    navigation.navigate('Game', { categoryName: categoryName, roundName: roundName });
+  };
 
   const StarIcon = () => {
     const iconName =
@@ -32,7 +32,7 @@ export const Round = ({ roundNumber, rating, prevRoundRating }) => {
         rating >= 5 ? 'star-half-sharp' :
           'star-outline';
     return <Ionicons style={styles.icon} name={iconName} size={30} color={'yellow'} />;
-  }
+  };
 
   return (
     <TouchableOpacity
@@ -40,7 +40,7 @@ export const Round = ({ roundNumber, rating, prevRoundRating }) => {
       style={[styles.button(colors.roundButton, colors.borderColor), (roundNumber > 0 && prevRoundRating < 6) && styles.disabledButton(colors.disabledButton)]}
       onPress={() => handelSelectRound()}
     >
-      <Text style={styles.title(colors.textPrimary)}>{categoryName} round {roundNumber + 1}</Text>
+      <Text style={styles.title(colors.textPrimary)}>{roundName} {t('stats.round')} {roundNumber + 1}</Text>
       <View style={styles.resultContainer} >
         <Text style={styles.text(colors.textPrimary)}>{rating}</Text>
         <Text style={styles.text(colors.textPrimary)}>/</Text>

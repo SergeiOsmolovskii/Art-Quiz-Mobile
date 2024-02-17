@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux';
 import { setCategoryName } from '../store/roundSlice';
 import { useTheme } from '../theme/ThemeContext';
 
-export const SelectRoundButton = ({ title, subtitle, imageURL, navigation }) => {
+export const SelectRoundButton = ({ title, subtitle, imageURL, route, navigation }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
 
   const handleNavigate = () => {
-    dispatch(setCategoryName(title));
-    navigation.navigate(title);
+    dispatch(setCategoryName(route));
+    navigation.navigate(route, { title: title });
   };
 
   return (

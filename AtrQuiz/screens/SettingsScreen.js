@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View, Text, TouchableOpacity, Alert, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearAll, setVibration, setLocalization } from '../store/gameSlice';
 import { useTheme } from '../theme/ThemeContext';
@@ -9,6 +10,8 @@ import { setInitialDataToAsyncStorage } from '../utils/helpers';
 import { useToast } from "react-native-toast-notifications";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { setLocalizationToAsyncStorage } from '../utils/helpers';
+import imagesData_en from '../data/data_en.json';
+import imagesData_ru from '../data/data_ru.json';
 
 export const SettingsScreen = ({ t, i18n }) => {
   const { colors, toggleTheme } = useTheme();
@@ -48,11 +51,30 @@ export const SettingsScreen = ({ t, i18n }) => {
     dispatch(setVibration(!isVibrationOn));
   };
 
+  const handleSetImagesData = async (localization) => {
+    let newData;
+
+    switch (localization) {
+      case 'en':
+        newData = imagesData_en;
+        break;
+      case 'ru':
+        newData = imagesData_ru;
+        break;
+      default:
+        newData = imagesData_en;
+    }
+
+    await AsyncStorage.setItem('imagesData', JSON.stringify(newData));
+  }
+
+
   const handleSwitchLocalization = async (localization) => {
     dispatch(setLocalization(localization));
     i18n.changeLanguage(localization);
     await setLocalizationToAsyncStorage(localization);
-    navigation.setOptions({title: t('tabs.settings')})
+    await handleSetImagesData(localization);
+    navigation.setOptions({title: t('tabs.settings')});
   };
 
   useEffect(() => {
@@ -76,7 +98,7 @@ export const SettingsScreen = ({ t, i18n }) => {
         {
           text: t('settings.confirmAlertOk'),
           onPress: async () => {
-            await setInitialDataToAsyncStorage(theme);
+            await setInitialDataToAsyncStorage(theme, localizationValue); // !!!!!!!
             dispatch(clearAll(theme));
             setIsAlertVisible(false);
             toast.show(t('settings.confirmAlert_success'), {

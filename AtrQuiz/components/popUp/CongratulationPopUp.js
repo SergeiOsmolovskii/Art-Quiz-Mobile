@@ -6,10 +6,12 @@ import { setIsCorrectEnd } from '../../store/roundSlice';
 import { AnimatedIcon } from '../AnimatedIcon';
 import { TOTAL_QUESTIONS_IN_ROUND, CIRCLE_STARS_RADIUS } from '../../utils/variables';
 import { useTheme } from '../../theme/ThemeContext';
+import { useTranslation } from 'react-i18next';
 
 export const CongratulationPopUp = ({ questionAnswers, setIsRoundEnd }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const categoryName = useSelector((state) => state.round.categoryName);
   const rounds = useSelector((state) => state.game.roundsData[categoryName].data);
@@ -51,13 +53,13 @@ export const CongratulationPopUp = ({ questionAnswers, setIsRoundEnd }) => {
 
   return (
     <View style={styles.container(colors.congratulationBackground)}>
-      <Text style={styles.text}>Congratulations!</Text>
+      <Text style={styles.text}>{t('congratulations.title')}</Text>
       <View style={styles.circle}>
         <Text style={styles.text}>{correctAnswersCount} / {TOTAL_QUESTIONS_IN_ROUND}</Text>
         {icons}
       </View>
       <TouchableOpacity style={styles.button(colors.nextButton)} onPress={endRound}>
-        <Text style={styles.text}>Next</Text>
+        <Text style={styles.text}>{t('congratulations.next')}</Text>
       </TouchableOpacity>
     </View>
   );

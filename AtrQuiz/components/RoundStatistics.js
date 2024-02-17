@@ -6,13 +6,21 @@ import { TOTAL_QUESTIONS_IN_ROUND, QUESTION_ANIMATION_TIMING } from '../utils/va
 import { RoundStatisticItem } from './RoundStatisticItem';
 import { StatisticsPopUp } from './popUp/StatisticsPopUp';
 import { useTheme } from '../theme/ThemeContext';
-
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 
-export const RoundStatistics = ({ route }) => {
+export const RoundStatistics = () => {
   const { height } = useWindowDimensions();
   const { colors } = useTheme();
-  const state = useSelector((state) => state.game.roundsData[route.params.categoryName].data);
+  const { t } = useTranslation();
+  const route = useRoute();
+
+  const categoryName = route.params.categoryName;
+  const roundName = route.params.roundName;
+
+  const state = useSelector((state) => state.game.roundsData[categoryName].data);
+  const localization = useSelector((state) => state.game.settings.localization);
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedRoundData, setSelectedRoundData] = useState(null);
@@ -20,7 +28,7 @@ export const RoundStatistics = ({ route }) => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: `${route.params.categoryName} stats`,
+      headerTitle: `${roundName} ${t('stats.statistics')}`,
     });
   }, []);
 
@@ -28,8 +36,8 @@ export const RoundStatistics = ({ route }) => {
     return (
       {
         index: index,
-        id: `${route.params.categoryName} ${index}`,
-        title: `${route.params.categoryName} round ${index + 1}`,
+        id: `${categoryName} ${index}`,
+        title: `${roundName} ${t('stats.round')} ${index + 1}`,
         progress: item.answers ? item.answers.reduce((accum, current) => current === true ? accum += 1 : accum, 0) * 100 / TOTAL_QUESTIONS_IN_ROUND : 0,
         attempts: item.attempts,
         attemptsToBestResult: item.attemptsToBestResult,

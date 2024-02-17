@@ -1,9 +1,11 @@
 import { StyleSheet, View, SafeAreaView, Text, TouchableOpacity } from 'react-native';
 import { CircularProgressBar } from '../progressBar/CircularProgressBar';
 import { useTheme } from '../../theme/ThemeContext';
+import { useTranslation } from 'react-i18next';
 
 export const StatisticsPopUp = ({ selectedRoundData, setModalVisible }) => {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <SafeAreaView style={styles.container(colors.popupBackground)}>
@@ -15,23 +17,23 @@ export const StatisticsPopUp = ({ selectedRoundData, setModalVisible }) => {
         (selectedRoundData.attemptsToBestResult)
           ?
           <View style={styles.rowContainer(colors.textPrimary)}>
-            <Text style={styles.text(colors.textPrimary)}>Attempts to best result</Text>
+            <Text style={styles.text(colors.textPrimary)}>{t('statsPopUp.attemptsToBestResult')}</Text>
             <Text style={styles.text(colors.textPrimary)}>{selectedRoundData.attemptsToBestResult}</Text>
           </View>
           : null
       }
       <View style={styles.rowContainer(colors.textPrimary)}>
-        <Text style={styles.text(colors.textPrimary)}>Attempts</Text>
+        <Text style={styles.text(colors.textPrimary)}>{t('statsPopUp.attempts')}</Text>
         <Text style={styles.text(colors.textPrimary)}>{selectedRoundData.attempts}</Text>
       </View>
 
-      <View style={styles.rowContainer(colors.textPrimary)}>
-        <Text style={styles.text(colors.textPrimary)}>Best time</Text>
+      {/* <View style={styles.rowContainer(colors.textPrimary)}>
+        <Text style={styles.text(colors.textPrimary)}>{t('statsPopUp.bestTime')}</Text>
         <Text style={styles.text(colors.textPrimary)}>{selectedRoundData.bestTime}</Text>
-      </View>
+      </View> */}
 
       <TouchableOpacity style={styles.button(colors.backButton)} onPress={() => setModalVisible(false)} >
-        <Text style={styles.buttonText(colors.textPrimary)}>Back</Text>
+        <Text style={styles.buttonText(colors.textPrimary)}>{t('statsPopUp.back')}</Text>
       </TouchableOpacity>
     </SafeAreaView>
   )

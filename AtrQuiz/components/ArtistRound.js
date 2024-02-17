@@ -12,9 +12,11 @@ import { useTheme } from '../theme/ThemeContext';
 import { DotIndicators } from './DotIndicators';
 import { AnswerButtons } from './AnswerButtons';
 import { ArtistsRoundSkeleton } from './skeletons/ArtistsRoundSkeleton';
+import { useTranslation } from 'react-i18next';
 
 export const ArtistRound = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
   const { colors } = useTheme();
   const { height } = useWindowDimensions();
   const dispatch = useDispatch();
@@ -58,7 +60,7 @@ export const ArtistRound = () => {
 
       <View style={{ opacity: isImagesVisible && !isHideMainScreen ? 1 : 0 }}>
         <Text style={styles.text(colors.textPrimary)}>{questionNumber} / {TOTAL_QUESTIONS_IN_ROUND} </Text>
-        <Text style={styles.text(colors.textPrimary)}>Who is the author of this picture?</Text>
+        <Text style={styles.text(colors.textPrimary)}>{t('artistsRound.question')}</Text>
         <Image
           style={styles.image}
           source={{ uri: `${BASIC_IMAGE_URL}${questionData.imageNum}.jpg` }}
