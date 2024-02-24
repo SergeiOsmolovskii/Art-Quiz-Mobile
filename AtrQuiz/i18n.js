@@ -11,6 +11,7 @@ i18n
     resources: {
       en: { translation: require('./locales/en.json') },
       ru: { translation: require('./locales/ru.json') },
+      ua: { translation: require('./locales/ua.json') },
     },
     // debug: true,
   });

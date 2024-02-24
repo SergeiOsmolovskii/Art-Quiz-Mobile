@@ -12,6 +12,8 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { setLocalizationToAsyncStorage } from '../utils/helpers';
 import imagesData_en from '../data/data_en.json';
 import imagesData_ru from '../data/data_ru.json';
+import imagesData_ua from '../data/data_ua.json';
+
 
 export const SettingsScreen = ({ t, i18n }) => {
   const { colors, toggleTheme } = useTheme();
@@ -38,6 +40,11 @@ export const SettingsScreen = ({ t, i18n }) => {
       label: 'Ru',
       value: 'ru',
       icon: () => <Image source={require('../assets/icons/ru.png')} style={{ width: 50, height: 30 }} />
+    },
+    {
+      label: 'Ua',
+      value: 'ua',
+      icon: () => <Image source={require('../assets/icons/ua.png')} style={{ width: 50, height: 30 }} />
     }
   ]);
 
@@ -60,6 +67,9 @@ export const SettingsScreen = ({ t, i18n }) => {
         break;
       case 'ru':
         newData = imagesData_ru;
+        break;
+      case 'ua':
+        newData = imagesData_ua;
         break;
       default:
         newData = imagesData_en;
