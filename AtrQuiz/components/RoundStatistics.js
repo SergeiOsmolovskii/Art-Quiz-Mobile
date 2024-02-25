@@ -37,7 +37,8 @@ export const RoundStatistics = () => {
       {
         index: index,
         id: `${categoryName} ${index}`,
-        title: `${roundName} ${t('stats.round')} ${index + 1}`,
+        roundName: roundName,
+        title: `${t('stats.round')} ${index + 1}`,
         progress: item.answers ? item.answers.reduce((accum, current) => current === true ? accum += 1 : accum, 0) * 100 / TOTAL_QUESTIONS_IN_ROUND : 0,
         attempts: item.attempts,
         attemptsToBestResult: item.attemptsToBestResult,

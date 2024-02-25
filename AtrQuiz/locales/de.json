@@ -1,0 +1,56 @@
+{
+  "tabs": {
+    "home": "Startseite",
+    "stats": "Statistiken",
+    "settings": "Einstellungen",
+    "about": "Über"
+  },
+  "stats": {
+    "statistics": "Statistiken",
+    "round": "Runde"
+  },
+  "statsPopUp": {
+    "attempts": "Versuche",
+    "attemptsToBestResult": "Versuche bis zum besten Ergebnis",
+    "bestTime": "Beste Zeit",
+    "notSupported": "Noch nicht unterstützt",
+    "back": "Zurück"
+  },
+  "answerPopUp": {
+    "next": "Weiter"
+  },
+  "settings": {
+    "darkMode": "Dunkler Modus",
+    "vibration": "Vibration",
+    "clearResult": "Ergebnis löschen",
+    "confirmAlert_one": "Löschung der Daten bestätigen",
+    "confirmAlert_two": "Sind Sie sicher? Ihr gesamter Fortschritt wird gelöscht!",
+    "confirmAlert_success": "Ihr gesamter Fortschritt wurde erfolgreich gelöscht!",
+    "confirmAlertOk": "Ok",
+    "confirmAlertCancel": "Abbrechen"
+  },
+  "about": {
+    "description": "Willkommen bei «Art Quiz» - einer aufregenden Reise in die Welt der bildenden Kunst! Dieses Quiz bietet die Möglichkeit, die Magie der künstlerischen Kreativität während spannender Runden zu genießen. Sie müssen die Geheimnisse der Meisterschaft großer Künstler enträtseln. Bereiten Sie sich auf eine inspirierende Erkundungserfahrung vor, die Sie den vielen Facetten des künstlerischen Ausdrucks aussetzen wird.",
+    "rounds": "Runden"
+  },
+  "game": {
+    "round": "Runde"
+  },
+  "artistsRound": {
+    "question": "Wer ist der Autor dieses bildes?"
+  },
+  "picturesRound": {
+    "questionFirstPart": "Welches dieser bilder hat",
+    "questionSecondPart": "gemalt?"
+  },
+  "congratulations": {
+    "title": "Glückwunsch!",
+    "next": "Weiter"
+  },
+  "transferConfirmation": {
+    "title": "Übertragungsbestätigung",
+    "description": "Sind Sie sicher, dass Sie gehen möchten? Ihr gesamter Fortschritt geht verloren!",
+    "stay": "Bleiben",
+    "leave": "Verlassen"
+  }
+}

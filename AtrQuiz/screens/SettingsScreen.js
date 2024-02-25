@@ -13,6 +13,7 @@ import { setLocalizationToAsyncStorage } from '../utils/helpers';
 import imagesData_en from '../data/data_en.json';
 import imagesData_ru from '../data/data_ru.json';
 import imagesData_ua from '../data/data_ua.json';
+import imagesData_de from '../data/data_de.json';
 
 
 export const SettingsScreen = ({ t, i18n }) => {
@@ -45,6 +46,11 @@ export const SettingsScreen = ({ t, i18n }) => {
       label: 'Ua',
       value: 'ua',
       icon: () => <Image source={require('../assets/icons/ua.png')} style={{ width: 50, height: 30 }} />
+    },
+    {
+      label: 'De',
+      value: 'de',
+      icon: () => <Image source={require('../assets/icons/de.png')} style={{ width: 50, height: 30 }} />
     }
   ]);
 
@@ -70,6 +76,9 @@ export const SettingsScreen = ({ t, i18n }) => {
         break;
       case 'ua':
         newData = imagesData_ua;
+        break;
+      case 'de':
+        newData = imagesData_de;
         break;
       default:
         newData = imagesData_en;
@@ -157,6 +166,7 @@ export const SettingsScreen = ({ t, i18n }) => {
           <DropDownPicker
             style={styles.dropDown(colors.background, colors.dropDownBorderColor)}
             dropDownContainerStyle={styles.dropDown(colors.background, colors.dropDownBorderColor)}
+            arrowIconStyle={{tintColor: colors.dropDownBorderColor}}
             listItemLabelStyle={styles.dropDownLabel(colors.textPrimary)}
             selectedItemContainerStyle={styles.dropDownLabel(colors.textPrimary)}
             selectedItemLabelStyle={styles.dropDownLabel(colors.textPrimary)}

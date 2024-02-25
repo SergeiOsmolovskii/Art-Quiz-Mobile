@@ -40,7 +40,7 @@ export const Round = ({t, roundName, roundNumber, rating, prevRoundRating }) => 
       style={[styles.button(colors.roundButton, colors.borderColor), (roundNumber > 0 && prevRoundRating < 6) && styles.disabledButton(colors.disabledButton)]}
       onPress={() => handelSelectRound()}
     >
-      <Text style={styles.title(colors.textPrimary)}>{roundName} {t('stats.round')} {roundNumber + 1}</Text>
+      <Text style={styles.title(colors.textPrimary)}>{/* {roundName} */} {t('stats.round')} {roundNumber + 1}</Text>
       <View style={styles.resultContainer} >
         <Text style={styles.text(colors.textPrimary)}>{rating}</Text>
         <Text style={styles.text(colors.textPrimary)}>/</Text>

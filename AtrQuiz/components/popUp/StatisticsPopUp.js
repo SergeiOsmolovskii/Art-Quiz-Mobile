@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 export const StatisticsPopUp = ({ selectedRoundData, setModalVisible }) => {
   const { colors } = useTheme();
   const { t } = useTranslation();
-
+  console.log(selectedRoundData)
   return (
     <SafeAreaView style={styles.container(colors.popupBackground)}>
-      <Text style={styles.title(colors.textPrimary)}>{selectedRoundData.title}</Text>
+      <Text style={styles.title(colors.textPrimary)}>{selectedRoundData.roundName} {selectedRoundData.title}</Text>
       <View style={styles.progressBar}>
         <CircularProgressBar progress={selectedRoundData.progress} radius={120} strokeWidth={30} fz={48} duration={1000} />
       </View>

@@ -12,6 +12,7 @@ i18n
       en: { translation: require('./locales/en.json') },
       ru: { translation: require('./locales/ru.json') },
       ua: { translation: require('./locales/ua.json') },
+      de: { translation: require('./locales/de.json') },
     },
     // debug: true,
   });

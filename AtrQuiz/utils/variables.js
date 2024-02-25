@@ -57,6 +57,20 @@ export const BUTTONS_ARR = {
       url: Asset.fromModule(require('./../assets/images/pictures.jpg')),
       route: 'Pictures'
     }
+  ],
+  de: [
+    {
+      title: "Künstler",
+      subtitle: "Errate den Künstler am Bild",
+      url: Asset.fromModule(require('./../assets/images/artist.jpg')),
+      route: "Artists"
+    },
+    {
+      title: "Bilder",
+      subtitle: "Errate das Gemälde am Künstler",
+      url: Asset.fromModule(require('./../assets/images/pictures.jpg')),
+      route: "Pictures"
+    }
   ]
 };
 
@@ -106,4 +120,18 @@ export const GAMES_DATA = {
     roundDescription: `Ласкаво просимо до раунду «Вгадай картину»! Тут на вас чекає захоплююче завдання – вгадати, яка з чотирьох картин належить певному художнику. При кожному питанні вам доведеться зіткнутися з чотирма загадковими картинами, але тільки одна з них — витвір цього художника.`
   },
   ],
+  de: [{
+    title: "Künstler",
+    subtitle: "Errate den Künstler am Bild",
+    roundName: "Künstler Runde",
+    url: Asset.fromModule(require('./../assets/images/artist.jpg')),
+    roundDescription: "Willkommen bei der Errate den «Künstler»-Runde! Hier wird dein Kunstwissen auf die Probe gestellt. Jedes Bild ist ein Rätsel, und deine Aufgabe ist es, den richtigen Autor aus den vier vorgeschlagenen Antwortoptionen zu wählen."
+  },
+  {
+    title: "Bilder",
+    subtitle: "Errate das Gemälde am Künstler",
+    roundName: "Bilder Runde",
+    url: Asset.fromModule(require('./../assets/images/pictures.jpg')),
+    roundDescription: "Willkommen bei der «Bilder»-Runde! Hier erwartet dich eine faszinierende Aufgabe - errate, welches der vier Gemälde zu einem bestimmten Künstler gehört. Bei jeder Frage siehst du vier geheimnisvolle Gemälde, aber nur eines davon ist das Werk des ausgewählten Künstlers."
+}]
 };
